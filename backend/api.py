@@ -1,14 +1,26 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 import joblib
 import pandas as pd
 
 app = FastAPI()
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load trained model
 model = joblib.load("../models/f1_model.pkl")
 
 @app.get("/")
 def home():
+
     return {
         "message": "F1 Predictor API Running"
     }

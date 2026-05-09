@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>F1 Race Predictor</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 220px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: red;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkred;
+        }
+
+        #result {
+            margin-top: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color: yellow;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>F1 Race Predictor</h1>
+
+    <input
+        type="number"
+        id="grid"
+        placeholder="Grid Position"
+    >
+
+    <br>
+
+    <input
+        type="number"
+        id="points"
+        placeholder="Points"
+    >
+
+    <br>
+
+    <input
+        type="number"
+        id="driver"
+        placeholder="Driver Encoded"
+    >
+
+    <br>
+
+    <input
+        type="number"
+        id="team"
+        placeholder="Team Encoded"
+    >
+
+    <br><br>
+
+    <button onclick="predictWinner()">
+        Predict Winner
+    </button>
+
+    <div id="result"></div>
+
+    <script>
+
+        async function predictWinner() {
+
+            let grid =
+                document.getElementById("grid").value;
+
+            let points =
+                document.getElementById("points").value;
+
+            let driver =
+                document.getElementById("driver").value;
+
+            let team =
+                document.getElementById("team").value;
+
+            try {
+
+                let response = await fetch(
+                    `http://127.0.0.1:8000/predict?grid=${grid}&points=${points}&driver=${driver}&team=${team}`
+                );
+
+                let data = await response.json();
+
+                console.log(data);
+
+                let probability =
+                    (data.win_probability * 100).toFixed(2);
+
+                document.getElementById("result").innerHTML =
+                    "Win Probability: " + probability + "%";
+
+            }
+
+            catch(error) {
+
+                console.log(error);
+
+                document.getElementById("result").innerHTML =
+                    "Error connecting to backend";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
