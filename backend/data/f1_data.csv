@@ -1,0 +1,31 @@
+Race,Driver,Team,Grid,Position,Points,Winner,DriverEncoded,TeamEncoded
+Bahrain Grand Prix,Max Verstappen,Red Bull,1,1,25,1,12,8
+Bahrain Grand Prix,Sergio Pérez,Red Bull,2,2,18,0,17,8
+Bahrain Grand Prix,Fernando Alonso,Aston Martin,5,3,15,0,4,3
+Bahrain Grand Prix,Carlos Sainz,Ferrari,4,4,12,0,1,4
+Bahrain Grand Prix,Lewis Hamilton,Mercedes,7,5,10,0,10,7
+Bahrain Grand Prix,Lance Stroll,Aston Martin,8,6,8,0,8,3
+Bahrain Grand Prix,George Russell,Mercedes,6,7,6,0,5,7
+Bahrain Grand Prix,Valtteri Bottas,Alfa Romeo,12,8,4,0,18,0
+Bahrain Grand Prix,Pierre Gasly,Alpine F1 Team,20,9,2,0,16,2
+Bahrain Grand Prix,Alexander Albon,Williams,15,10,1,0,0,9
+Bahrain Grand Prix,Yuki Tsunoda,AlphaTauri,14,11,0,0,19,1
+Bahrain Grand Prix,Logan Sargeant,Williams,16,12,0,0,11,9
+Bahrain Grand Prix,Kevin Magnussen,Haas F1 Team,17,13,0,0,7,5
+Bahrain Grand Prix,Nyck de Vries,AlphaTauri,19,14,0,0,14,1
+Bahrain Grand Prix,Nico Hülkenberg,Haas F1 Team,10,15,0,0,13,5
+Bahrain Grand Prix,Guanyu Zhou,Alfa Romeo,13,16,0,0,6,0
+Bahrain Grand Prix,Lando Norris,McLaren,11,17,0,0,9,6
+Bahrain Grand Prix,Esteban Ocon,Alpine F1 Team,9,18,0,0,3,2
+Bahrain Grand Prix,Charles Leclerc,Ferrari,3,19,0,0,2,4
+Bahrain Grand Prix,Oscar Piastri,McLaren,18,20,0,0,15,6
+Saudi Arabian Grand Prix,Sergio Pérez,Red Bull,1,1,25,1,17,8
+Saudi Arabian Grand Prix,Max Verstappen,Red Bull,15,2,19,0,12,8
+Saudi Arabian Grand Prix,Fernando Alonso,Aston Martin,2,3,15,0,4,3
+Saudi Arabian Grand Prix,George Russell,Mercedes,3,4,12,0,5,7
+Saudi Arabian Grand Prix,Lewis Hamilton,Mercedes,7,5,10,0,10,7
+Saudi Arabian Grand Prix,Carlos Sainz,Ferrari,4,6,8,0,1,4
+Saudi Arabian Grand Prix,Charles Leclerc,Ferrari,12,7,6,0,2,4
+Saudi Arabian Grand Prix,Esteban Ocon,Alpine F1 Team,6,8,4,0,3,2
+Saudi Arabian Grand Prix,Pierre Gasly,Alpine F1 Team,9,9,2,0,16,2
+Saudi Arabian Grand Prix,Kevin Magnussen,Haas F1 Team,13,10,1,0,7,5
