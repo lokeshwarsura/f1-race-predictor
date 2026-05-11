@@ -5,13 +5,16 @@ function SectorAnalysis({ currentLap }) {
   const totalLaps = 58
 
   const [sector1, setSector1] =
-    useState(28.45)
+    useState(29.845)
 
   const [sector2, setSector2] =
-    useState(29.22)
+    useState(31.112)
 
   const [sector3, setSector3] =
-    useState(27.88)
+    useState(28.556)
+
+  const [lapDelta, setLapDelta] =
+    useState(-0.184)
 
   useEffect(() => {
 
@@ -23,31 +26,30 @@ function SectorAnalysis({ currentLap }) {
 
     const interval = setInterval(() => {
 
-      setSector1(
+      const s1 =
+        28.5 + Math.random() * 2.2
+
+      const s2 =
+        29.8 + Math.random() * 2.5
+
+      const s3 =
+        27.9 + Math.random() * 2.1
+
+      setSector1(s1)
+
+      setSector2(s2)
+
+      setSector3(s3)
+
+      setLapDelta(
 
         (
-          Math.random() * 8 + 26
-        ).toFixed(2)
+          (Math.random() - 0.5) * 1.2
+        ).toFixed(3)
 
       )
 
-      setSector2(
-
-        (
-          Math.random() * 8 + 26
-        ).toFixed(2)
-
-      )
-
-      setSector3(
-
-        (
-          Math.random() * 8 + 26
-        ).toFixed(2)
-
-      )
-
-    }, 2500)
+    }, 3000)
 
     return () => clearInterval(interval)
 
@@ -55,11 +57,11 @@ function SectorAnalysis({ currentLap }) {
 
   const sectors = [
 
-    Number(sector1),
+    sector1,
 
-    Number(sector2),
+    sector2,
 
-    Number(sector3)
+    sector3
 
   ]
 
@@ -71,11 +73,34 @@ function SectorAnalysis({ currentLap }) {
 
     ) + 1
 
-  const lapDelta =
+  const totalLapTime =
 
-    (
-      Math.random() * 1.5
-    ).toFixed(2)
+    sector1 +
+    sector2 +
+    sector3
+
+  let paceStatus = ''
+
+  if (totalLapTime < 89.5) {
+
+    paceStatus =
+      '🟣 Purple lap pace detected.'
+
+  }
+
+  else if (totalLapTime < 91) {
+
+    paceStatus =
+      '🟢 Competitive race pace.'
+
+  }
+
+  else {
+
+    paceStatus =
+      '🟡 Tire management phase.'
+
+  }
 
   return (
 
@@ -102,7 +127,7 @@ function SectorAnalysis({ currentLap }) {
         <p className="stats-text">
           Sector 1:
           {' '}
-          {sector1}s
+          {sector1.toFixed(3)}s
         </p>
 
         <div
@@ -110,7 +135,7 @@ function SectorAnalysis({ currentLap }) {
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -125,7 +150,7 @@ function SectorAnalysis({ currentLap }) {
             style={{
 
               width:
-                `${sector1 * 2.5}%`,
+                `${(sector1 / 35) * 100}%`,
 
               height: '100%',
 
@@ -152,7 +177,7 @@ function SectorAnalysis({ currentLap }) {
         <p className="stats-text">
           Sector 2:
           {' '}
-          {sector2}s
+          {sector2.toFixed(3)}s
         </p>
 
         <div
@@ -160,7 +185,7 @@ function SectorAnalysis({ currentLap }) {
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -175,7 +200,7 @@ function SectorAnalysis({ currentLap }) {
             style={{
 
               width:
-                `${sector2 * 2.5}%`,
+                `${(sector2 / 35) * 100}%`,
 
               height: '100%',
 
@@ -198,7 +223,7 @@ function SectorAnalysis({ currentLap }) {
         <p className="stats-text">
           Sector 3:
           {' '}
-          {sector3}s
+          {sector3.toFixed(3)}s
         </p>
 
         <div
@@ -206,7 +231,7 @@ function SectorAnalysis({ currentLap }) {
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -221,7 +246,7 @@ function SectorAnalysis({ currentLap }) {
             style={{
 
               width:
-                `${sector3 * 2.5}%`,
+                `${(sector3 / 35) * 100}%`,
 
               height: '100%',
 
@@ -266,30 +291,42 @@ function SectorAnalysis({ currentLap }) {
         </p>
 
         <p className="stats-text">
-          📉 Lap Delta:
+          🕒 Lap Time:
           {' '}
-          -{lapDelta}s
+          {totalLapTime.toFixed(3)}s
         </p>
 
-        {
+        <p className="stats-text">
+          📉 Lap Delta:
+          {' '}
+          {lapDelta > 0 ? '+' : ''}
+          {lapDelta}s
+        </p>
 
-          currentLap >= totalLaps && (
+        <p
+          style={{
 
-            <p
-              style={{
+            color:
+              currentLap >= totalLaps
+                ? 'lime'
+                : 'yellow',
 
-                color: 'lime',
+            marginTop: '12px',
 
-                marginTop: '15px'
+            lineHeight: '1.8'
 
-              }}
-            >
-              🏁 Sector timing frozen after race finish.
-            </p>
+          }}
+        >
+          {
 
-          )
+            currentLap >= totalLaps
 
-        }
+              ? '🏁 Sector timing frozen after race finish.'
+
+              : paceStatus
+
+          }
+        </p>
 
       </div>
 

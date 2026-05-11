@@ -11,19 +11,22 @@ function TireAnalytics({
   const totalLaps = 58
 
   const [softWear, setSoftWear] =
-    useState(5)
+    useState(0)
 
   const [mediumWear, setMediumWear] =
-    useState(3)
+    useState(0)
 
   const [hardWear, setHardWear] =
-    useState(2)
+    useState(0)
 
   const [pitStops, setPitStops] =
     useState(0)
 
   const [currentCompound, setCurrentCompound] =
     useState('SOFT')
+
+  const [lastPitLap, setLastPitLap] =
+    useState(0)
 
   useEffect(() => {
 
@@ -35,71 +38,107 @@ function TireAnalytics({
 
     const interval = setInterval(() => {
 
-      setSoftWear((prev) => {
+      if (currentCompound === 'SOFT') {
 
-        let updated = prev + 2
+        setSoftWear((prev) => {
 
-        if (
+          const updated =
 
-          updated >= 80 &&
+            prev +
 
-          pitStops === 0 &&
+            (1.8 + Math.random() * 1.4)
 
-          currentLap > 15
+          if (
 
-        ) {
+            updated >= 72 &&
 
-          setPitStops(1)
+            pitStops === 0 &&
 
-          setCurrentCompound('MEDIUM')
+            currentLap >= 14
 
-          return 5
+          ) {
 
-        }
+            setPitStops(1)
 
-        return Math.min(updated, 100)
+            setCurrentCompound('MEDIUM')
 
-      })
+            setLastPitLap(currentLap)
 
-      setMediumWear((prev) => {
+            return updated
 
-        let updated = prev + 1.4
+          }
 
-        if (
+          return Math.min(updated, 100)
 
-          updated >= 75 &&
+        })
 
-          pitStops === 1 &&
+      }
 
-          currentLap > 35
+      else if (currentCompound === 'MEDIUM') {
 
-        ) {
+        setMediumWear((prev) => {
 
-          setPitStops(2)
+          const updated =
 
-          setCurrentCompound('HARD')
+            prev +
 
-          return 5
+            (1.2 + Math.random() * 1.1)
 
-        }
+          if (
 
-        return Math.min(updated, 100)
+            updated >= 68 &&
 
-      })
+            pitStops === 1 &&
 
-      setHardWear((prev) => {
+            currentLap >= 36
 
-        let updated = prev + 1
+          ) {
 
-        return Math.min(updated, 100)
+            setPitStops(2)
 
-      })
+            setCurrentCompound('HARD')
 
-    }, 5000)
+            setLastPitLap(currentLap)
+
+            return updated
+
+          }
+
+          return Math.min(updated, 100)
+
+        })
+
+      }
+
+      else {
+
+        setHardWear((prev) => {
+
+          const updated =
+
+            prev +
+
+            (0.8 + Math.random() * 0.8)
+
+          return Math.min(updated, 100)
+
+        })
+
+      }
+
+    }, 4000)
 
     return () => clearInterval(interval)
 
-  }, [currentLap, pitStops])
+  }, [
+
+    currentLap,
+
+    currentCompound,
+
+    pitStops
+
+  ])
 
   let activeWear = 0
 
@@ -137,24 +176,24 @@ function TireAnalytics({
 
   }
 
-  else if (activeWear >= 80) {
+  else if (activeWear >= 75) {
 
     recommendation =
-      '🛞 Immediate pit stop required.'
+      '🔴 Severe tire degradation detected.'
 
   }
 
-  else if (activeWear >= 60) {
+  else if (activeWear >= 55) {
 
     recommendation =
-      '⚠️ Tire degradation increasing.'
+      '🟡 Tire wear entering critical window.'
 
   }
 
   else {
 
     recommendation =
-      '✅ Tire performance stable.'
+      '🟢 Tire performance within target range.'
 
   }
 
@@ -186,9 +225,22 @@ function TireAnalytics({
         {pitStops}
       </p>
 
+      <p className="stats-text">
+        Last Pit Lap:
+        {' '}
+        {
+
+          lastPitLap === 0
+
+            ? 'No Stops'
+
+            : `Lap ${lastPitLap}`
+
+        }
+      </p>
+
       <div
         style={{
-          marginBottom: '20px',
           marginTop: '20px'
         }}
       >
@@ -204,7 +256,7 @@ function TireAnalytics({
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -225,7 +277,7 @@ function TireAnalytics({
               background:
                 'linear-gradient(to right, red, darkred)',
 
-              transition: '5s linear'
+              transition: '2s linear'
 
             }}
           >
@@ -238,7 +290,7 @@ function TireAnalytics({
 
       <div
         style={{
-          marginBottom: '20px'
+          marginTop: '20px'
         }}
       >
 
@@ -253,7 +305,7 @@ function TireAnalytics({
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -274,7 +326,7 @@ function TireAnalytics({
               background:
                 'linear-gradient(to right, gold, yellow)',
 
-              transition: '5s linear'
+              transition: '2s linear'
 
             }}
           >
@@ -287,7 +339,7 @@ function TireAnalytics({
 
       <div
         style={{
-          marginBottom: '20px'
+          marginTop: '20px'
         }}
       >
 
@@ -302,7 +354,7 @@ function TireAnalytics({
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -323,7 +375,7 @@ function TireAnalytics({
               background:
                 'linear-gradient(to right, white, gray)',
 
-              transition: '5s linear'
+              transition: '2s linear'
 
             }}
           >
@@ -334,24 +386,42 @@ function TireAnalytics({
 
       </div>
 
-      <p className="stats-text">
-        Predicted Pit Window:
-        {' '}
-        Lap
-        {' '}
-        {38 + Math.floor(probability / 8)}
-      </p>
+      <div
+        style={{
+          marginTop: '22px'
+        }}
+      >
 
-      <p className="stats-text">
-        Estimated Tire Life:
-        {' '}
-        {tireLife.toFixed(0)}%
-      </p>
+        <p className="stats-text">
+          Estimated Tire Life:
+          {' '}
+          {tireLife.toFixed(0)}%
+        </p>
+
+        <p className="stats-text">
+          Predicted Strategy:
+          {' '}
+          {
+
+            pitStops === 0
+
+              ? '1 Stop Window'
+
+              : pitStops === 1
+
+              ? 'Final Stop Complete'
+
+              : 'Race Finish Stint'
+
+          }
+        </p>
+
+      </div>
 
       <div
         style={{
 
-          marginTop: '20px',
+          marginTop: '25px',
 
           padding: '15px',
 
@@ -378,7 +448,7 @@ function TireAnalytics({
 
             lineHeight: '1.8',
 
-            fontSize: '17px'
+            fontSize: '16px'
 
           }}
         >

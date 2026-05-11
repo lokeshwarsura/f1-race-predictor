@@ -44,6 +44,24 @@ function LiveTelemetry({ currentLap }) {
 
     if (currentLap >= totalLaps) {
 
+      setSpeed(0)
+
+      setTargetSpeed(0)
+
+      setRpm(0)
+
+      setGear(0)
+
+      setThrottle(0)
+
+      setBrakePressure(0)
+
+      setTurboEfficiency(0)
+
+      setDrsStatus('DISABLED')
+
+      setTrackSection('RACE FINISHED')
+
       return
 
     }
@@ -231,6 +249,8 @@ function LiveTelemetry({ currentLap }) {
 
     if (currentLap >= totalLaps) {
 
+      setSpeed(0)
+
       return
 
     }
@@ -272,7 +292,7 @@ function LiveTelemetry({ currentLap }) {
   if (currentLap >= totalLaps) {
 
     engineStatus =
-      '🏁 Telemetry frozen after race finish.'
+      '🏁 Telemetry shutdown after race finish.'
 
   }
 
