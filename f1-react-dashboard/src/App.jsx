@@ -1,9 +1,21 @@
 import { useState } from 'react'
-
 import './App.css'
 
 import DriverCard from './components/DriverCard'
-import ProbabilityBar from './components/ProbabilityBar'
+import LiveTelemetry from "./components/LiveTelemetry"
+import SectorAnalysis from "./components/SectorAnalysis"
+import Leaderboard from "./components/Leaderboard"
+import RaceStatus from "./components/RaceStatus"
+import RaceControlCenter from "./components/RaceControlCenter"
+import StrategyPanel from "./components/StrategyPanel"
+import WeatherCenter from "./components/WeatherCenter"
+import TireAnalytics from "./components/TireAnalytics"
+import PredictionInsights from "./components/PredictionInsights"
+import DriverComparison from "./components/DriverComparison"
+import ProbabilityBar from "./components/ProbabilityBar"
+import PredictionChart from "./components/PredictionChart"
+import StatsPanel from "./components/StatsPanel"
+import LiveRaceMap from "./components/LiveRaceMap"
 
 function App() {
 
@@ -137,6 +149,40 @@ function App() {
             image={image}
             logo={logo}
           />
+
+          <StatsPanel />
+
+          <PredictionChart probability={probability} />
+
+        </div>
+
+        <div className="center-panel">
+
+          <LiveRaceMap />
+
+          <SectorAnalysis />
+
+          <TireAnalytics />
+
+        </div>
+
+        <div className="right-panel">
+
+          <RaceControlCenter />
+
+          <RaceStatus />
+
+          <LiveTelemetry />
+
+          <WeatherCenter />
+
+          <DriverComparison />
+
+          <StrategyPanel />
+
+          <PredictionInsights />
+
+          <Leaderboard probability={probability} />
 
         </div>
 
