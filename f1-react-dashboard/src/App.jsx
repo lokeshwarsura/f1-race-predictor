@@ -37,11 +37,25 @@ function App() {
 
     'Red Bull': '/images/redbull.png',
 
-    'Mercedes': '/images/mercedes.png',
-
     'Ferrari': '/images/ferrari.png',
 
+    'Mercedes': '/images/mercedes.png',
+
     'Aston Martin': '/images/astonmartin.png'
+
+  }
+
+  const driverTeams = {
+
+    'Max Verstappen': 'Red Bull',
+
+    'Lewis Hamilton': 'Ferrari',
+
+    'Fernando Alonso': 'Aston Martin',
+
+    'Carlos Sainz': 'Ferrari',
+
+    'Sergio Perez': 'Red Bull'
 
   }
 
@@ -71,9 +85,25 @@ function App() {
         <select
           className="dropdown"
           value={driver}
-          onChange={(e) =>
-            setDriver(e.target.value)
-          }
+          onChange={(e) => {
+
+            const selectedDriver = e.target.value
+
+            setDriver(selectedDriver)
+
+            setTeam(driverTeams[selectedDriver])
+
+            setLogo(
+              teamLogos[
+                driverTeams[selectedDriver]
+              ]
+            )
+
+            setImage(
+              driverImages[selectedDriver]
+            )
+
+          }}
         >
 
           <option>Max Verstappen</option>
@@ -98,9 +128,9 @@ function App() {
 
           <option>Red Bull</option>
 
-          <option>Mercedes</option>
-
           <option>Ferrari</option>
+
+          <option>Mercedes</option>
 
           <option>Aston Martin</option>
 
