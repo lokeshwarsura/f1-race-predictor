@@ -150,6 +150,7 @@ function App() {
         image={image}
         logo={logo}
       />
+      <StatsPanel probability={probability} />
 
     </div>
 

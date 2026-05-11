@@ -1,48 +1,38 @@
-import { useState, useEffect } from "react"
-
-function StatsPanel() {
-
-  const [current, setCurrent] = useState(null)
-
-  useEffect(() => {
-
-    const stats = {
-      driver: "Max Verstappen",
-      wins: 56,
-      podiums: 98,
-      points: 575,
-      championships: 3
-    }
-
-    setCurrent(stats)
-
-  }, [])
+function StatsPanel({ probability }) {
 
   return (
 
-    <div className="stats-panel">
+    <div
+      style={{
+        background: '#111',
+        padding: '20px',
+        borderRadius: '15px',
+        border: '2px solid red',
+        width: '320px',
+        color: 'white',
+        marginTop: '20px',
+        textAlign: 'left'
+      }}
+    >
 
-      <h2>📊 Driver Stats</h2>
+      <h2
+        style={{
+          color: 'yellow',
+          marginBottom: '20px'
+        }}
+      >
+        📊 Race Statistics
+      </h2>
 
-      <p>
-        Driver: {current?.driver || "Loading..."}
-      </p>
+      <p>🏁 Pole Position Chance: {probability}%</p>
 
-      <p>
-        Wins: {current?.wins || 0}
-      </p>
+      <p>⚡ Fastest Lap Chance: {(probability - 10).toFixed(2)}%</p>
 
-      <p>
-        Podiums: {current?.podiums || 0}
-      </p>
+      <p>🔥 Podium Chance: {(Number(probability) + 15).toFixed(2)}%</p>
 
-      <p>
-        Points: {current?.points || 0}
-      </p>
+      <p>🛞 Tire Efficiency: 92%</p>
 
-      <p>
-        Championships: {current?.championships || 0}
-      </p>
+      <p>⛽ Fuel Strategy Score: 88%</p>
 
     </div>
 
