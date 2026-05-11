@@ -18,7 +18,7 @@ function DriverComparison() {
 
       const response = await fetch(
 
-        'http://https://f1-backend-kwlj.onrender.com/compare_drivers'
+        'https://f1-backend-kwlj.onrender.com/compare_drivers'
 
       )
 
