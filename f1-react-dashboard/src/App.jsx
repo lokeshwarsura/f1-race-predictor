@@ -4,7 +4,7 @@ function App() {
 
   const [probability, setProbability] = useState(0)
 
-  async function predictWinner() {
+  function predictWinner() {
 
     setProbability(78.42)
 
@@ -20,24 +20,41 @@ function App() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        gap: '20px'
       }}
     >
 
-      <h1>🏎️ F1 React Dashboard</h1>
+      <h1
+        style={{
+          color: 'white',
+          fontSize: '48px'
+        }}
+      >
+        🏎️ F1 React Dashboard
+      </h1>
 
       <button
         onClick={predictWinner}
         style={{
-          padding: '15px 25px',
-          fontSize: '18px',
+          padding: '15px 30px',
+          fontSize: '20px',
+          background: 'red',
+          color: 'white',
+          border: 'none',
+          borderRadius: '10px',
           cursor: 'pointer'
         }}
       >
         Predict Winner
       </button>
 
-      <h2>
+      <h2
+        style={{
+          color: 'yellow',
+          fontSize: '32px'
+        }}
+      >
         Win Probability: {probability}%
       </h2>
 
