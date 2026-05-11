@@ -1,103 +1,209 @@
-function PredictionInsights({
+function Leaderboard({ probability }) {
 
-  probability,
+  const standings = [
 
-  driver
+    {
 
-}) {
+      position: 1,
 
-  let engineerMessage = ''
+      driver: 'Max Verstappen',
 
-  let confidence = ''
+      team: 'Red Bull',
 
-  if (probability >= 90) {
+      points: 410,
 
-    engineerMessage =
-      'Excellent pace. Push for fastest lap.'
+      gap: '+0'
 
-    confidence = 'High Confidence 🟢'
+    },
 
-  }
+    {
 
-  else if (probability >= 75) {
+      position: 2,
 
-    engineerMessage =
-      'Maintain tire management and current pace.'
+      driver: 'Lewis Hamilton',
 
-    confidence = 'Medium Confidence 🟡'
+      team: 'Ferrari',
 
-  }
+      points: 362,
 
-  else {
+      gap: '+48'
 
-    engineerMessage =
-      'We need a stronger final stint. Save tires.'
+    },
 
-    confidence = 'Low Confidence 🔴'
+    {
 
-  }
+      position: 3,
+
+      driver: 'Carlos Sainz',
+
+      team: 'Ferrari',
+
+      points: 330,
+
+      gap: '+80'
+
+    },
+
+    {
+
+      position: 4,
+
+      driver: 'Fernando Alonso',
+
+      team: 'Aston Martin',
+
+      points: 287,
+
+      gap: '+123'
+
+    },
+
+    {
+
+      position: 5,
+
+      driver: 'Sergio Perez',
+
+      team: 'Red Bull',
+
+      points: 275,
+
+      gap: '+135'
+
+    }
+
+  ]
 
   return (
 
-    <div className="card">
+    <div className="card leaderboard-card">
 
       <h2
         style={{
 
-          color: 'violet',
+          color: 'gold',
 
           marginBottom: '20px'
 
         }}
       >
-        📻 Team Radio Insights
+        🏆 Championship Center
       </h2>
 
-      <p
+      {
+
+        standings.map((item, index) => (
+
+          <div
+            key={index}
+            className="leaderboard-row"
+          >
+
+            <div>
+
+              #{item.position}
+              {' '}
+              {item.driver}
+
+            </div>
+
+            <div>
+
+              {item.points} pts
+
+            </div>
+
+          </div>
+
+        ))
+
+      }
+
+      <div
         style={{
 
-          color: 'white',
+          marginTop: '25px',
 
-          fontSize: '18px',
+          padding: '15px',
 
-          lineHeight: '1.8'
+          borderRadius: '15px',
+
+          background: '#111',
+
+          border: '2px solid gold'
 
         }}
       >
-        Engineer to {driver}:
-      </p>
 
-      <p
+        <h3
+          style={{
+
+            color: 'gold',
+
+            marginBottom: '15px'
+
+          }}
+        >
+          🏁 Constructor Standings
+        </h3>
+
+        <p className="stats-text">
+          1️⃣ Red Bull — 685 pts
+        </p>
+
+        <p className="stats-text">
+          2️⃣ Ferrari — 650 pts
+        </p>
+
+        <p className="stats-text">
+          3️⃣ Mercedes — 502 pts
+        </p>
+
+        <p className="stats-text">
+          4️⃣ Aston Martin — 411 pts
+        </p>
+
+      </div>
+
+      <div
         style={{
 
-          color: 'cyan',
+          marginTop: '25px',
 
-          marginTop: '15px',
+          padding: '15px',
 
-          fontSize: '18px',
+          borderRadius: '15px',
 
-          lineHeight: '1.8'
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
 
         }}
       >
-        "{engineerMessage}"
-      </p>
 
-      <p
-        style={{
+        <p
+          style={{
 
-          color: 'yellow',
+            color: 'cyan',
 
-          marginTop: '20px',
+            lineHeight: '1.8',
 
-          fontSize: '18px'
+            fontSize: '17px'
 
-        }}
-      >
-        Prediction Confidence:
-        {' '}
-        {confidence}
-      </p>
+          }}
+        >
+          Live Championship Prediction:
+          {' '}
+          {probability >= 90
+            ? 'Dominant title campaign expected.'
+            : probability >= 75
+            ? 'Strong championship battle ahead.'
+            : 'Championship pressure increasing.'}
+        </p>
+
+      </div>
 
     </div>
 
@@ -105,4 +211,4 @@ function PredictionInsights({
 
 }
 
-export default PredictionInsights
+export default Leaderboard

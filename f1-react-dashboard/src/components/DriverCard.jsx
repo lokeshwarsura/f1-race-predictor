@@ -14,11 +14,17 @@ function DriverCard({
 
   let shadowColor = 'red'
 
+  let powerRating = '92'
+
+  let raceCondition = 'Optimal'
+
   if (team === 'Ferrari') {
 
     borderColor = 'crimson'
 
     shadowColor = 'crimson'
+
+    powerRating = '94'
 
   }
 
@@ -28,6 +34,8 @@ function DriverCard({
 
     shadowColor = 'cyan'
 
+    powerRating = '90'
+
   }
 
   else if (team === 'Aston Martin') {
@@ -36,6 +44,8 @@ function DriverCard({
 
     shadowColor = 'limegreen'
 
+    powerRating = '88'
+
   }
 
   else if (team === 'Red Bull') {
@@ -43,6 +53,8 @@ function DriverCard({
     borderColor = 'royalblue'
 
     shadowColor = 'royalblue'
+
+    powerRating = '98'
 
   }
 
@@ -99,17 +111,35 @@ function DriverCard({
 
           marginTop: '20px',
 
-          padding: '12px',
+          padding: '15px',
 
-          borderRadius: '12px',
+          borderRadius: '15px',
 
-          background: '#111'
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
 
         }}
       >
 
         <p className="stats-text">
-          Team Theme Active
+          ⚡ Team Power Rating:
+          {' '}
+          {powerRating}
+        </p>
+
+        <p className="stats-text">
+          🟢 Car Condition:
+          {' '}
+          {raceCondition}
+        </p>
+
+        <p className="stats-text">
+          🏁 Race Status:
+          {' '}
+          Ready To Push
         </p>
 
       </div>

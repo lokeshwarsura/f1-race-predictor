@@ -5,11 +5,27 @@ function RaceControlCenter({ probability }) {
   const [message, setMessage] =
     useState('Awaiting race engineer command...')
 
+  const [commandHistory, setCommandHistory] =
+    useState([])
+
   function activateCommand(command) {
 
     setMessage(command)
 
+    setCommandHistory((prev) => [
+
+      command,
+
+      ...prev.slice(0, 3)
+
+    ])
+
   }
+
+  const emergencyAlert =
+    probability < 70
+      ? '⚠️ Tire temperatures critical.'
+      : '✅ Systems operating normally.'
 
   return (
 
@@ -24,7 +40,7 @@ function RaceControlCenter({ probability }) {
 
         }}
       >
-        🎛️ Race Control Center
+        🎛️ Mission Control Center
       </h2>
 
       <p
@@ -59,7 +75,7 @@ function RaceControlCenter({ probability }) {
           className="predict-btn"
           onClick={() =>
             activateCommand(
-              '📻 PUSH NOW! Fastest lap attempt activated.'
+              '📻 PUSH NOW! Fastest lap mode activated.'
             )
           }
         >
@@ -70,7 +86,7 @@ function RaceControlCenter({ probability }) {
           className="predict-btn"
           onClick={() =>
             activateCommand(
-              '🛞 BOX THIS LAP. Prepare for tire change.'
+              '🛞 BOX THIS LAP. Prepare pit crew.'
             )
           }
         >
@@ -81,7 +97,7 @@ function RaceControlCenter({ probability }) {
           className="predict-btn"
           onClick={() =>
             activateCommand(
-              '🛡️ DEFEND POSITION. Rival within DRS range.'
+              '🛡️ DEFEND POSITION. Rival within DRS.'
             )
           }
         >
@@ -93,26 +109,86 @@ function RaceControlCenter({ probability }) {
       <div
         style={{
 
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color:
+              probability < 70
+                ? 'red'
+                : 'lime',
+
+            fontSize: '17px'
+
+          }}
+        >
+          {emergencyAlert}
+        </p>
+
+      </div>
+
+      <div
+        style={{
+
           marginTop: '25px'
 
         }}
       >
 
-        <p className="stats-text">
-          ERS Deployment:
-          {' '}
-          {probability > 80
-            ? 'Attack Mode'
-            : 'Balanced'}
-        </p>
+        <h3
+          style={{
 
-        <p className="stats-text">
-          Fuel Usage:
-          {' '}
-          {probability > 75
-            ? 'High'
-            : 'Moderate'}
-        </p>
+            color: 'gold',
+
+            marginBottom: '15px'
+
+          }}
+        >
+          📜 Recent Commands
+        </h3>
+
+        {
+
+          commandHistory.length === 0
+
+            ? (
+
+              <p className="stats-text">
+                No commands issued yet.
+              </p>
+
+            )
+
+            : (
+
+              commandHistory.map((cmd, index) => (
+
+                <p
+                  key={index}
+                  className="stats-text"
+                >
+                  • {cmd}
+                </p>
+
+              ))
+
+            )
+
+        }
 
       </div>
 

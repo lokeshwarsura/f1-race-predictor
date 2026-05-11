@@ -42,6 +42,21 @@ function RaceStatus({ probability }) {
 
   const totalLaps = 58
 
+  const lapProgress =
+    (currentLap / totalLaps) * 100
+
+  const trackFlag =
+    probability >= 85
+      ? '🟢 GREEN FLAG'
+      : probability >= 70
+      ? '🟡 YELLOW FLAG'
+      : '🔴 SAFETY CAR'
+
+  const drsStatus =
+    probability >= 75
+      ? 'ENABLED'
+      : 'DISABLED'
+
   return (
 
     <div className="card">
@@ -55,7 +70,7 @@ function RaceStatus({ probability }) {
 
         }}
       >
-        ⏱️ Live Race Status
+        🏁 Live Race HUD
       </h2>
 
       <p className="stats-text">
@@ -65,56 +80,109 @@ function RaceStatus({ probability }) {
       </p>
 
       <p className="stats-text">
-        Current Lap: {currentLap}/{totalLaps}
+        Current Lap:
+        {' '}
+        {currentLap}/{totalLaps}
       </p>
 
       <p className="stats-text">
-        DRS: Enabled
+        DRS:
+        {' '}
+        {drsStatus}
       </p>
 
       <p className="stats-text">
-        Safety Car: No
-      </p>
-
-      <p className="stats-text">
-        Track Status: Green Flag 🟢
+        Flag Status:
+        {' '}
+        {trackFlag}
       </p>
 
       <div
         style={{
 
-          marginTop: '20px',
-
-          width: '100%',
-
-          height: '18px',
-
-          background: '#222',
-
-          borderRadius: '20px',
-
-          overflow: 'hidden'
+          marginTop: '25px'
 
         }}
       >
 
+        <p className="stats-text">
+          Lap Progress
+        </p>
+
         <div
           style={{
 
-            width:
-              `${(currentLap / totalLaps) * 100}%`,
+            width: '100%',
 
-            height: '100%',
+            height: '20px',
 
-            background:
-              'linear-gradient(to right, red, orange)',
+            background: '#222',
 
-            transition: '0.5s'
+            borderRadius: '20px',
+
+            overflow: 'hidden'
 
           }}
         >
 
+          <div
+            style={{
+
+              width: `${lapProgress}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, red, orange)',
+
+              transition: '0.5s'
+
+            }}
+          >
+
+          </div>
+
         </div>
+
+      </div>
+
+      <div
+        style={{
+
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'cyan',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          Race Director Message:
+          {' '}
+          {probability >= 85
+            ? 'Track conditions stable. Continue push laps.'
+            : probability >= 70
+            ? 'Minor incident ahead. Drivers advised caution.'
+            : 'Safety car deployed. Maintain delta pace.'}
+        </p>
 
       </div>
 

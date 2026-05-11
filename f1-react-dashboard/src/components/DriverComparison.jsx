@@ -1,13 +1,82 @@
-function DriverComparison({ driver, probability }) {
+function Leaderboard({ probability }) {
 
-  const rival = 'Lewis Hamilton'
+  const standings = [
 
-  const rivalProbability =
-    Math.max(probability - 12, 45)
+    {
+
+      position: 1,
+
+      driver: 'Max Verstappen',
+
+      team: 'Red Bull',
+
+      points: 410,
+
+      gap: '+0'
+
+    },
+
+    {
+
+      position: 2,
+
+      driver: 'Lewis Hamilton',
+
+      team: 'Ferrari',
+
+      points: 362,
+
+      gap: '+48'
+
+    },
+
+    {
+
+      position: 3,
+
+      driver: 'Carlos Sainz',
+
+      team: 'Ferrari',
+
+      points: 330,
+
+      gap: '+80'
+
+    },
+
+    {
+
+      position: 4,
+
+      driver: 'Fernando Alonso',
+
+      team: 'Aston Martin',
+
+      points: 287,
+
+      gap: '+123'
+
+    },
+
+    {
+
+      position: 5,
+
+      driver: 'Sergio Perez',
+
+      team: 'Red Bull',
+
+      points: 275,
+
+      gap: '+135'
+
+    }
+
+  ]
 
   return (
 
-    <div className="card">
+    <div className="card leaderboard-card">
 
       <h2
         style={{
@@ -18,89 +87,121 @@ function DriverComparison({ driver, probability }) {
 
         }}
       >
-        ⚔️ Driver Comparison
+        🏆 Championship Center
       </h2>
+
+      {
+
+        standings.map((item, index) => (
+
+          <div
+            key={index}
+            className="leaderboard-row"
+          >
+
+            <div>
+
+              #{item.position}
+              {' '}
+              {item.driver}
+
+            </div>
+
+            <div>
+
+              {item.points} pts
+
+            </div>
+
+          </div>
+
+        ))
+
+      }
 
       <div
         style={{
 
-          display: 'flex',
+          marginTop: '25px',
 
-          justifyContent: 'space-between',
+          padding: '15px',
 
-          alignItems: 'center',
+          borderRadius: '15px',
 
-          marginBottom: '20px'
+          background: '#111',
+
+          border: '2px solid gold'
 
         }}
       >
 
-        <div>
+        <h3
+          style={{
 
-          <h3
-            style={{
-              color: 'white'
-            }}
-          >
-            {driver}
-          </h3>
+            color: 'gold',
 
-          <p className="stats-text">
-            Win Chance: {probability}%
-          </p>
+            marginBottom: '15px'
 
-        </div>
+          }}
+        >
+          🏁 Constructor Standings
+        </h3>
 
-        <div>
+        <p className="stats-text">
+          1️⃣ Red Bull — 685 pts
+        </p>
 
-          <h3
-            style={{
-              color: 'white'
-            }}
-          >
-            {rival}
-          </h3>
+        <p className="stats-text">
+          2️⃣ Ferrari — 650 pts
+        </p>
 
-          <p className="stats-text">
-            Win Chance: {rivalProbability}%
-          </p>
+        <p className="stats-text">
+          3️⃣ Mercedes — 502 pts
+        </p>
 
-        </div>
+        <p className="stats-text">
+          4️⃣ Aston Martin — 411 pts
+        </p>
 
       </div>
 
       <div
         style={{
 
-          width: '100%',
+          marginTop: '25px',
 
-          height: '20px',
+          padding: '15px',
 
-          background: '#222',
+          borderRadius: '15px',
 
-          borderRadius: '20px',
+          background:
+            'rgba(255,255,255,0.05)',
 
-          overflow: 'hidden'
+          border:
+            '1px solid rgba(255,255,255,0.1)'
 
         }}
       >
 
-        <div
+        <p
           style={{
 
-            width: `${probability}%`,
+            color: 'cyan',
 
-            height: '100%',
+            lineHeight: '1.8',
 
-            background:
-              'linear-gradient(to right, gold, orange)',
-
-            transition: '0.5s'
+            fontSize: '17px'
 
           }}
         >
-
-        </div>
+          Live Championship Prediction:
+          {' '}
+          {probability >= 90
+            ? 'Dominant title campaign expected.'
+            : probability >= 75
+            ? 'Strong championship battle ahead.'
+            : 'Championship pressure increasing.'}
+        </p>
 
       </div>
 
@@ -110,4 +211,4 @@ function DriverComparison({ driver, probability }) {
 
 }
 
-export default DriverComparison
+export default Leaderboard

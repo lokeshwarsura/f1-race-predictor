@@ -2,14 +2,71 @@ function PredictionChart({ probability }) {
 
   const performance = [
 
-    62,
-    68,
-    72,
-    79,
-    83,
-    probability
+    {
+
+      label: 'Practice 1',
+
+      value: 62
+
+    },
+
+    {
+
+      label: 'Practice 2',
+
+      value: 68
+
+    },
+
+    {
+
+      label: 'Practice 3',
+
+      value: 74
+
+    },
+
+    {
+
+      label: 'Qualifying',
+
+      value: 83
+
+    },
+
+    {
+
+      label: 'Sprint',
+
+      value: 88
+
+    },
+
+    {
+
+      label: 'Race Pace',
+
+      value: probability
+
+    }
 
   ]
+
+  const momentum =
+
+    probability >= 90
+
+      ? 'Dominant momentum detected 🔥'
+
+      : probability >= 80
+
+      ? 'Strong pace advantage ⚡'
+
+      : probability >= 70
+
+      ? 'Balanced race pace 🟡'
+
+      : 'Recovery strategy required 🔴'
 
   return (
 
@@ -20,11 +77,11 @@ function PredictionChart({ probability }) {
 
           color: 'lime',
 
-          marginBottom: '20px'
+          marginBottom: '25px'
 
         }}
       >
-        📈 Qualifying Pace Trend
+        📈 AI Performance Analyzer
       </h2>
 
       <div
@@ -36,16 +93,16 @@ function PredictionChart({ probability }) {
 
           justifyContent: 'space-between',
 
-          height: '240px',
+          gap: '12px',
 
-          marginTop: '20px'
+          height: '260px'
 
         }}
       >
 
         {
 
-          performance.map((value, index) => (
+          performance.map((item, index) => (
 
             <div
               key={index}
@@ -55,7 +112,9 @@ function PredictionChart({ probability }) {
 
                 flexDirection: 'column',
 
-                alignItems: 'center'
+                alignItems: 'center',
+
+                flex: 1
 
               }}
             >
@@ -63,12 +122,14 @@ function PredictionChart({ probability }) {
               <div
                 style={{
 
-                  width: '38px',
+                  width: '100%',
 
-                  height: `${value * 2}px`,
+                  maxWidth: '45px',
+
+                  height: `${item.value * 2}px`,
 
                   background:
-                    'linear-gradient(to top, lime, cyan)',
+                    'linear-gradient(to top, cyan, blue)',
 
                   borderRadius: '12px',
 
@@ -84,11 +145,15 @@ function PredictionChart({ probability }) {
 
                   color: 'white',
 
-                  marginTop: '10px'
+                  marginTop: '10px',
+
+                  fontSize: '12px',
+
+                  textAlign: 'center'
 
                 }}
               >
-                Q{index + 1}
+                {item.label}
               </p>
 
             </div>
@@ -99,19 +164,41 @@ function PredictionChart({ probability }) {
 
       </div>
 
-      <p
+      <div
         style={{
 
-          color: 'white',
+          marginTop: '25px',
 
-          marginTop: '20px',
+          padding: '15px',
 
-          fontSize: '18px'
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
 
         }}
       >
-        Final Pace Score: {probability}%
-      </p>
+
+        <p
+          style={{
+
+            color: 'yellow',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          🤖 AI Momentum:
+          {' '}
+          {momentum}
+        </p>
+
+      </div>
 
     </div>
 
