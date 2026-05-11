@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import './App.css'
 
 import DriverCard from './components/DriverCard'
@@ -21,28 +22,20 @@ function App() {
 
   const [probability, setProbability] = useState(0)
 
-  const [driver, setDriver] =
-    useState('Max Verstappen')
+  const [driver, setDriver] = useState('Max Verstappen')
 
-  const [team, setTeam] =
-    useState('Red Bull')
+  const [team, setTeam] = useState('Red Bull')
 
-  const [image, setImage] =
-    useState('/images/max.png')
+  const [image, setImage] = useState('/images/max.png')
 
-  const [logo, setLogo] =
-    useState('/images/redbull.png')
+  const [logo, setLogo] = useState('/images/redbull.png')
 
   const driverImages = {
 
     'Max Verstappen': '/images/max.png',
-
     'Lewis Hamilton': '/images/hamilton.png',
-
     'Fernando Alonso': '/images/alonso.png',
-
     'Carlos Sainz': '/images/sainz.png',
-
     'Sergio Perez': '/images/perez.png'
 
   }
@@ -50,11 +43,8 @@ function App() {
   const teamLogos = {
 
     'Red Bull': '/images/redbull.png',
-
     'Mercedes': '/images/mercedes.png',
-
     'Ferrari': '/images/ferrari.png',
-
     'Aston Martin': '/images/astonmartin.png'
 
   }
@@ -101,13 +91,9 @@ function App() {
         >
 
           <option>Max Verstappen</option>
-
           <option>Lewis Hamilton</option>
-
           <option>Fernando Alonso</option>
-
           <option>Carlos Sainz</option>
-
           <option>Sergio Perez</option>
 
         </select>
@@ -118,11 +104,8 @@ function App() {
         >
 
           <option>Red Bull</option>
-
           <option>Mercedes</option>
-
           <option>Ferrari</option>
-
           <option>Aston Martin</option>
 
         </select>
