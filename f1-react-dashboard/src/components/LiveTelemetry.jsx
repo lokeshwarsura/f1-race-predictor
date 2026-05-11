@@ -24,7 +24,7 @@ function LiveTelemetry() {
 
       const response = await fetch(
 
-        'http://127.0.0.1:8000/live_driver_data'
+        'http://https://f1-backend-kwlj.onrender.com/live_driver_data'
 
       )
 

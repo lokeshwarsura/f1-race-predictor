@@ -466,7 +466,7 @@
             try {
 
                 let response = await fetch(
-                    `http://127.0.0.1:8000/predict?grid=${grid}&points=${points}&driver=${driver}&team=${team}`
+                    `http://https://f1-backend-kwlj.onrender.com/predict?grid=${grid}&points=${points}&driver=${driver}&team=${team}`
                 );
 
                 let data = await response.json();
