@@ -1,24 +1,35 @@
-function StrategyPanel({ probability }) {
+function StatsPanel({ probability }) {
 
-  const nextPitLap =
-    38 + Math.floor(probability / 8)
+  const consistency =
+    80 + Math.floor(probability / 5)
 
-  const tireChoice =
-    probability > 85
-      ? 'Soft 🟥'
-      : probability > 70
-      ? 'Medium 🟨'
-      : 'Hard ⬜'
+  const overtakes =
+    Math.floor(probability / 12)
 
-  const ersMode =
-    probability > 85
-      ? 'Attack Mode'
-      : 'Balanced Mode'
+  const qualifyingRank =
+    probability >= 90
+      ? 1
+      : probability >= 80
+      ? 2
+      : 3
 
-  const fuelMode =
-    probability > 80
-      ? 'Push'
-      : 'Conserve'
+  const sprintPoints =
+    probability >= 90
+      ? 8
+      : probability >= 80
+      ? 6
+      : probability >= 70
+      ? 4
+      : 2
+
+  const raceRating =
+    probability >= 90
+      ? 'S Tier ⭐'
+      : probability >= 80
+      ? 'A Tier 🔥'
+      : probability >= 70
+      ? 'B Tier ⚡'
+      : 'C Tier'
 
   return (
 
@@ -27,33 +38,49 @@ function StrategyPanel({ probability }) {
       <h2
         style={{
 
-          color: 'cyan',
+          color: 'yellow',
 
           marginBottom: '20px'
 
         }}
       >
-        🛠️ Strategy Center
+        📊 Weekend Command Center
       </h2>
 
       <p className="stats-text">
-        Next Pit Window: Lap {nextPitLap}
+        Qualifying Position:
+        {' '}
+        P{qualifyingRank}
       </p>
 
       <p className="stats-text">
-        Recommended Tire: {tireChoice}
+        Sprint Race Points:
+        {' '}
+        {sprintPoints}
       </p>
 
       <p className="stats-text">
-        ERS Deployment: {ersMode}
+        Race Consistency:
+        {' '}
+        {consistency}%
       </p>
 
       <p className="stats-text">
-        Fuel Mode: {fuelMode}
+        Predicted Overtakes:
+        {' '}
+        {overtakes}
       </p>
 
       <p className="stats-text">
-        Undercut Risk: Medium
+        Fastest Lap Potential:
+        {' '}
+        {probability}%
+      </p>
+
+      <p className="stats-text">
+        Driver Rating:
+        {' '}
+        {raceRating}
       </p>
 
       <div
@@ -82,7 +109,7 @@ function StrategyPanel({ probability }) {
             height: '100%',
 
             background:
-              'linear-gradient(to right, cyan, blue)',
+              'linear-gradient(to right, yellow, orange)',
 
             transition: '0.5s'
 
@@ -93,10 +120,52 @@ function StrategyPanel({ probability }) {
 
       </div>
 
+      <div
+        style={{
+
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'lime',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          🏁 Weekend Summary:
+          {' '}
+          {probability >= 90
+            ? 'Dominant race weekend expected.'
+            : probability >= 80
+            ? 'Strong podium pace throughout sessions.'
+            : probability >= 70
+            ? 'Competitive midfield battle predicted.'
+            : 'Recovery weekend strategy recommended.'}
+        </p>
+
+      </div>
+
     </div>
 
   )
 
 }
 
-export default StrategyPanel
+export default StatsPanel

@@ -26,6 +26,36 @@ function LiveRaceMap({ probability }) {
 
   }, [probability])
 
+  let raceEvent = ''
+
+  if (position >= 90) {
+
+    raceEvent =
+      '🏁 Final sector push underway.'
+
+  }
+
+  else if (position >= 60) {
+
+    raceEvent =
+      '⚡ DRS zone activated.'
+
+  }
+
+  else if (position >= 30) {
+
+    raceEvent =
+      '🛞 Tire temperatures stabilizing.'
+
+  }
+
+  else {
+
+    raceEvent =
+      '🚦 Race start sequence active.'
+
+  }
+
   return (
 
     <div className="card">
@@ -39,7 +69,7 @@ function LiveRaceMap({ probability }) {
 
         }}
       >
-        🗺️ Animated Race Map
+        🗺️ Smart Race Map
       </h2>
 
       <div
@@ -49,7 +79,7 @@ function LiveRaceMap({ probability }) {
 
           width: '100%',
 
-          height: '140px',
+          height: '160px',
 
           background: '#111',
 
@@ -91,13 +121,27 @@ function LiveRaceMap({ probability }) {
 
             position: 'absolute',
 
-            left: '25%',
+            left: '10%',
 
-            top: '38%',
+            top: '35%',
 
-            color: 'yellow',
+            color: 'white'
 
-            fontSize: '18px'
+          }}
+        >
+          🚦 START
+        </div>
+
+        <div
+          style={{
+
+            position: 'absolute',
+
+            left: '30%',
+
+            top: '35%',
+
+            color: 'yellow'
 
           }}
         >
@@ -109,13 +153,11 @@ function LiveRaceMap({ probability }) {
 
             position: 'absolute',
 
-            left: '50%',
+            left: '55%',
 
-            top: '38%',
+            top: '35%',
 
-            color: 'violet',
-
-            fontSize: '18px'
+            color: 'violet'
 
           }}
         >
@@ -127,17 +169,31 @@ function LiveRaceMap({ probability }) {
 
             position: 'absolute',
 
-            left: '75%',
+            left: '80%',
 
-            top: '38%',
+            top: '35%',
 
-            color: 'lime',
-
-            fontSize: '18px'
+            color: 'lime'
 
           }}
         >
           S3
+        </div>
+
+        <div
+          style={{
+
+            position: 'absolute',
+
+            right: '5%',
+
+            top: '35%',
+
+            color: 'red'
+
+          }}
+        >
+          🏁 FINISH
         </div>
 
         <div
@@ -174,6 +230,40 @@ function LiveRaceMap({ probability }) {
         {' '}
         {position}%
       </p>
+
+      <div
+        style={{
+
+          marginTop: '20px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'cyan',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          {raceEvent}
+        </p>
+
+      </div>
 
     </div>
 

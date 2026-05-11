@@ -24,26 +24,35 @@ function LiveTelemetry({ probability }) {
   const engineTemp =
     90 + Math.floor(probability / 3)
 
-  let alert = ''
+  const throttle =
+    70 + Math.floor(probability / 4)
+
+  const brakePressure =
+    20 + Math.floor((100 - probability) / 4)
+
+  const turboEfficiency =
+    80 + Math.floor(probability / 5)
+
+  let engineStatus = ''
 
   if (probability >= 90) {
 
-    alert =
-      '🔥 Maximum attack pace detected.'
+    engineStatus =
+      '🔥 Peak Performance Mode'
 
   }
 
   else if (probability >= 75) {
 
-    alert =
-      '⚡ Stable race pace maintained.'
+    engineStatus =
+      '⚡ Stable Performance Window'
 
   }
 
   else {
 
-    alert =
-      '🛞 Tire degradation increasing.'
+    engineStatus =
+      '🛠️ Engine Conservation Active'
 
   }
 
@@ -60,7 +69,7 @@ function LiveTelemetry({ probability }) {
 
         }}
       >
-        ⚡ Advanced Telemetry
+        ⚡ Ultimate Telemetry Hub
       </h2>
 
       <h1
@@ -132,15 +141,27 @@ function LiveTelemetry({ probability }) {
           marginTop: '20px'
         }}
       >
-        RPM: {rpm}
+        RPM:
+        {' '}
+        {rpm}
       </p>
 
       <p className="stats-text">
-        Gear: {gear}
+        Gear:
+        {' '}
+        {gear}
       </p>
 
       <p className="stats-text">
-        Engine Temp: {engineTemp}°C
+        Engine Temp:
+        {' '}
+        {engineTemp}°C
+      </p>
+
+      <p className="stats-text">
+        Turbo Efficiency:
+        {' '}
+        {turboEfficiency}%
       </p>
 
       <div
@@ -150,7 +171,9 @@ function LiveTelemetry({ probability }) {
       >
 
         <p className="stats-text">
-          ERS Battery: {ersBattery}%
+          ERS Battery:
+          {' '}
+          {ersBattery}%
         </p>
 
         <div
@@ -190,21 +213,137 @@ function LiveTelemetry({ probability }) {
 
       </div>
 
-      <p
+      <div
+        style={{
+          marginTop: '20px'
+        }}
+      >
+
+        <p className="stats-text">
+          Throttle Input:
+          {' '}
+          {throttle}%
+        </p>
+
+        <div
+          style={{
+
+            width: '100%',
+
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: `${throttle}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, lime, yellow)',
+
+              transition: '0.5s'
+
+            }}
+          >
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        style={{
+          marginTop: '20px'
+        }}
+      >
+
+        <p className="stats-text">
+          Brake Pressure:
+          {' '}
+          {brakePressure}%
+        </p>
+
+        <div
+          style={{
+
+            width: '100%',
+
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: `${brakePressure}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, red, orange)',
+
+              transition: '0.5s'
+
+            }}
+          >
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
         style={{
 
-          marginTop: '20px',
+          marginTop: '25px',
 
-          color: 'yellow',
+          padding: '15px',
 
-          lineHeight: '1.7',
+          borderRadius: '15px',
 
-          fontSize: '18px'
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
 
         }}
       >
-        {alert}
-      </p>
+
+        <p
+          style={{
+
+            color: 'yellow',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          {engineStatus}
+        </p>
+
+      </div>
 
     </div>
 

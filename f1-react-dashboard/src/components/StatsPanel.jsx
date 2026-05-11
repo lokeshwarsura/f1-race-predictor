@@ -13,6 +13,15 @@ function StatsPanel({ probability }) {
       ? 2
       : 3
 
+  const sprintPoints =
+    probability >= 90
+      ? 8
+      : probability >= 80
+      ? 6
+      : probability >= 70
+      ? 4
+      : 2
+
   const raceRating =
     probability >= 90
       ? 'S Tier ⭐'
@@ -35,13 +44,19 @@ function StatsPanel({ probability }) {
 
         }}
       >
-        📊 Weekend Statistics
+        📊 Weekend Command Center
       </h2>
 
       <p className="stats-text">
         Qualifying Position:
         {' '}
         P{qualifyingRank}
+      </p>
+
+      <p className="stats-text">
+        Sprint Race Points:
+        {' '}
+        {sprintPoints}
       </p>
 
       <p className="stats-text">
@@ -102,6 +117,48 @@ function StatsPanel({ probability }) {
         >
 
         </div>
+
+      </div>
+
+      <div
+        style={{
+
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'lime',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          🏁 Weekend Summary:
+          {' '}
+          {probability >= 90
+            ? 'Dominant race weekend expected.'
+            : probability >= 80
+            ? 'Strong podium pace throughout sessions.'
+            : probability >= 70
+            ? 'Competitive midfield battle predicted.'
+            : 'Recovery weekend strategy recommended.'}
+        </p>
 
       </div>
 

@@ -37,20 +37,36 @@ function RaceStatus({ probability }) {
   const secs =
     seconds % 60
 
-  const currentLap =
+  const totalLaps = 58
+
+  const calculatedLap =
     42 + Math.floor(probability / 5)
 
-  const totalLaps = 58
+  const currentLap =
+    Math.min(calculatedLap, totalLaps)
 
   const lapProgress =
     (currentLap / totalLaps) * 100
 
-  const trackFlag =
-    probability >= 85
-      ? '🟢 GREEN FLAG'
-      : probability >= 70
-      ? '🟡 YELLOW FLAG'
-      : '🔴 SAFETY CAR'
+  let trackFlag = ''
+
+  if (probability >= 85) {
+
+    trackFlag = '🟢 GREEN FLAG'
+
+  }
+
+  else if (probability >= 70) {
+
+    trackFlag = '🟡 YELLOW FLAG'
+
+  }
+
+  else {
+
+    trackFlag = '🔴 SAFETY CAR'
+
+  }
 
   const drsStatus =
     probability >= 75

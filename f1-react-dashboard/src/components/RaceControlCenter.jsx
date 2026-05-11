@@ -22,10 +22,35 @@ function RaceControlCenter({ probability }) {
 
   }
 
-  const emergencyAlert =
-    probability < 70
-      ? '⚠️ Tire temperatures critical.'
-      : '✅ Systems operating normally.'
+  let finishPrediction = ''
+
+  if (probability >= 90) {
+
+    finishPrediction =
+      '🏆 Predicted Race Winner'
+
+  }
+
+  else if (probability >= 80) {
+
+    finishPrediction =
+      '🥈 Strong Podium Finish Expected'
+
+  }
+
+  else if (probability >= 70) {
+
+    finishPrediction =
+      '🥉 Podium Battle In Progress'
+
+  }
+
+  else {
+
+    finishPrediction =
+      '⚠️ Defensive Race Strategy Required'
+
+  }
 
   return (
 
@@ -127,16 +152,15 @@ function RaceControlCenter({ probability }) {
         <p
           style={{
 
-            color:
-              probability < 70
-                ? 'red'
-                : 'lime',
+            color: 'gold',
 
-            fontSize: '17px'
+            fontSize: '18px',
+
+            lineHeight: '1.8'
 
           }}
         >
-          {emergencyAlert}
+          {finishPrediction}
         </p>
 
       </div>
