@@ -1,62 +1,64 @@
 import { useEffect, useState } from 'react'
 
-function RaceStatus({ probability }) {
-
-  const [seconds, setSeconds] = useState(7200)
-
-  useEffect(() => {
-
-    const timer = setInterval(() => {
-
-      setSeconds((prev) => {
-
-        if (prev <= 0) {
-
-          clearInterval(timer)
-
-          return 0
-
-        }
-
-        return prev - 1
-
-      })
-
-    }, 1000)
-
-    return () => clearInterval(timer)
-
-  }, [])
-
-  const hours =
-    Math.floor(seconds / 3600)
-
-  const minutes =
-    Math.floor((seconds % 3600) / 60)
-
-  const secs =
-    seconds % 60
+function RaceStatus() {
 
   const totalLaps = 58
 
-  const calculatedLap =
-    42 + Math.floor(probability / 5)
+  const [currentLap, setCurrentLap] =
+    useState(1)
 
-  const currentLap =
-    Math.min(calculatedLap, totalLaps)
+  useEffect(() => {
 
-  const lapProgress =
+    const lapInterval = setInterval(() => {
+
+      setCurrentLap((prev) => {
+
+        if (prev >= totalLaps) {
+
+          return totalLaps
+
+        }
+
+        return prev + 1
+
+      })
+
+    }, 5000)
+
+    return () => clearInterval(lapInterval)
+
+  }, [])
+
+  const progress =
     (currentLap / totalLaps) * 100
+
+  const remainingLaps =
+    totalLaps - currentLap
+
+  const totalRaceSeconds =
+    totalLaps * 90
+
+  const elapsedSeconds =
+    currentLap * 90
+
+  const remainingSeconds =
+    totalRaceSeconds - elapsedSeconds
+
+  const minutes =
+    Math.floor(remainingSeconds / 60)
+
+  const seconds =
+    remainingSeconds % 60
 
   let trackFlag = ''
 
-  if (probability >= 85) {
+  if (currentLap >= 50) {
 
     trackFlag = '🟢 GREEN FLAG'
 
   }
 
-  else if (probability >= 70) {
+  else if (currentLap >= 30) {
 
     trackFlag = '🟡 YELLOW FLAG'
 
@@ -67,11 +69,6 @@ function RaceStatus({ probability }) {
     trackFlag = '🔴 SAFETY CAR'
 
   }
-
-  const drsStatus =
-    probability >= 75
-      ? 'ENABLED'
-      : 'DISABLED'
 
   return (
 
@@ -90,9 +87,9 @@ function RaceStatus({ probability }) {
       </h2>
 
       <p className="stats-text">
-        Race Timer:
+        Remaining Race Time:
         {' '}
-        {hours}h {minutes}m {secs}s
+        {minutes}m {seconds}s
       </p>
 
       <p className="stats-text">
@@ -102,9 +99,17 @@ function RaceStatus({ probability }) {
       </p>
 
       <p className="stats-text">
+        Remaining Laps:
+        {' '}
+        {remainingLaps}
+      </p>
+
+      <p className="stats-text">
         DRS:
         {' '}
-        {drsStatus}
+        {currentLap >= 5
+          ? 'ENABLED'
+          : 'DISABLED'}
       </p>
 
       <p className="stats-text">
@@ -144,14 +149,14 @@ function RaceStatus({ probability }) {
           <div
             style={{
 
-              width: `${lapProgress}%`,
+              width: `${progress}%`,
 
               height: '100%',
 
               background:
                 'linear-gradient(to right, red, orange)',
 
-              transition: '0.5s'
+              transition: '5s linear'
 
             }}
           >
@@ -191,13 +196,19 @@ function RaceStatus({ probability }) {
 
           }}
         >
-          Race Director Message:
-          {' '}
-          {probability >= 85
-            ? 'Track conditions stable. Continue push laps.'
-            : probability >= 70
-            ? 'Minor incident ahead. Drivers advised caution.'
-            : 'Safety car deployed. Maintain delta pace.'}
+          {
+
+            currentLap >= 50
+
+              ? 'Final race push underway.'
+
+              : currentLap >= 30
+
+              ? 'Mid-race strategy phase active.'
+
+              : 'Opening race phase in progress.'
+
+          }
         </p>
 
       </div>

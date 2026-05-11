@@ -6,7 +6,7 @@ function SectorAnalysis() {
     useState(28.45)
 
   const [sector2, setSector2] =
-    useState(31.22)
+    useState(29.22)
 
   const [sector3, setSector3] =
     useState(27.88)
@@ -16,15 +16,27 @@ function SectorAnalysis() {
     const interval = setInterval(() => {
 
       setSector1(
-        (Math.random() * 32 + 1).toFixed(2)
+
+        (
+          Math.random() * 8 + 26
+        ).toFixed(2)
+
       )
 
       setSector2(
-        (Math.random() * 32 + 1).toFixed(2)
+
+        (
+          Math.random() * 8 + 26
+        ).toFixed(2)
+
       )
 
       setSector3(
-        (Math.random() * 32 + 1).toFixed(2)
+
+        (
+          Math.random() * 8 + 26
+        ).toFixed(2)
+
       )
 
     }, 2500)
@@ -44,13 +56,17 @@ function SectorAnalysis() {
   ]
 
   const fastestSector =
+
     sectors.indexOf(
+
       Math.min(...sectors)
+
     ) + 1
 
   const lapDelta =
+
     (
-      Math.random() * 2
+      Math.random() * 1.5
     ).toFixed(2)
 
   return (
@@ -100,14 +116,15 @@ function SectorAnalysis() {
           <div
             style={{
 
-              width: `${sector1 * 3}%`,
+              width:
+                `${sector1 * 2.5}%`,
 
               height: '100%',
 
               background:
                 'linear-gradient(to right, cyan, blue)',
 
-              transition: '2s'
+              transition: '2s linear'
 
             }}
           >
@@ -133,19 +150,36 @@ function SectorAnalysis() {
         <div
           style={{
 
-            width: `${sector2 * 3}%`,
+            width: '100%',
 
             height: '18px',
 
-            background:
-              'linear-gradient(to right, violet, purple)',
+            background: '#222',
 
             borderRadius: '20px',
 
-            transition: '2s'
+            overflow: 'hidden'
 
           }}
         >
+
+          <div
+            style={{
+
+              width:
+                `${sector2 * 2.5}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, violet, purple)',
+
+              transition: '2s linear'
+
+            }}
+          >
+
+          </div>
 
         </div>
 
@@ -162,19 +196,36 @@ function SectorAnalysis() {
         <div
           style={{
 
-            width: `${sector3 * 3}%`,
+            width: '100%',
 
             height: '18px',
 
-            background:
-              'linear-gradient(to right, lime, green)',
+            background: '#222',
 
             borderRadius: '20px',
 
-            transition: '2s'
+            overflow: 'hidden'
 
           }}
         >
+
+          <div
+            style={{
+
+              width:
+                `${sector3 * 2.5}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, lime, green)',
+
+              transition: '2s linear'
+
+            }}
+          >
+
+          </div>
 
         </div>
 

@@ -1,58 +1,146 @@
-function LiveTelemetry({ probability }) {
+import { useEffect, useState } from 'react'
 
-  const speed =
-    280 + Math.floor(probability)
+function LiveTelemetry() {
 
-  const rpm =
-    11000 + Math.floor(probability * 45)
+  const [speed, setSpeed] =
+    useState(290)
 
-  const gear =
-    Math.min(
-      8,
-      Math.max(
-        1,
-        Math.floor(probability / 12)
+  const [rpm, setRpm] =
+    useState(12500)
+
+  const [gear, setGear] =
+    useState(6)
+
+  const [ersBattery, setErsBattery] =
+    useState(72)
+
+  const [engineTemp, setEngineTemp] =
+    useState(101)
+
+  const [throttle, setThrottle] =
+    useState(84)
+
+  const [brakePressure, setBrakePressure] =
+    useState(12)
+
+  const [turboEfficiency, setTurboEfficiency] =
+    useState(93)
+
+  const [trackSection, setTrackSection] =
+    useState('STRAIGHT')
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      const randomSection =
+        Math.random()
+
+      if (randomSection > 0.6) {
+
+        setTrackSection('STRAIGHT')
+
+        const newSpeed =
+
+          310 +
+          Math.floor(Math.random() * 35)
+
+        setSpeed(newSpeed)
+
+        setThrottle(
+          88 +
+          Math.floor(Math.random() * 10)
+        )
+
+        setBrakePressure(
+          5 +
+          Math.floor(Math.random() * 8)
+        )
+
+        setGear(8)
+
+      }
+
+      else {
+
+        setTrackSection('CORNER')
+
+        const newSpeed =
+
+          160 +
+          Math.floor(Math.random() * 90)
+
+        setSpeed(newSpeed)
+
+        setThrottle(
+          40 +
+          Math.floor(Math.random() * 35)
+        )
+
+        setBrakePressure(
+          45 +
+          Math.floor(Math.random() * 40)
+        )
+
+        setGear(
+          3 +
+          Math.floor(Math.random() * 3)
+        )
+
+      }
+
+      setRpm(
+
+        9000 +
+        Math.floor(Math.random() * 5000)
+
       )
-    )
 
-  const ersBattery =
-    Math.max(
-      15,
-      100 - Math.floor(probability / 1.5)
-    )
+      setEngineTemp(
 
-  const engineTemp =
-    90 + Math.floor(probability / 3)
+        95 +
+        Math.floor(Math.random() * 20)
 
-  const throttle =
-    70 + Math.floor(probability / 4)
+      )
 
-  const brakePressure =
-    20 + Math.floor((100 - probability) / 4)
+      setTurboEfficiency(
 
-  const turboEfficiency =
-    80 + Math.floor(probability / 5)
+        88 +
+        Math.floor(Math.random() * 10)
+
+      )
+
+      setErsBattery((prev) => {
+
+        if (prev <= 20) {
+
+          return 85
+
+        }
+
+        return prev - Math.random() * 4
+
+      })
+
+    }, 3000)
+
+    return () => clearInterval(interval)
+
+  }, [])
 
   let engineStatus = ''
 
-  if (probability >= 90) {
+  if (trackSection === 'STRAIGHT') {
 
     engineStatus =
-      '🔥 Peak Performance Mode'
-
-  }
-
-  else if (probability >= 75) {
-
-    engineStatus =
-      '⚡ Stable Performance Window'
+      '🚀 Full throttle on straight.'
 
   }
 
   else {
 
     engineStatus =
-      '🛠️ Engine Conservation Active'
+      '🛞 Heavy braking into corner.'
 
   }
 
@@ -75,7 +163,7 @@ function LiveTelemetry({ probability }) {
       <h1
         style={{
 
-          fontSize: '64px',
+          fontSize: '72px',
 
           margin: '10px 0',
 
@@ -91,7 +179,7 @@ function LiveTelemetry({ probability }) {
 
           color: 'lime',
 
-          fontSize: '22px'
+          fontSize: '24px'
 
         }}
       >
@@ -119,14 +207,14 @@ function LiveTelemetry({ probability }) {
         <div
           style={{
 
-            width: `${speed / 4}%`,
+            width: `${speed / 3.5}%`,
 
             height: '100%',
 
             background:
               'linear-gradient(to right, lime, green)',
 
-            transition: '0.5s'
+            transition: '3s linear'
 
           }}
         >
@@ -153,6 +241,12 @@ function LiveTelemetry({ probability }) {
       </p>
 
       <p className="stats-text">
+        Track Section:
+        {' '}
+        {trackSection}
+      </p>
+
+      <p className="stats-text">
         Engine Temp:
         {' '}
         {engineTemp}°C
@@ -173,7 +267,7 @@ function LiveTelemetry({ probability }) {
         <p className="stats-text">
           ERS Battery:
           {' '}
-          {ersBattery}%
+          {ersBattery.toFixed(0)}%
         </p>
 
         <div
@@ -202,7 +296,7 @@ function LiveTelemetry({ probability }) {
               background:
                 'linear-gradient(to right, cyan, blue)',
 
-              transition: '0.5s'
+              transition: '3s linear'
 
             }}
           >
@@ -251,7 +345,7 @@ function LiveTelemetry({ probability }) {
               background:
                 'linear-gradient(to right, lime, yellow)',
 
-              transition: '0.5s'
+              transition: '3s linear'
 
             }}
           >
@@ -300,7 +394,7 @@ function LiveTelemetry({ probability }) {
               background:
                 'linear-gradient(to right, red, orange)',
 
-              transition: '0.5s'
+              transition: '3s linear'
 
             }}
           >

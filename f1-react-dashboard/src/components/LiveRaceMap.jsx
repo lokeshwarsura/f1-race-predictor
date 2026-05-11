@@ -1,17 +1,36 @@
-function LiveRaceMap({ probability }) {
+import { useEffect, useState } from 'react'
+
+function LiveRaceMap() {
 
   const totalLaps = 58
 
-  const currentLap =
-    Math.min(
-      42 + Math.floor(probability / 5),
-      totalLaps
-    )
+  const [currentLap, setCurrentLap] =
+    useState(1)
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setCurrentLap((prev) => {
+
+        if (prev >= totalLaps) {
+
+          return totalLaps
+
+        }
+
+        return prev + 1
+
+      })
+
+    }, 5000)
+
+    return () => clearInterval(interval)
+
+  }, [])
 
   const progress =
-    Math.floor(
-      (currentLap / totalLaps) * 100
-    )
+    (currentLap / totalLaps) * 100
 
   let raceEvent = ''
 
@@ -64,9 +83,9 @@ function LiveRaceMap({ probability }) {
 
           color: 'white',
 
-          marginBottom: '10px',
+          fontSize: '44px',
 
-          fontSize: '38px'
+          marginBottom: '10px'
 
         }}
       >
@@ -90,7 +109,7 @@ function LiveRaceMap({ probability }) {
 
           marginBottom: '25px',
 
-          fontSize: '22px'
+          fontSize: '20px'
 
         }}
       >
@@ -99,7 +118,7 @@ function LiveRaceMap({ probability }) {
             color: 'cyan'
           }}
         >
-          {progress}%
+          {progress.toFixed(0)}%
         </span>
         {' '}
         RACE DISTANCE COMPLETED
@@ -112,15 +131,15 @@ function LiveRaceMap({ probability }) {
 
           width: '100%',
 
-          height: '170px',
+          height: '110px',
 
           background: '#111',
 
           borderRadius: '20px',
 
-          overflow: 'hidden',
+          border: '2px solid cyan',
 
-          border: '2px solid cyan'
+          overflow: 'hidden'
 
         }}
       >
@@ -136,14 +155,14 @@ function LiveRaceMap({ probability }) {
 
             width: '80%',
 
-            height: '14px',
+            height: '12px',
 
             background:
-              'linear-gradient(to right, orange, yellow, violet, lime, gray)',
+              'linear-gradient(to right, orange, yellow, violet, lime)',
 
-            transform: 'translateY(-50%)',
+            borderRadius: '20px',
 
-            borderRadius: '20px'
+            transform: 'translateY(-50%)'
 
           }}
         >
@@ -155,172 +174,20 @@ function LiveRaceMap({ probability }) {
 
             position: 'absolute',
 
-            left: '10%',
-
-            top: '30%',
-
-            color: 'white'
-
-          }}
-        >
-          🚦 START
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            left: '32%',
-
-            top: '30%',
-
-            color: 'yellow',
-
-            fontWeight: 'bold'
-
-          }}
-        >
-          S1
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            left: '57%',
-
-            top: '30%',
-
-            color: 'violet',
-
-            fontWeight: 'bold'
-
-          }}
-        >
-          S2
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            left: '80%',
-
-            top: '30%',
-
-            color: 'lime',
-
-            fontWeight: 'bold'
-
-          }}
-        >
-          S3
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            right: '8%',
-
-            top: '30%',
-
-            color: 'red',
-
-            fontWeight: 'bold'
-
-          }}
-        >
-          🏁 FINISH
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
+            left: `${10 + progress * 0.8}%`,
 
             top: '50%',
-
-            left: `${10 + (progress * 0.8)}%`,
 
             transform:
               'translate(-50%, -50%)',
 
-            fontSize: '40px',
+            fontSize: '34px',
 
-            transition: '1s linear'
+            transition: '5s linear'
 
           }}
         >
           🏎️
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            bottom: '15px',
-
-            left: '10%',
-
-            color: 'white'
-
-          }}
-        >
-          0%
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            bottom: '15px',
-
-            left: '31%',
-
-            color: 'white'
-
-          }}
-        >
-          33%
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            bottom: '15px',
-
-            left: '56%',
-
-            color: 'white'
-
-          }}
-        >
-          66%
-        </div>
-
-        <div
-          style={{
-
-            position: 'absolute',
-
-            bottom: '15px',
-
-            right: '8%',
-
-            color: 'white'
-
-          }}
-        >
-          100%
         </div>
 
       </div>
@@ -336,7 +203,7 @@ function LiveRaceMap({ probability }) {
       >
         TRACK POSITION:
         {' '}
-        {progress}%
+        {progress.toFixed(0)}%
       </h2>
 
       <div
@@ -362,9 +229,9 @@ function LiveRaceMap({ probability }) {
 
             color: 'cyan',
 
-            lineHeight: '1.8',
+            fontSize: '17px',
 
-            fontSize: '17px'
+            lineHeight: '1.8'
 
           }}
         >
