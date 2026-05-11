@@ -1,20 +1,91 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-function RaceControlCenter({ probability }) {
+function RaceControlCenter({
 
-  const [message, setMessage] =
-    useState('Awaiting race engineer command...')
+  probability
 
-  const [commandHistory, setCommandHistory] =
+}) {
+
+  const [teamRadio, setTeamRadio] =
+    useState(
+      '📡 Race engineer standing by.'
+    )
+
+  const [selectedCommand, setSelectedCommand] =
+    useState('NONE')
+
+  const [recentCommands, setRecentCommands] =
     useState([])
 
-  function activateCommand(command) {
+  const [raceMode, setRaceMode] =
+    useState('STANDARD')
 
-    setMessage(command)
+  useEffect(() => {
 
-    setCommandHistory((prev) => [
+    if (probability >= 90) {
 
-      command,
+      setRaceMode('ATTACK')
+
+      setTeamRadio(
+        '🟣 Purple sector pace detected. Push now.'
+      )
+
+    }
+
+    else if (probability >= 75) {
+
+      setRaceMode('BALANCED')
+
+      setTeamRadio(
+        '🟢 Pace advantage stable. Manage tires.'
+      )
+
+    }
+
+    else {
+
+      setRaceMode('DEFENSIVE')
+
+      setTeamRadio(
+        '🟡 Rivals closing in. Tire saving required.'
+      )
+
+    }
+
+  }, [probability])
+
+  function addCommand(command) {
+
+    setSelectedCommand(command)
+
+    let radioMessage = ''
+
+    if (command === 'PUSH') {
+
+      radioMessage =
+        '🚀 Push mode enabled. Maximum deployment.'
+
+    }
+
+    else if (command === 'BOX') {
+
+      radioMessage =
+        '🛞 BOX THIS LAP. Pit crew preparing.'
+
+    }
+
+    else {
+
+      radioMessage =
+        '🛡️ Defensive strategy active. Protect position.'
+
+    }
+
+    setTeamRadio(radioMessage)
+
+    setRecentCommands((prev) => [
+
+      radioMessage,
 
       ...prev.slice(0, 3)
 
@@ -22,33 +93,23 @@ function RaceControlCenter({ probability }) {
 
   }
 
-  let finishPrediction = ''
+  let modeColor = ''
 
-  if (probability >= 90) {
+  if (raceMode === 'ATTACK') {
 
-    finishPrediction =
-      '🏆 Predicted Race Winner'
-
-  }
-
-  else if (probability >= 80) {
-
-    finishPrediction =
-      '🥈 Strong Podium Finish Expected'
+    modeColor = 'red'
 
   }
 
-  else if (probability >= 70) {
+  else if (raceMode === 'BALANCED') {
 
-    finishPrediction =
-      '🥉 Podium Battle In Progress'
+    modeColor = 'lime'
 
   }
 
   else {
 
-    finishPrediction =
-      '⚠️ Defensive Race Strategy Required'
+    modeColor = 'orange'
 
   }
 
@@ -68,30 +129,72 @@ function RaceControlCenter({ probability }) {
         🎛️ Mission Control Center
       </h2>
 
-      <p
-        style={{
-
-          color: 'cyan',
-
-          fontSize: '18px',
-
-          lineHeight: '1.8'
-
-        }}
-      >
-        {message}
-      </p>
-
       <div
         style={{
 
-          marginTop: '25px',
+          padding: '14px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.08)',
+
+          marginBottom: '20px'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'cyan',
+
+            fontSize: '18px',
+
+            lineHeight: '1.8'
+
+          }}
+        >
+          {teamRadio}
+        </p>
+
+      </div>
+
+      <div
+        style={{
+          marginBottom: '18px'
+        }}
+      >
+
+        <p
+          style={{
+
+            color: modeColor,
+
+            fontSize: '18px',
+
+            fontWeight: 'bold'
+
+          }}
+        >
+          Race Mode:
+          {' '}
+          {raceMode}
+        </p>
+
+      </div>
+
+      <div
+        style={{
 
           display: 'flex',
 
           flexDirection: 'column',
 
-          gap: '12px'
+          gap: '15px'
 
         }}
       >
@@ -99,34 +202,61 @@ function RaceControlCenter({ probability }) {
         <button
           className="predict-btn"
           onClick={() =>
-            activateCommand(
-              '📻 PUSH NOW! Fastest lap mode activated.'
-            )
+            addCommand('PUSH')
           }
+          style={{
+
+            background:
+
+              selectedCommand === 'PUSH'
+
+                ? 'linear-gradient(to right, red, darkred)'
+
+                : '#222'
+
+          }}
         >
-          PUSH
+          🚀 PUSH
         </button>
 
         <button
           className="predict-btn"
           onClick={() =>
-            activateCommand(
-              '🛞 BOX THIS LAP. Prepare pit crew.'
-            )
+            addCommand('BOX')
           }
+          style={{
+
+            background:
+
+              selectedCommand === 'BOX'
+
+                ? 'linear-gradient(to right, orange, red)'
+
+                : '#222'
+
+          }}
         >
-          BOX
+          🛞 BOX
         </button>
 
         <button
           className="predict-btn"
           onClick={() =>
-            activateCommand(
-              '🛡️ DEFEND POSITION. Rival within DRS.'
-            )
+            addCommand('DEFEND')
           }
+          style={{
+
+            background:
+
+              selectedCommand === 'DEFEND'
+
+                ? 'linear-gradient(to right, blue, purple)'
+
+                : '#222'
+
+          }}
         >
-          DEFEND
+          🛡️ DEFEND
         </button>
 
       </div>
@@ -144,7 +274,7 @@ function RaceControlCenter({ probability }) {
             'rgba(255,255,255,0.05)',
 
           border:
-            '1px solid rgba(255,255,255,0.1)'
+            '1px solid rgba(255,255,255,0.08)'
 
         }}
       >
@@ -156,59 +286,126 @@ function RaceControlCenter({ probability }) {
 
             fontSize: '18px',
 
-            lineHeight: '1.8'
+            marginBottom: '12px'
 
           }}
         >
-          {finishPrediction}
+          🏆 Race Prediction
         </p>
+
+        <p className="stats-text">
+          Win Probability:
+          {' '}
+          {probability}%
+        </p>
+
+        <div
+          style={{
+
+            width: '100%',
+
+            height: '16px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden',
+
+            marginTop: '12px'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: `${probability}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, yellow, orange)',
+
+              transition: '1s linear'
+
+            }}
+          >
+
+          </div>
+
+        </div>
 
       </div>
 
       <div
         style={{
 
-          marginTop: '25px'
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.08)'
 
         }}
       >
 
-        <h3
+        <p
           style={{
 
             color: 'gold',
+
+            fontSize: '18px',
 
             marginBottom: '15px'
 
           }}
         >
-          📜 Recent Commands
-        </h3>
+          📜 Recent Team Radio
+        </p>
 
         {
 
-          commandHistory.length === 0
+          recentCommands.length === 0
 
             ? (
 
-              <p className="stats-text">
-                No commands issued yet.
+              <p
+                style={{
+                  color: '#aaa'
+                }}
+              >
+                Awaiting command...
               </p>
 
             )
 
-            : (
+            : recentCommands.map(
 
-              commandHistory.map((cmd, index) => (
+              (command, index) => (
 
                 <p
                   key={index}
-                  className="stats-text"
+                  style={{
+
+                    color: 'white',
+
+                    marginBottom: '12px',
+
+                    lineHeight: '1.6'
+
+                  }}
                 >
-                  • {cmd}
+                  • {command}
                 </p>
 
-              ))
+              )
 
             )
 
