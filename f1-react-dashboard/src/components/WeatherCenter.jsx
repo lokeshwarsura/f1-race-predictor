@@ -1,19 +1,5 @@
 function WeatherPanel() {
 
-  const weather = [
-
-    {
-
-      condition: 'Sunny ☀️',
-
-      temp: '32°C',
-
-      humidity: '41%'
-
-    }
-
-  ]
-
   return (
 
     <div className="card">
@@ -27,38 +13,24 @@ function WeatherPanel() {
 
         }}
       >
-        🌦️ Race Weather
+        🌦️ Weather Conditions
       </h2>
 
-      {
+      <p className="stats-text">
+        Condition: Sunny ☀️
+      </p>
 
-        weather.map((item, index) => (
+      <p className="stats-text">
+        Temperature: 32°C
+      </p>
 
-          <div key={index}>
+      <p className="stats-text">
+        Humidity: 41%
+      </p>
 
-            <p className="stats-text">
-
-              Condition: {item.condition}
-
-            </p>
-
-            <p className="stats-text">
-
-              Temperature: {item.temp}
-
-            </p>
-
-            <p className="stats-text">
-
-              Humidity: {item.humidity}
-
-            </p>
-
-          </div>
-
-        ))
-
-      }
+      <p className="stats-text">
+        Wind Speed: 12 km/h
+      </p>
 
     </div>
 
