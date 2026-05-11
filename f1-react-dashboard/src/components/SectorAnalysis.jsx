@@ -9,6 +9,24 @@ function SectorAnalysis({ probability }) {
   const sector3 =
     (26 + probability / 22).toFixed(2)
 
+  const sectors = [
+
+    Number(sector1),
+
+    Number(sector2),
+
+    Number(sector3)
+
+  ]
+
+  const fastestSector =
+    sectors.indexOf(
+      Math.min(...sectors)
+    ) + 1
+
+  const lapDelta =
+    (probability / 40).toFixed(2)
+
   return (
 
     <div className="card">
@@ -22,7 +40,7 @@ function SectorAnalysis({ probability }) {
 
         }}
       >
-        📊 Sector Analysis
+        📊 Advanced Sector Analysis
       </h2>
 
       <div
@@ -153,6 +171,38 @@ function SectorAnalysis({ probability }) {
           </div>
 
         </div>
+
+      </div>
+
+      <div
+        style={{
+
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p className="stats-text">
+          ⚡ Fastest Sector:
+          {' '}
+          Sector {fastestSector}
+        </p>
+
+        <p className="stats-text">
+          📉 Lap Delta:
+          {' '}
+          -{lapDelta}s
+        </p>
 
       </div>
 

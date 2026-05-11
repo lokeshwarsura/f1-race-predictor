@@ -8,6 +8,8 @@ body {
 
   font-family: Arial, sans-serif;
 
+  overflow-x: hidden;
+
 }
 
 .app {
@@ -16,9 +18,11 @@ body {
 
   text-align: center;
 
-  background: black;
-
   padding: 30px;
+
+  background:
+
+    radial-gradient(circle at top, #111, #000);
 
 }
 
@@ -30,7 +34,11 @@ body {
 
   margin-bottom: 30px;
 
-  text-shadow: 0 0 20px red;
+  text-shadow:
+
+    0 0 20px red,
+
+    0 0 40px crimson;
 
 }
 
@@ -42,13 +50,17 @@ body {
 
   font-size: 18px;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
-  background: #111;
+  background:
+
+    rgba(255,255,255,0.08);
 
   color: white;
 
-  border: 2px solid white;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  backdrop-filter: blur(8px);
 
 }
 
@@ -56,21 +68,23 @@ body {
 
   padding: 15px 35px;
 
-  font-size: 24px;
-
-  background: red;
-
-  color: white;
+  font-size: 22px;
 
   border: none;
 
-  border-radius: 12px;
+  border-radius: 14px;
 
   cursor: pointer;
 
-  margin-top: 20px;
+  color: white;
 
-  box-shadow: 0 0 20px red;
+  background:
+
+    linear-gradient(to right, red, darkred);
+
+  box-shadow:
+
+    0 0 20px red;
 
   transition: 0.3s;
 
@@ -80,19 +94,19 @@ body {
 
   transform: scale(1.05);
 
-  background: darkred;
-
 }
 
 .probability {
 
   color: yellow;
 
-  font-size: 48px;
+  font-size: 44px;
 
   margin-top: 30px;
 
-  text-shadow: 0 0 15px yellow;
+  text-shadow:
+
+    0 0 15px yellow;
 
 }
 
@@ -104,57 +118,31 @@ body {
 
   justify-content: center;
 
-  align-items: flex-start;
+  gap: 25px;
 
-  gap: 40px;
-
-  margin-top: 50px;
-
-}
-
-.probability-container {
-
-  width: 500px;
-
-  height: 25px;
-
-  background: #333;
-
-  border-radius: 20px;
-
-  overflow: hidden;
-
-  margin: 30px auto;
-
-  box-shadow: 0 0 20px red;
-
-}
-
-.probability-fill {
-
-  height: 100%;
-
-  background: linear-gradient(to right, red, orange);
-
-  transition: width 0.5s ease;
+  margin-top: 40px;
 
 }
 
 .card {
 
-  background: #0d0d0d;
-
-  border: 2px solid red;
-
-  border-radius: 20px;
+  width: 340px;
 
   padding: 25px;
 
-  width: 320px;
+  border-radius: 24px;
+
+  background:
+
+    rgba(255,255,255,0.06);
+
+  backdrop-filter: blur(12px);
+
+  border:
+
+    1px solid rgba(255,255,255,0.12);
 
   color: white;
-
-  box-shadow: 0 0 25px red;
 
   transition: 0.3s;
 
@@ -162,15 +150,7 @@ body {
 
 .card:hover {
 
-  transform: translateY(-10px);
-
-}
-
-.leaderboard-card {
-
-  border: 2px solid cyan;
-
-  box-shadow: 0 0 25px cyan;
+  transform: translateY(-8px);
 
 }
 
@@ -184,8 +164,6 @@ body {
 
   border-radius: 20px;
 
-  margin-bottom: 20px;
-
 }
 
 .team-logo {
@@ -198,9 +176,9 @@ body {
 
 .stats-text {
 
-  font-size: 22px;
+  font-size: 18px;
 
-  margin: 10px 0;
+  margin: 12px 0;
 
 }
 
@@ -210,12 +188,44 @@ body {
 
   justify-content: space-between;
 
-  background: #1a1a1a;
+  margin-top: 12px;
 
   padding: 12px;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
-  margin-top: 10px;
+  background:
+
+    rgba(255,255,255,0.05);
+
+}
+
+.probability-container {
+
+  width: 420px;
+
+  height: 24px;
+
+  background: #222;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  margin: auto;
+
+  margin-top: 20px;
+
+}
+
+.probability-fill {
+
+  height: 100%;
+
+  background:
+
+    linear-gradient(to right, red, orange);
+
+  transition: 0.5s;
 
 }

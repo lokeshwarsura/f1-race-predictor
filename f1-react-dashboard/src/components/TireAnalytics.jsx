@@ -9,6 +9,35 @@ function TireAnalytics({ probability }) {
   const hardWear =
     30 + Math.floor(probability / 12)
 
+  const predictedPitLap =
+    36 + Math.floor(probability / 7)
+
+  const tireLife =
+    100 - Math.floor(probability / 1.8)
+
+  let recommendation = ''
+
+  if (probability >= 90) {
+
+    recommendation =
+      'Aggressive soft tire strategy recommended.'
+
+  }
+
+  else if (probability >= 75) {
+
+    recommendation =
+      'Medium tires optimal for race balance.'
+
+  }
+
+  else {
+
+    recommendation =
+      'Hard tires recommended for long stint defense.'
+
+  }
+
   return (
 
     <div className="card">
@@ -22,7 +51,7 @@ function TireAnalytics({ probability }) {
 
         }}
       >
-        🛞 Tire Analytics
+        🛞 Advanced Tire Analytics
       </h2>
 
       <div
@@ -115,7 +144,11 @@ function TireAnalytics({ probability }) {
 
       </div>
 
-      <div>
+      <div
+        style={{
+          marginBottom: '20px'
+        }}
+      >
 
         <p className="stats-text">
           Hard Tire Wear: {hardWear}%
@@ -153,6 +186,48 @@ function TireAnalytics({ probability }) {
           </div>
 
         </div>
+
+      </div>
+
+      <p className="stats-text">
+        Predicted Pit Stop Lap: {predictedPitLap}
+      </p>
+
+      <p className="stats-text">
+        Estimated Tire Life: {tireLife}%
+      </p>
+
+      <div
+        style={{
+
+          marginTop: '20px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'cyan',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          {recommendation}
+        </p>
 
       </div>
 

@@ -22,6 +22,8 @@ function App() {
 
   const [probability, setProbability] = useState(0)
 
+  const [loading, setLoading] = useState(false)
+
   const [driver, setDriver] = useState('Max Verstappen')
 
   const [team, setTeam] = useState('Red Bull')
@@ -70,16 +72,24 @@ function App() {
 
   }
 
-  async function predictWinner() {
+  function predictWinner() {
 
-    const randomProbability =
-      Math.floor(Math.random() * 41) + 60
+    setLoading(true)
 
-    setProbability(randomProbability)
+    setTimeout(() => {
 
-    setImage(driverImages[driver])
+      const randomProbability =
+        Math.floor(Math.random() * 41) + 60
 
-    setLogo(teamLogos[team])
+      setProbability(randomProbability)
+
+      setImage(driverImages[driver])
+
+      setLogo(teamLogos[team])
+
+      setLoading(false)
+
+    }, 1500)
 
   }
 
@@ -149,7 +159,15 @@ function App() {
         className="predict-btn"
         onClick={predictWinner}
       >
-        Predict Winner
+
+        {
+
+          loading
+            ? 'Analyzing Race Data...'
+            : 'Predict Winner'
+
+        }
+
       </button>
 
       <h2 className="probability">

@@ -10,12 +10,18 @@ function PredictionInsights({
 
   let confidence = ''
 
+  let aiPrediction = ''
+
   if (probability >= 90) {
 
     engineerMessage =
       'Excellent pace. Push for fastest lap.'
 
-    confidence = 'High Confidence 🟢'
+    confidence =
+      'High Confidence 🟢'
+
+    aiPrediction =
+      'AI predicts dominant race control with minimal tire degradation.'
 
   }
 
@@ -24,7 +30,11 @@ function PredictionInsights({
     engineerMessage =
       'Maintain tire management and current pace.'
 
-    confidence = 'Medium Confidence 🟡'
+    confidence =
+      'Medium Confidence 🟡'
+
+    aiPrediction =
+      'AI suggests balanced pace with strong podium probability.'
 
   }
 
@@ -33,7 +43,11 @@ function PredictionInsights({
     engineerMessage =
       'We need a stronger final stint. Save tires.'
 
-    confidence = 'Low Confidence 🔴'
+    confidence =
+      'Low Confidence 🔴'
+
+    aiPrediction =
+      'AI predicts increased undercut pressure from rivals.'
 
   }
 
@@ -50,7 +64,7 @@ function PredictionInsights({
 
         }}
       >
-        📻 Team Radio Insights
+        🤖 AI Prediction Insights
       </h2>
 
       <p
@@ -98,6 +112,40 @@ function PredictionInsights({
         {' '}
         {confidence}
       </p>
+
+      <div
+        style={{
+
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'lime',
+
+            lineHeight: '1.8',
+
+            fontSize: '17px'
+
+          }}
+        >
+          {aiPrediction}
+        </p>
+
+      </div>
 
     </div>
 
