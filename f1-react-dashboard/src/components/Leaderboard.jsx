@@ -3,54 +3,71 @@ function Leaderboard({ probability }) {
   const drivers = [
 
     {
+
       name: 'Max Verstappen',
+
+      team: 'Red Bull',
+
       points: 410
+
     },
 
     {
+
       name: 'Lewis Hamilton',
-      points: 332
+
+      team: 'Ferrari',
+
+      points: 362
+
     },
 
     {
-      name: 'Charles Leclerc',
-      points: 301
-    },
 
-    {
       name: 'Carlos Sainz',
-      points: 280
+
+      team: 'Ferrari',
+
+      points: 330
+
     },
 
     {
+
       name: 'Fernando Alonso',
-      points: 255
+
+      team: 'Aston Martin',
+
+      points: 287
+
+    },
+
+    {
+
+      name: 'Sergio Perez',
+
+      team: 'Red Bull',
+
+      points: 275
+
     }
 
   ]
 
   return (
 
-    <div
-      style={{
-        background: '#111',
-        padding: '20px',
-        borderRadius: '15px',
-        border: '2px solid cyan',
-        width: '320px',
-        color: 'white',
-        marginTop: '20px',
-        boxShadow: '0 0 20px cyan'
-      }}
-    >
+    <div className="card leaderboard-card">
 
       <h2
         style={{
+
           color: 'cyan',
+
           marginBottom: '20px'
+
         }}
       >
-        🏆 Driver Leaderboard
+        🏆 Championship Leaderboard
       </h2>
 
       {
@@ -59,23 +76,20 @@ function Leaderboard({ probability }) {
 
           <div
             key={index}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '10px',
-              marginBottom: '10px',
-              background: '#1a1a1a',
-              borderRadius: '10px'
-            }}
+            className="leaderboard-row"
           >
 
-            <span>
-              #{index + 1} {driver.name}
-            </span>
+            <div>
 
-            <span>
+              #{index + 1} {driver.name}
+
+            </div>
+
+            <div>
+
               {driver.points} pts
-            </span>
+
+            </div>
 
           </div>
 
@@ -83,19 +97,17 @@ function Leaderboard({ probability }) {
 
       }
 
-      <div
+      <h3
         style={{
-          marginTop: '20px',
-          padding: '15px',
-          background: '#222',
-          borderRadius: '10px',
-          color: 'yellow',
-          textAlign: 'center',
-          fontWeight: 'bold'
+
+          marginTop: '25px',
+
+          color: 'yellow'
+
         }}
       >
         Predicted Win Chance: {probability}%
-      </div>
+      </h3>
 
     </div>
 

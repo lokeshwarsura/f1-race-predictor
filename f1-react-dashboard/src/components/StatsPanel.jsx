@@ -1,54 +1,55 @@
 function StatsPanel({ probability }) {
 
-  const pole =
-    Number(probability).toFixed(2)
+  const poleChance =
+    probability
 
   const fastestLap =
-    Math.max(probability - 8, 0).toFixed(2)
+    Math.max(probability - 8, 0)
 
-  const podium =
-    Math.min(Number(probability) + 5, 100).toFixed(2)
+  const podiumChance =
+    Math.min(probability + 5, 100)
 
-  const tire =
-    (85 + Math.random() * 10).toFixed(0)
+  const tireEfficiency =
+    85 + Math.floor(Math.random() * 10)
 
-  const fuel =
-    (80 + Math.random() * 15).toFixed(0)
+  const fuelStrategy =
+    80 + Math.floor(Math.random() * 15)
 
   return (
 
-    <div
-      style={{
-        background: '#111',
-        padding: '20px',
-        borderRadius: '15px',
-        border: '2px solid red',
-        width: '320px',
-        color: 'white',
-        marginTop: '20px',
-        textAlign: 'left',
-        boxShadow: '0 0 20px red'
-      }}
-    >
+    <div className="card">
 
       <h2
         style={{
+
           color: 'yellow',
+
           marginBottom: '20px'
+
         }}
       >
         📊 Race Statistics
       </h2>
 
-      <p>🏁 Pole Position Chance: {pole}%</p>
+      <p className="stats-text">
+        🏁 Pole Position: {poleChance}%
+      </p>
 
-      <p>⚡ Fastest Lap Chance: {fastestLap}%</p>
+      <p className="stats-text">
+        ⚡ Fastest Lap: {fastestLap}%
+      </p>
 
-      <p>🔥 Podium Chance: {podium}%</p>
+      <p className="stats-text">
+        🔥 Podium Chance: {podiumChance}%
+      </p>
 
-      <p>🛞 Tire Efficiency: {tire}%</p>
+      <p className="stats-text">
+        🛞 Tire Efficiency: {tireEfficiency}%
+      </p>
 
-      <p>⛽ Fuel Strategy Score: {fuel}%</p>
+      <p className="stats-text">
+        ⛽ Fuel Strategy: {fuelStrategy}%
+      </p>
 
     </div>
 

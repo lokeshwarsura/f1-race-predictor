@@ -1,136 +1,64 @@
-import {
+function WeatherPanel() {
 
-  useEffect,
+  const weather = [
 
-  useState
+    {
 
-} from 'react'
+      condition: 'Sunny ☀️',
 
-function WeatherCenter() {
+      temp: '32°C',
 
-  const [weather,
+      humidity: '41%'
 
-    setWeather] = useState({})
+    }
 
-  function updateWeather() {
-
-    const conditions = [
-
-      'Sunny',
-
-      'Cloudy',
-
-      'Light Rain',
-
-      'Heavy Rain'
-
-    ]
-
-    const randomCondition =
-
-      conditions[
-
-        Math.floor(
-
-          Math.random() *
-
-          conditions.length
-
-        )
-
-      ]
-
-    const temperature =
-
-      Math.floor(
-
-        Math.random() * 15
-
-      ) + 20
-
-    const humidity =
-
-      Math.floor(
-
-        Math.random() * 50
-
-      ) + 30
-
-    const windSpeed =
-
-      Math.floor(
-
-        Math.random() * 20
-
-      ) + 5
-
-    setWeather({
-
-      condition:
-
-        randomCondition,
-
-      temperature,
-
-      humidity,
-
-      windSpeed
-
-    })
-
-  }
-
-  useEffect(() => {
-
-    updateWeather()
-
-    const interval = setInterval(
-
-      updateWeather,
-
-      5000
-
-    )
-
-    return () => clearInterval(
-
-      interval
-
-    )
-
-  }, [])
+  ]
 
   return (
 
-    <div className="weather-panel">
+    <div className="card">
 
-      <h2>
-        🌦️ Weather Center
+      <h2
+        style={{
+
+          color: 'orange',
+
+          marginBottom: '20px'
+
+        }}
+      >
+        🌦️ Race Weather
       </h2>
 
-      <p>
-        🌤️ Condition:
-        {' '}
-        {weather.condition}
-      </p>
+      {
 
-      <p>
-        🌡️ Temperature:
-        {' '}
-        {weather.temperature}°C
-      </p>
+        weather.map((item, index) => (
 
-      <p>
-        💧 Humidity:
-        {' '}
-        {weather.humidity}%
-      </p>
+          <div key={index}>
 
-      <p>
-        🌬️ Wind Speed:
-        {' '}
-        {weather.windSpeed} km/h
-      </p>
+            <p className="stats-text">
+
+              Condition: {item.condition}
+
+            </p>
+
+            <p className="stats-text">
+
+              Temperature: {item.temp}
+
+            </p>
+
+            <p className="stats-text">
+
+              Humidity: {item.humidity}
+
+            </p>
+
+          </div>
+
+        ))
+
+      }
 
     </div>
 
@@ -138,4 +66,4 @@ function WeatherCenter() {
 
 }
 
-export default WeatherCenter
+export default WeatherPanel
