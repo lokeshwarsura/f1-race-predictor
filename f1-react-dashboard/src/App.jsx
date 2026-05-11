@@ -12,14 +12,19 @@ function App() {
   const [driver, setDriver] =
     useState('Max Verstappen')
 
-  const [team, setTeam] =
-    useState('Red Bull')
+  const driverTeams = {
 
-  const [image, setImage] =
-    useState('/images/max.png')
+    'Max Verstappen': 'Red Bull',
 
-  const [logo, setLogo] =
-    useState('/images/redbull.png')
+    'Sergio Perez': 'Red Bull',
+
+    'Lewis Hamilton': 'Mercedes',
+
+    'Fernando Alonso': 'Aston Martin',
+
+    'Carlos Sainz': 'Ferrari'
+
+  }
 
   const driverImages = {
 
@@ -46,6 +51,15 @@ function App() {
     'Aston Martin': '/images/astonmartin.png'
 
   }
+
+  const team =
+    driverTeams[driver]
+
+  const image =
+    driverImages[driver]
+
+  const logo =
+    teamLogos[team]
 
   function predictWinner() {
 
@@ -81,10 +95,6 @@ function App() {
 
     setProbability(generatedProbability)
 
-    setImage(driverImages[driver])
-
-    setLogo(teamLogos[team])
-
   }
 
   return (
@@ -110,54 +120,30 @@ function App() {
         🏎️ F1 React Dashboard
       </h1>
 
-      <div
+      <select
+        value={driver}
+        onChange={(e) => setDriver(e.target.value)}
         style={{
-          display: 'flex',
-          gap: '20px',
+          padding: '12px',
+          fontSize: '18px',
+          borderRadius: '10px',
+          background: '#111',
+          color: 'white',
           marginBottom: '20px'
         }}
       >
 
-        <select
-          value={driver}
-          onChange={(e) => setDriver(e.target.value)}
-          style={{
-            padding: '12px',
-            fontSize: '18px',
-            borderRadius: '10px',
-            background: '#111',
-            color: 'white'
-          }}
-        >
+        <option>Max Verstappen</option>
 
-          <option>Max Verstappen</option>
-          <option>Lewis Hamilton</option>
-          <option>Fernando Alonso</option>
-          <option>Carlos Sainz</option>
-          <option>Sergio Perez</option>
+        <option>Lewis Hamilton</option>
 
-        </select>
+        <option>Fernando Alonso</option>
 
-        <select
-          value={team}
-          onChange={(e) => setTeam(e.target.value)}
-          style={{
-            padding: '12px',
-            fontSize: '18px',
-            borderRadius: '10px',
-            background: '#111',
-            color: 'white'
-          }}
-        >
+        <option>Carlos Sainz</option>
 
-          <option>Red Bull</option>
-          <option>Mercedes</option>
-          <option>Ferrari</option>
-          <option>Aston Martin</option>
+        <option>Sergio Perez</option>
 
-        </select>
-
-      </div>
+      </select>
 
       <button
         onClick={predictWinner}
