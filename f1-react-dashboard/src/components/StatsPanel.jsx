@@ -1,5 +1,20 @@
 function StatsPanel({ probability }) {
 
+  const pole =
+    Number(probability).toFixed(2)
+
+  const fastestLap =
+    Math.max(probability - 8, 0).toFixed(2)
+
+  const podium =
+    Math.min(Number(probability) + 5, 100).toFixed(2)
+
+  const tire =
+    (85 + Math.random() * 10).toFixed(0)
+
+  const fuel =
+    (80 + Math.random() * 15).toFixed(0)
+
   return (
 
     <div
@@ -11,7 +26,8 @@ function StatsPanel({ probability }) {
         width: '320px',
         color: 'white',
         marginTop: '20px',
-        textAlign: 'left'
+        textAlign: 'left',
+        boxShadow: '0 0 20px red'
       }}
     >
 
@@ -24,15 +40,15 @@ function StatsPanel({ probability }) {
         📊 Race Statistics
       </h2>
 
-      <p>🏁 Pole Position Chance: {probability}%</p>
+      <p>🏁 Pole Position Chance: {pole}%</p>
 
-      <p>⚡ Fastest Lap Chance: {(probability - 10).toFixed(2)}%</p>
+      <p>⚡ Fastest Lap Chance: {fastestLap}%</p>
 
-      <p>🔥 Podium Chance: {(Number(probability) + 15).toFixed(2)}%</p>
+      <p>🔥 Podium Chance: {podium}%</p>
 
-      <p>🛞 Tire Efficiency: 92%</p>
+      <p>🛞 Tire Efficiency: {tire}%</p>
 
-      <p>⛽ Fuel Strategy Score: 88%</p>
+      <p>⛽ Fuel Strategy Score: {fuel}%</p>
 
     </div>
 

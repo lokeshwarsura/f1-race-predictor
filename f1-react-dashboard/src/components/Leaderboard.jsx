@@ -1,35 +1,101 @@
-import React from "react"
-
 function Leaderboard({ probability }) {
 
-  const leaderboardData = [
-    { driver: "Max Verstappen", points: 575 },
-    { driver: "Lewis Hamilton", points: 387 },
-    { driver: "Fernando Alonso", points: 301 },
-    { driver: "Carlos Sainz", points: 275 }
+  const drivers = [
+
+    {
+      name: 'Max Verstappen',
+      points: 410
+    },
+
+    {
+      name: 'Lewis Hamilton',
+      points: 332
+    },
+
+    {
+      name: 'Charles Leclerc',
+      points: 301
+    },
+
+    {
+      name: 'Carlos Sainz',
+      points: 280
+    },
+
+    {
+      name: 'Fernando Alonso',
+      points: 255
+    }
+
   ]
 
   return (
 
-    <div className="panel">
+    <div
+      style={{
+        background: '#111',
+        padding: '20px',
+        borderRadius: '15px',
+        border: '2px solid cyan',
+        width: '320px',
+        color: 'white',
+        marginTop: '20px',
+        boxShadow: '0 0 20px cyan'
+      }}
+    >
 
-      <h2>🏆 Leaderboard</h2>
+      <h2
+        style={{
+          color: 'cyan',
+          marginBottom: '20px'
+        }}
+      >
+        🏆 Driver Leaderboard
+      </h2>
 
-      {(leaderboardData || []).map((item, index) => (
+      {
 
-        <div key={index}>
+        drivers.map((driver, index) => (
 
-          <p>
-            {item.driver} - {item.points} pts
-          </p>
+          <div
+            key={index}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              padding: '10px',
+              marginBottom: '10px',
+              background: '#1a1a1a',
+              borderRadius: '10px'
+            }}
+          >
 
-        </div>
+            <span>
+              #{index + 1} {driver.name}
+            </span>
 
-      ))}
+            <span>
+              {driver.points} pts
+            </span>
 
-      <p>
-        Prediction Accuracy: {probability.toFixed(2)}%
-      </p>
+          </div>
+
+        ))
+
+      }
+
+      <div
+        style={{
+          marginTop: '20px',
+          padding: '15px',
+          background: '#222',
+          borderRadius: '10px',
+          color: 'yellow',
+          textAlign: 'center',
+          fontWeight: 'bold'
+        }}
+      >
+        Predicted Win Chance: {probability}%
+      </div>
 
     </div>
 
