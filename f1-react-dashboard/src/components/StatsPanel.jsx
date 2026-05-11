@@ -1,121 +1,47 @@
-function StatsPanel({
+import { useState, useEffect } from "react"
 
-  driver
+function StatsPanel() {
 
-}) {
+  const [current, setCurrent] = useState(null)
 
-  const stats = {
+  useEffect(() => {
 
-    'Max Verstappen': {
-
-      championships: 3,
-
-      wins: 61,
-
-      podiums: 107,
-
-      nationality: 'Netherlands',
-
-      age: 27
-
-    },
-
-    'Lewis Hamilton': {
-
-      championships: 7,
-
-      wins: 105,
-
-      podiums: 202,
-
-      nationality: 'United Kingdom',
-
-      age: 40
-
-    },
-
-    'Fernando Alonso': {
-
-      championships: 2,
-
-      wins: 32,
-
-      podiums: 106,
-
-      nationality: 'Spain',
-
-      age: 43
-
-    },
-
-    'Carlos Sainz': {
-
-      championships: 0,
-
-      wins: 4,
-
-      podiums: 27,
-
-      nationality: 'Spain',
-
-      age: 30
-
-    },
-
-    'Sergio Perez': {
-
-      championships: 0,
-
-      wins: 6,
-
-      podiums: 39,
-
-      nationality: 'Mexico',
-
-      age: 35
-
+    const stats = {
+      driver: "Max Verstappen",
+      wins: 56,
+      podiums: 98,
+      points: 575,
+      championships: 3
     }
 
-  }
+    setCurrent(stats)
 
-  const current = stats[driver]
+  }, [])
 
   return (
 
     <div className="stats-panel">
 
-      <h2>
-        📊 Driver Statistics
-      </h2>
+      <h2>📊 Driver Stats</h2>
 
       <p>
-        🏆 Championships:
-        {' '}
-        {current.championships}
+        Driver: {current?.driver || "Loading..."}
       </p>
 
       <p>
-        🥇 Wins:
-        {' '}
-        {current.wins}
+        Wins: {current?.wins || 0}
       </p>
 
       <p>
-        🥈 Podiums:
-        {' '}
-        {current.podiums}
+        Podiums: {current?.podiums || 0}
       </p>
 
       <p>
-        🌍 Nationality:
-        {' '}
-        {current.nationality}
+        Points: {current?.points || 0}
       </p>
 
       <p>
-        🎂 Age:
-        {' '}
-        {current.age}
+        Championships: {current?.championships || 0}
       </p>
 
     </div>
