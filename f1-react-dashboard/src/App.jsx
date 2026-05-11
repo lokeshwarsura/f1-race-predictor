@@ -99,8 +99,6 @@ function App() {
 
     setLoading(true)
 
-    setCurrentLap(1)
-
     setTimeout(() => {
 
       const randomProbability =
