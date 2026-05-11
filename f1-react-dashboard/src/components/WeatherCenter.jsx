@@ -1,4 +1,4 @@
-function WeatherPanel() {
+function WeatherCenter() {
 
   return (
 
@@ -38,4 +38,4 @@ function WeatherPanel() {
 
 }
 
-export default WeatherPanel
+export default WeatherCenter
