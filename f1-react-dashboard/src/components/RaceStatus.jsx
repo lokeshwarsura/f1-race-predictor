@@ -1,35 +1,48 @@
-function RaceStatus() {
+function RaceStatus({ probability }) {
+
+  const laps =
+    45 + Math.floor(probability / 10)
+
+  const tireWear =
+    20 + Math.floor(probability / 2)
+
+  const pitStops =
+    probability > 80 ? 1 : 2
 
   return (
 
-    <div className="race-status-panel">
+    <div className="card">
 
-      <h2>
+      <h2
+        style={{
+
+          color: 'cyan',
+
+          marginBottom: '20px'
+
+        }}
+      >
         🏁 Race Status
       </h2>
 
-      <p>
-        Session:
-        {' '}
-        Race
+      <p className="stats-text">
+        Current Lap: {laps}/58
       </p>
 
-      <p>
-        Circuit:
-        {' '}
-        Monaco
+      <p className="stats-text">
+        Tire Wear: {tireWear}%
       </p>
 
-      <p>
-        Weather:
-        {' '}
-        Clear
+      <p className="stats-text">
+        Pit Stops: {pitStops}
       </p>
 
-      <p>
-        Track Temp:
-        {' '}
-        34°C
+      <p className="stats-text">
+        DRS: Enabled
+      </p>
+
+      <p className="stats-text">
+        Track Status: Green Flag 🟢
       </p>
 
     </div>

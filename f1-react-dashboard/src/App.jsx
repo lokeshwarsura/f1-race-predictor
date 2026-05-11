@@ -7,6 +7,8 @@ import ProbabilityBar from './components/ProbabilityBar'
 import StatsPanel from './components/StatsPanel'
 import Leaderboard from './components/Leaderboard'
 import WeatherCenter from './components/WeatherCenter'
+import LiveTelemetry from './components/LiveTelemetry'
+import RaceStatus from './components/RaceStatus'
 
 function App() {
 
@@ -130,9 +132,7 @@ function App() {
 
           }}
         >
-
           Team: {team}
-
         </h3>
 
       </div>
@@ -164,6 +164,10 @@ function App() {
         <Leaderboard probability={probability} />
 
         <WeatherCenter />
+
+        <LiveTelemetry probability={probability} />
+
+        <RaceStatus probability={probability} />
 
       </div>
 

@@ -1,145 +1,107 @@
-import {
+function LiveTelemetry({ probability }) {
 
-  useEffect,
+  const speed =
+    280 + Math.floor(probability)
 
-  useState
+  const rpm =
+    11000 + Math.floor(probability * 50)
 
-} from 'react'
-
-import TelemetryChart from './TelemetryChart'
-
-function LiveTelemetry() {
-
-  const [telemetry,
-
-    setTelemetry] = useState(null)
-
-  const [telemetryHistory,
-
-    setTelemetryHistory] = useState([])
-
-  async function fetchTelemetry() {
-
-    try {
-
-      const response = await fetch(
-
-        'http://https://f1-backend-kwlj.onrender.com/live_driver_data'
-
-      )
-
-      const data = await response.json()
-
-      setTelemetry(data)
-
-      setTelemetryHistory((prev) => [
-
-        ...prev.slice(-9),
-
-        {
-
-          time:
-
-            new Date()
-
-            .toLocaleTimeString(),
-
-          speed:
-
-            data.speed
-
-        }
-
-      ])
-
-    }
-
-    catch(error) {
-
-      console.log(error)
-
-    }
-
-  }
-
-  useEffect(() => {
-
-    fetchTelemetry()
-
-    const interval = setInterval(
-
-      fetchTelemetry,
-
-      5000
-
-    )
-
-    return () => clearInterval(interval)
-
-  }, [])
-
-  if (!telemetry) {
-
-    return (
-
-      <div>
-
-        Loading telemetry...
-
-      </div>
-
-    )
-
-  }
+  const gear =
+    Math.floor(probability / 15)
 
   return (
 
-    <div className="telemetry-panel">
+    <div className="card">
 
-      <h2>
-        📡 Live Telemetry
+      <h2
+        style={{
+
+          color: 'lime',
+
+          marginBottom: '20px'
+
+        }}
+      >
+        ⚡ Live Telemetry
       </h2>
 
-      <p>
-        🏎️ Driver:
-        {' '}
-        {telemetry.driver}
-      </p>
+      <h1
+        style={{
 
-      <p>
-        ⏱️ Lap Time:
-        {' '}
-        {telemetry.lap_time}
-      </p>
+          fontSize: '60px',
 
-      <p>
-        📍 Position:
-        {' '}
-        {telemetry.position}
-      </p>
+          color: 'white',
 
-      <p>
-        🚦 Track Status:
-        {' '}
-        {telemetry.track_status}
-      </p>
+          marginBottom: '10px'
 
-      <p>
-        ⚡ Speed:
-        {' '}
-        {telemetry.speed}
+        }}
+      >
+        {speed}
+      </h1>
+
+      <p
+        style={{
+
+          color: 'lime',
+
+          fontSize: '22px'
+
+        }}
+      >
         km/h
       </p>
 
-      <TelemetryChart
+      <div
+        style={{
 
-        telemetryHistory={
+          width: '100%',
 
-          telemetryHistory
+          height: '20px',
 
-        }
+          background: '#222',
 
-      />
+          borderRadius: '20px',
+
+          overflow: 'hidden',
+
+          marginTop: '20px'
+
+        }}
+      >
+
+        <div
+          style={{
+
+            width: `${speed / 4}%`,
+
+            height: '100%',
+
+            background:
+              'linear-gradient(to right, lime, green)',
+
+            transition: '0.5s'
+
+          }}
+        >
+
+        </div>
+
+      </div>
+
+      <p
+        className="stats-text"
+        style={{
+
+          marginTop: '20px'
+
+        }}
+      >
+        RPM: {rpm}
+      </p>
+
+      <p className="stats-text">
+        Gear: {gear}
+      </p>
 
     </div>
 
