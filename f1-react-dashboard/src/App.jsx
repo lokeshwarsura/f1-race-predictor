@@ -12,6 +12,9 @@ import RaceStatus from './components/RaceStatus'
 import PredictionInsights from './components/PredictionInsights'
 import StrategyPanel from './components/StrategyPanel'
 import DriverComparison from './components/DriverComparison'
+import PredictionChart from './components/PredictionChart'
+import LiveRaceMap from './components/LiveRaceMap'
+import RaceControlCenter from './components/RaceControlCenter'
 
 function App() {
 
@@ -182,6 +185,18 @@ function App() {
         <DriverComparison
           probability={probability}
           driver={driver}
+        />
+
+        <PredictionChart
+          probability={probability}
+        />
+
+        <LiveRaceMap
+          probability={probability}
+        />
+
+        <RaceControlCenter
+          probability={probability}
         />
 
       </div>

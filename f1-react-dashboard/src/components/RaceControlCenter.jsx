@@ -1,102 +1,85 @@
-import {
+function RaceControlCenter({ probability }) {
 
-  useEffect,
+  let raceMessage = ''
 
-  useState
+  if (probability >= 90) {
 
-} from 'react'
-
-function RaceControlCenter() {
-
-  const [raceData,
-
-    setRaceData] = useState(null)
-
-  async function fetchRaceControl() {
-
-    try {
-
-      const response = await fetch(
-
-        'http://https://f1-backend-kwlj.onrender.com/race_control'
-
-      )
-
-      const data = await response.json()
-
-      setRaceData(data)
-
-    }
-
-    catch(error) {
-
-      console.log(error)
-
-    }
+    raceMessage =
+      'Push mode enabled. Driver is dominating the race.'
 
   }
 
-  useEffect(() => {
+  else if (probability >= 75) {
 
-    fetchRaceControl()
+    raceMessage =
+      'Maintain current pace and monitor tire wear.'
 
-    const interval = setInterval(
+  }
 
-      fetchRaceControl,
+  else {
 
-      5000
-
-    )
-
-    return () => clearInterval(interval)
-
-  }, [])
-
-  if (!raceData) {
-
-    return (
-
-      <div>
-
-        Loading race control...
-
-      </div>
-
-    )
+    raceMessage =
+      'Consider alternative pit strategy and energy saving.'
 
   }
 
   return (
 
-    <div className="race-control-panel">
+    <div className="card">
 
-      <h2>
-        🚦 Race Control Center
+      <h2
+        style={{
+
+          color: 'red',
+
+          marginBottom: '20px'
+
+        }}
+      >
+        🎛️ Race Control Center
       </h2>
 
-      <p>
-        🏁 Flag Status:
-        {' '}
-        {raceData.flag}
+      <p
+        style={{
+
+          color: 'white',
+
+          fontSize: '18px',
+
+          lineHeight: '1.8'
+
+        }}
+      >
+        {raceMessage}
       </p>
 
-      <p>
-        ⚡ DRS:
-        {' '}
-        {raceData.drs}
-      </p>
+      <div
+        style={{
 
-      <p>
-        🚗 Safety Car:
-        {' '}
-        {raceData.safety_car}
-      </p>
+          marginTop: '20px',
 
-      <p>
-        📍 Current Lap:
-        {' '}
-        {raceData.lap}
-      </p>
+          display: 'flex',
+
+          flexDirection: 'column',
+
+          gap: '10px'
+
+        }}
+      >
+
+        <button className="predict-btn">
+          Radio Check
+        </button>
+
+        <button className="predict-btn">
+          Deploy ERS
+        </button>
+
+        <button className="predict-btn">
+          Box This Lap
+        </button>
+
+      </div>
 
     </div>
 

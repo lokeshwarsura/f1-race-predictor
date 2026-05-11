@@ -1,30 +1,105 @@
-import React from "react"
+function PredictionChart({ probability }) {
 
-function PredictionChart() {
+  const laps = [
 
-  const leaderboardData = [
-    { driver: "Max Verstappen", probability: 95 },
-    { driver: "Lewis Hamilton", probability: 80 },
-    { driver: "Fernando Alonso", probability: 72 }
+    58,
+    62,
+    66,
+    71,
+    74,
+    probability
+
   ]
 
   return (
 
-    <div className="panel">
+    <div className="card">
 
-      <h2>📈 Prediction Chart</h2>
+      <h2
+        style={{
 
-      {(leaderboardData || []).map((item, index) => (
+          color: 'lime',
 
-        <div key={index}>
+          marginBottom: '20px'
 
-          <p>
-            {item.driver}: {item.probability}%
-          </p>
+        }}
+      >
+        📈 Prediction Trend
+      </h2>
 
-        </div>
+      <div
+        style={{
 
-      ))}
+          display: 'flex',
+
+          alignItems: 'flex-end',
+
+          justifyContent: 'space-between',
+
+          height: '220px',
+
+          marginTop: '20px'
+
+        }}
+      >
+
+        {
+
+          laps.map((lap, index) => (
+
+            <div
+              key={index}
+              style={{
+
+                display: 'flex',
+
+                flexDirection: 'column',
+
+                alignItems: 'center'
+
+              }}
+            >
+
+              <div
+                style={{
+
+                  width: '35px',
+
+                  height: `${lap * 1.5}px`,
+
+                  background:
+                    'linear-gradient(to top, cyan, blue)',
+
+                  borderRadius: '10px',
+
+                  marginBottom: '10px',
+
+                  transition: '0.5s'
+
+                }}
+              >
+
+              </div>
+
+              <p
+                style={{
+
+                  color: 'white',
+
+                  fontSize: '14px'
+
+                }}
+              >
+                L{index + 1}
+              </p>
+
+            </div>
+
+          ))
+
+        }
+
+      </div>
 
     </div>
 

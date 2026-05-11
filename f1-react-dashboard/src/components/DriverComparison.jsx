@@ -1,6 +1,6 @@
 function DriverComparison({ driver, probability }) {
 
-  const rival = 'Charles Leclerc'
+  const rival = 'Lewis Hamilton'
 
   const rivalProbability =
     Math.max(probability - 12, 45)
