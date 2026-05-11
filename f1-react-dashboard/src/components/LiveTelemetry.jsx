@@ -5,34 +5,40 @@ function LiveTelemetry({ currentLap }) {
   const totalLaps = 58
 
   const [speed, setSpeed] =
-    useState(120)
+    useState(145)
 
   const [targetSpeed, setTargetSpeed] =
-    useState(120)
+    useState(145)
 
   const [rpm, setRpm] =
-    useState(8000)
+    useState(8200)
 
   const [gear, setGear] =
-    useState(1)
+    useState(3)
 
   const [ersBattery, setErsBattery] =
-    useState(80)
+    useState(78)
 
   const [engineTemp, setEngineTemp] =
-    useState(98)
+    useState(97)
 
   const [throttle, setThrottle] =
-    useState(40)
+    useState(55)
 
   const [brakePressure, setBrakePressure] =
-    useState(10)
+    useState(18)
 
   const [turboEfficiency, setTurboEfficiency] =
     useState(92)
 
   const [trackSection, setTrackSection] =
-    useState('CORNER')
+    useState('MID CORNER')
+
+  const [drsStatus, setDrsStatus] =
+    useState('DISABLED')
+
+  const [fuelLoad, setFuelLoad] =
+    useState(100)
 
   useEffect(() => {
 
@@ -47,98 +53,115 @@ function LiveTelemetry({ currentLap }) {
       const randomTrack =
         Math.random()
 
-      let nextGear = 1
+      let nextGear = 3
 
-      let nextTargetSpeed = 120
+      let nextTargetSpeed = 150
 
-      let nextThrottle = 40
+      let nextThrottle = 55
 
       let nextBrake = 10
 
-      let nextRPM = 8500
+      let nextRPM = 9000
 
-      if (randomTrack > 0.6) {
+      let nextDRS = 'DISABLED'
 
-        setTrackSection('STRAIGHT')
+      if (randomTrack > 0.72) {
 
-        nextGear =
-          6 + Math.floor(Math.random() * 3)
+        setTrackSection('MAIN STRAIGHT')
 
-        if (nextGear === 6) {
+        nextGear = 8
 
-          nextTargetSpeed =
-            250 + Math.floor(Math.random() * 15)
-
-        }
-
-        else if (nextGear === 7) {
-
-          nextTargetSpeed =
-            285 + Math.floor(Math.random() * 20)
-
-        }
-
-        else {
-
-          nextTargetSpeed =
-            320 + Math.floor(Math.random() * 15)
-
-        }
+        nextTargetSpeed =
+          318 +
+          Math.floor(Math.random() * 14)
 
         nextThrottle =
-          92 + Math.floor(Math.random() * 8)
+          98 +
+          Math.floor(Math.random() * 3)
 
         nextBrake =
-          Math.floor(Math.random() * 6)
+          Math.floor(Math.random() * 3)
 
         nextRPM =
-          11000 + Math.floor(Math.random() * 2000)
+          11800 +
+          Math.floor(Math.random() * 900)
+
+        nextDRS = 'ENABLED'
+
+      }
+
+      else if (randomTrack > 0.45) {
+
+        setTrackSection('HIGH SPEED')
+
+        nextGear =
+          6 + Math.floor(Math.random() * 2)
+
+        nextTargetSpeed =
+          245 +
+          Math.floor(Math.random() * 35)
+
+        nextThrottle =
+          78 +
+          Math.floor(Math.random() * 18)
+
+        nextBrake =
+          8 +
+          Math.floor(Math.random() * 15)
+
+        nextRPM =
+          10200 +
+          Math.floor(Math.random() * 1400)
+
+      }
+
+      else if (randomTrack > 0.2) {
+
+        setTrackSection('MID CORNER')
+
+        nextGear =
+          4 + Math.floor(Math.random() * 2)
+
+        nextTargetSpeed =
+          165 +
+          Math.floor(Math.random() * 35)
+
+        nextThrottle =
+          45 +
+          Math.floor(Math.random() * 20)
+
+        nextBrake =
+          28 +
+          Math.floor(Math.random() * 20)
+
+        nextRPM =
+          8200 +
+          Math.floor(Math.random() * 1400)
 
       }
 
       else {
 
-        setTrackSection('CORNER')
+        setTrackSection('HAIRPIN')
 
         nextGear =
-          2 + Math.floor(Math.random() * 4)
+          2 + Math.floor(Math.random() * 2)
 
-        if (nextGear === 2) {
-
-          nextTargetSpeed =
-            95 + Math.floor(Math.random() * 20)
-
-        }
-
-        else if (nextGear === 3) {
-
-          nextTargetSpeed =
-            130 + Math.floor(Math.random() * 20)
-
-        }
-
-        else if (nextGear === 4) {
-
-          nextTargetSpeed =
-            170 + Math.floor(Math.random() * 20)
-
-        }
-
-        else {
-
-          nextTargetSpeed =
-            210 + Math.floor(Math.random() * 20)
-
-        }
+        nextTargetSpeed =
+          82 +
+          Math.floor(Math.random() * 35)
 
         nextThrottle =
-          25 + Math.floor(Math.random() * 40)
+          15 +
+          Math.floor(Math.random() * 20)
 
         nextBrake =
-          50 + Math.floor(Math.random() * 40)
+          72 +
+          Math.floor(Math.random() * 20)
 
         nextRPM =
-          7000 + Math.floor(Math.random() * 2500)
+          6200 +
+          Math.floor(Math.random() * 1200)
 
       }
 
@@ -152,39 +175,53 @@ function LiveTelemetry({ currentLap }) {
 
       setRpm(nextRPM)
 
+      setDrsStatus(nextDRS)
+
       setEngineTemp(
 
-        95 +
-        Math.floor(Math.random() * 12)
+        96 +
+        Math.floor(Math.random() * 11)
 
       )
 
       setTurboEfficiency(
 
-        88 +
-        Math.floor(Math.random() * 10)
+        89 +
+        Math.floor(Math.random() * 8)
+
+      )
+
+      setFuelLoad((prev) =>
+
+        Math.max(prev - 0.7, 5)
 
       )
 
       setErsBattery((prev) => {
 
-        if (randomTrack > 0.6) {
+        if (nextDRS === 'ENABLED') {
 
           return Math.max(
-            prev - 3,
-            10
+            prev - 4,
+            8
           )
 
         }
 
-        return Math.min(
-          prev + 2,
-          100
-        )
+        if (nextBrake > 40) {
+
+          return Math.min(
+            prev + 3,
+            100
+          )
+
+        }
+
+        return prev
 
       })
 
-    }, 4000)
+    }, 3500)
 
     return () => clearInterval(simulation)
 
@@ -205,7 +242,7 @@ function LiveTelemetry({ currentLap }) {
         if (prev < targetSpeed) {
 
           return Math.min(
-            prev + 4,
+            prev + 3,
             targetSpeed
           )
 
@@ -214,7 +251,7 @@ function LiveTelemetry({ currentLap }) {
         else if (prev > targetSpeed) {
 
           return Math.max(
-            prev - 5,
+            prev - 4,
             targetSpeed
           )
 
@@ -224,7 +261,7 @@ function LiveTelemetry({ currentLap }) {
 
       })
 
-    }, 120)
+    }, 80)
 
     return () => clearInterval(smoothSpeed)
 
@@ -239,17 +276,31 @@ function LiveTelemetry({ currentLap }) {
 
   }
 
-  else if (trackSection === 'STRAIGHT') {
+  else if (trackSection === 'MAIN STRAIGHT') {
 
     engineStatus =
-      '🚀 Maximum acceleration zone.'
+      '🚀 DRS active. Maximum deployment.'
+
+  }
+
+  else if (trackSection === 'HIGH SPEED') {
+
+    engineStatus =
+      '⚡ High-speed aerodynamic section.'
+
+  }
+
+  else if (trackSection === 'MID CORNER') {
+
+    engineStatus =
+      '🛞 Balanced corner rotation.'
 
   }
 
   else {
 
     engineStatus =
-      '🛞 Controlled corner braking.'
+      '🔻 Heavy braking for hairpin.'
 
   }
 
@@ -272,11 +323,13 @@ function LiveTelemetry({ currentLap }) {
       <h1
         style={{
 
-          fontSize: '72px',
+          fontSize: '78px',
 
-          margin: '10px 0',
+          margin: '5px 0',
 
-          color: 'white'
+          color: 'white',
+
+          lineHeight: '1'
 
         }}
       >
@@ -288,7 +341,9 @@ function LiveTelemetry({ currentLap }) {
 
           color: 'lime',
 
-          fontSize: '24px'
+          fontSize: '24px',
+
+          marginBottom: '15px'
 
         }}
       >
@@ -300,15 +355,13 @@ function LiveTelemetry({ currentLap }) {
 
           width: '100%',
 
-          height: '20px',
+          height: '18px',
 
           background: '#222',
 
           borderRadius: '20px',
 
-          overflow: 'hidden',
-
-          marginTop: '20px'
+          overflow: 'hidden'
 
         }}
       >
@@ -316,7 +369,7 @@ function LiveTelemetry({ currentLap }) {
         <div
           style={{
 
-            width: `${speed / 3.5}%`,
+            width: `${speed / 3.4}%`,
 
             height: '100%',
 
@@ -332,44 +385,51 @@ function LiveTelemetry({ currentLap }) {
 
       </div>
 
-      <p
-        className="stats-text"
+      <div
         style={{
           marginTop: '20px'
         }}
       >
-        RPM:
-        {' '}
-        {rpm}
-      </p>
 
-      <p className="stats-text">
-        Gear:
-        {' '}
-        {gear}
-      </p>
+        <p className="stats-text">
+          RPM: {rpm}
+        </p>
 
-      <p className="stats-text">
-        Track Section:
-        {' '}
-        {trackSection}
-      </p>
+        <p className="stats-text">
+          Gear: {gear}
+        </p>
 
-      <p className="stats-text">
-        Engine Temp:
-        {' '}
-        {engineTemp}°C
-      </p>
+        <p className="stats-text">
+          Track Section: {trackSection}
+        </p>
 
-      <p className="stats-text">
-        Turbo Efficiency:
-        {' '}
-        {turboEfficiency}%
-      </p>
+        <p className="stats-text">
+          DRS: {drsStatus}
+        </p>
+
+        <p className="stats-text">
+          Fuel Load:
+          {' '}
+          {fuelLoad.toFixed(0)}%
+        </p>
+
+        <p className="stats-text">
+          Engine Temp:
+          {' '}
+          {engineTemp}°C
+        </p>
+
+        <p className="stats-text">
+          Turbo Efficiency:
+          {' '}
+          {turboEfficiency}%
+        </p>
+
+      </div>
 
       <div
         style={{
-          marginTop: '20px'
+          marginTop: '18px'
         }}
       >
 
@@ -384,7 +444,7 @@ function LiveTelemetry({ currentLap }) {
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -418,7 +478,7 @@ function LiveTelemetry({ currentLap }) {
 
       <div
         style={{
-          marginTop: '20px'
+          marginTop: '18px'
         }}
       >
 
@@ -433,7 +493,7 @@ function LiveTelemetry({ currentLap }) {
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -467,7 +527,7 @@ function LiveTelemetry({ currentLap }) {
 
       <div
         style={{
-          marginTop: '20px'
+          marginTop: '18px'
         }}
       >
 
@@ -480,19 +540,35 @@ function LiveTelemetry({ currentLap }) {
         <div
           style={{
 
-            width: `${brakePressure}%`,
+            width: '100%',
 
-            height: '18px',
+            height: '16px',
 
-            background:
-              'linear-gradient(to right, red, orange)',
+            background: '#222',
 
             borderRadius: '20px',
 
-            transition: '1s linear'
+            overflow: 'hidden'
 
           }}
         >
+
+          <div
+            style={{
+
+              width: `${brakePressure}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, red, orange)',
+
+              transition: '1s linear'
+
+            }}
+          >
+
+          </div>
 
         </div>
 
