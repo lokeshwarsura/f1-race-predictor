@@ -1,124 +1,68 @@
-import {
+function StrategyPanel({ probability }) {
 
-  useEffect,
+  let tire = ''
 
-  useState
+  let strategy = ''
 
-} from 'react'
+  if (probability >= 90) {
 
-function StrategyPanel() {
+    tire = 'Soft 🟥'
 
-  const [strategy,
-
-    setStrategy] = useState({})
-
-  function generateStrategy() {
-
-    const tireWear = Math.floor(
-
-      Math.random() * 100
-
-    )
-
-    const fuelLoad = Math.floor(
-
-      Math.random() * 100
-
-    )
-
-    let recommendation = ''
-
-    if (tireWear > 75) {
-
-      recommendation =
-
-        '🔴 PIT NOW'
-
-    }
-
-    else if (fuelLoad < 25) {
-
-      recommendation =
-
-        '⛽ Fuel Saving Mode'
-
-    }
-
-    else if (tireWear > 50) {
-
-      recommendation =
-
-        '🟡 Prepare Pit Window'
-
-    }
-
-    else {
-
-      recommendation =
-
-        '🟢 Push Current Stint'
-
-    }
-
-    setStrategy({
-
-      tireWear,
-
-      fuelLoad,
-
-      recommendation
-
-    })
+    strategy = 'Aggressive Push Strategy'
 
   }
 
-  useEffect(() => {
+  else if (probability >= 75) {
 
-    generateStrategy()
+    tire = 'Medium 🟨'
 
-    const interval = setInterval(
+    strategy = 'Balanced Race Strategy'
 
-      generateStrategy,
+  }
 
-      5000
+  else {
 
-    )
+    tire = 'Hard ⬜'
 
-    return () => clearInterval(
+    strategy = 'Long Stint Defensive Strategy'
 
-      interval
-
-    )
-
-  }, [])
+  }
 
   return (
 
-    <div className="strategy-panel">
+    <div className="card">
 
-      <h2>
-        🧠 AI Race Strategy
+      <h2
+        style={{
+
+          color: 'cyan',
+
+          marginBottom: '20px'
+
+        }}
+      >
+        🛠️ Strategy Panel
       </h2>
 
-      <p>
-        🛞 Tire Wear:
-        {' '}
-        {strategy.tireWear}%
+      <p className="stats-text">
+        Recommended Tire: {tire}
       </p>
 
-      <p>
-        ⛽ Fuel Load:
-        {' '}
-        {strategy.fuelLoad}%
+      <p className="stats-text">
+        Strategy: {strategy}
       </p>
 
-      <h3>
-        {
+      <p className="stats-text">
+        Pit Window: Lap 38 - 42
+      </p>
 
-          strategy.recommendation
+      <p className="stats-text">
+        Fuel Saving: Minimal
+      </p>
 
-        }
-      </h3>
+      <p className="stats-text">
+        ERS Deployment: High
+      </p>
 
     </div>
 

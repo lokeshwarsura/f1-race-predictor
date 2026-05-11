@@ -1,26 +1,57 @@
-import React from "react"
+function PredictionInsights({ probability, driver }) {
 
-function PredictionInsights() {
+  let insight = ''
 
-  const insights = [
-    "Max Verstappen has strong pace advantage",
-    "Mercedes showing tire degradation",
-    "Ferrari improving sector timings"
-  ]
+  if (probability >= 90) {
+
+    insight =
+      `${driver} is dominating the race with excellent pace and tire management.`
+
+  }
+
+  else if (probability >= 75) {
+
+    insight =
+      `${driver} has a strong chance of winning if strategy execution stays clean.`
+
+  }
+
+  else {
+
+    insight =
+      `${driver} needs a stronger final stint and pit strategy to secure victory.`
+
+  }
 
   return (
 
-    <div className="panel">
+    <div className="card">
 
-      <h2>💡 Prediction Insights</h2>
+      <h2
+        style={{
 
-      {(insights || []).map((item, index) => (
+          color: 'violet',
 
-        <p key={index}>
-          {item}
-        </p>
+          marginBottom: '20px'
 
-      ))}
+        }}
+      >
+        🧠 Prediction Insights
+      </h2>
+
+      <p
+        style={{
+
+          color: 'white',
+
+          lineHeight: '1.8',
+
+          fontSize: '18px'
+
+        }}
+      >
+        {insight}
+      </p>
 
     </div>
 

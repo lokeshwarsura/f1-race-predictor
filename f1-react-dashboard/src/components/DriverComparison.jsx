@@ -1,136 +1,106 @@
-import {
+function DriverComparison({ driver, probability }) {
 
-  useEffect,
+  const rival = 'Charles Leclerc'
 
-  useState
-
-} from 'react'
-
-function DriverComparison() {
-
-  const [comparison,
-
-    setComparison] = useState(null)
-
-  async function fetchComparison() {
-
-    try {
-
-      const response = await fetch(
-
-        'https://f1-backend-kwlj.onrender.com/compare_drivers'
-
-      )
-
-      const data = await response.json()
-
-      setComparison(data)
-
-    }
-
-    catch(error) {
-
-      console.log(error)
-
-    }
-
-  }
-
-  useEffect(() => {
-
-    fetchComparison()
-
-    const interval = setInterval(
-
-      fetchComparison,
-
-      5000
-
-    )
-
-    return () => clearInterval(interval)
-
-  }, [])
-
-  if (!comparison) {
-
-    return (
-
-      <div>
-
-        Loading comparison...
-
-      </div>
-
-    )
-
-  }
+  const rivalProbability =
+    Math.max(probability - 12, 45)
 
   return (
 
-    <div className="comparison-panel">
+    <div className="card">
 
-      <h2>
+      <h2
+        style={{
+
+          color: 'gold',
+
+          marginBottom: '20px'
+
+        }}
+      >
         ⚔️ Driver Comparison
       </h2>
 
-      <div>
+      <div
+        style={{
 
-        <h3>
-          Lewis Hamilton
-        </h3>
+          display: 'flex',
 
-        <p>
-          ⏱️ Lap:
-          {' '}
-          {
+          justifyContent: 'space-between',
 
-            comparison.hamilton.lap_time
+          alignItems: 'center',
 
-          }
-        </p>
+          marginBottom: '20px'
 
-        <p>
-          ⚡ Speed:
-          {' '}
-          {
+        }}
+      >
 
-            comparison.hamilton.speed
+        <div>
 
-          }
-          km/h
-        </p>
+          <h3
+            style={{
+              color: 'white'
+            }}
+          >
+            {driver}
+          </h3>
+
+          <p className="stats-text">
+            Win Chance: {probability}%
+          </p>
+
+        </div>
+
+        <div>
+
+          <h3
+            style={{
+              color: 'white'
+            }}
+          >
+            {rival}
+          </h3>
+
+          <p className="stats-text">
+            Win Chance: {rivalProbability}%
+          </p>
+
+        </div>
 
       </div>
 
-      <hr />
+      <div
+        style={{
 
-      <div>
+          width: '100%',
 
-        <h3>
-          Max Verstappen
-        </h3>
+          height: '20px',
 
-        <p>
-          ⏱️ Lap:
-          {' '}
-          {
+          background: '#222',
 
-            comparison.verstappen.lap_time
+          borderRadius: '20px',
 
-          }
-        </p>
+          overflow: 'hidden'
 
-        <p>
-          ⚡ Speed:
-          {' '}
-          {
+        }}
+      >
 
-            comparison.verstappen.speed
+        <div
+          style={{
 
-          }
-          km/h
-        </p>
+            width: `${probability}%`,
+
+            height: '100%',
+
+            background:
+              'linear-gradient(to right, gold, orange)',
+
+            transition: '0.5s'
+
+          }}
+        >
+
+        </div>
 
       </div>
 

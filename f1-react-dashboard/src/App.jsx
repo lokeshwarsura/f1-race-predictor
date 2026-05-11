@@ -9,6 +9,9 @@ import Leaderboard from './components/Leaderboard'
 import WeatherCenter from './components/WeatherCenter'
 import LiveTelemetry from './components/LiveTelemetry'
 import RaceStatus from './components/RaceStatus'
+import PredictionInsights from './components/PredictionInsights'
+import StrategyPanel from './components/StrategyPanel'
+import DriverComparison from './components/DriverComparison'
 
 function App() {
 
@@ -168,6 +171,18 @@ function App() {
         <LiveTelemetry probability={probability} />
 
         <RaceStatus probability={probability} />
+
+        <PredictionInsights
+          probability={probability}
+          driver={driver}
+        />
+
+        <StrategyPanel probability={probability} />
+
+        <DriverComparison
+          probability={probability}
+          driver={driver}
+        />
 
       </div>
 
