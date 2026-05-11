@@ -4,89 +4,77 @@ body {
 
   padding: 0;
 
-  background: black;
+  background: #050505;
 
   font-family: Arial, sans-serif;
 
-  overflow-x: hidden;
+  color: white;
 
 }
 
 .app {
 
-  min-height: 100vh;
-
   text-align: center;
 
   padding: 30px;
-
-  background:
-
-    radial-gradient(circle at top, #111, #000);
 
 }
 
 .title {
 
-  color: white;
+  font-size: 65px;
 
-  font-size: 60px;
+  color: red;
+
+  text-shadow: 0 0 20px red;
 
   margin-bottom: 30px;
-
-  text-shadow:
-
-    0 0 20px red,
-
-    0 0 40px crimson;
 
 }
 
 .dropdown {
 
-  padding: 12px;
-
-  margin: 10px;
-
-  font-size: 18px;
+  padding: 14px 20px;
 
   border-radius: 12px;
 
-  background:
+  border: none;
 
-    rgba(255,255,255,0.08);
+  background: #111;
 
   color: white;
 
-  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 18px;
 
-  backdrop-filter: blur(8px);
+  outline: none;
+
+  border: 1px solid #333;
 
 }
 
 .predict-btn {
 
-  padding: 15px 35px;
+  margin-top: 25px;
 
-  font-size: 22px;
+  padding: 15px 30px;
 
   border: none;
 
-  border-radius: 14px;
+  border-radius: 12px;
 
-  cursor: pointer;
+  background: red;
 
   color: white;
 
-  background:
+  font-size: 18px;
 
-    linear-gradient(to right, red, darkred);
+  font-weight: bold;
 
-  box-shadow:
-
-    0 0 20px red;
+  cursor: pointer;
 
   transition: 0.3s;
+
+  box-shadow: 0 0 20px red;
 
 }
 
@@ -98,51 +86,45 @@ body {
 
 .probability {
 
-  color: yellow;
-
-  font-size: 44px;
-
   margin-top: 30px;
 
-  text-shadow:
+  font-size: 45px;
 
-    0 0 15px yellow;
+  color: yellow;
+
+  text-shadow: 0 0 15px yellow;
 
 }
 
 .cards-container {
 
-  display: flex;
+  display: grid;
 
-  flex-wrap: wrap;
-
-  justify-content: center;
+  grid-template-columns:
+    repeat(auto-fit, minmax(420px, 1fr));
 
   gap: 25px;
 
   margin-top: 40px;
 
+  align-items: start;
+
 }
 
 .card {
 
-  width: 340px;
+  background:
+    rgba(255,255,255,0.05);
 
-  padding: 25px;
+  border:
+    1px solid rgba(255,255,255,0.08);
 
   border-radius: 24px;
 
-  background:
+  padding: 24px;
 
-    rgba(255,255,255,0.06);
-
-  backdrop-filter: blur(12px);
-
-  border:
-
-    1px solid rgba(255,255,255,0.12);
-
-  color: white;
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.05);
 
   transition: 0.3s;
 
@@ -150,19 +132,20 @@ body {
 
 .card:hover {
 
-  transform: translateY(-8px);
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 0 25px rgba(255,255,255,0.12);
 
 }
 
 .driver-image {
 
-  width: 180px;
+  width: 220px;
 
-  height: 180px;
+  height: auto;
 
-  object-fit: cover;
-
-  border-radius: 20px;
+  margin-top: 15px;
 
 }
 
@@ -170,7 +153,7 @@ body {
 
   width: 120px;
 
-  margin-top: 20px;
+  margin-top: 15px;
 
 }
 
@@ -180,31 +163,15 @@ body {
 
   margin: 12px 0;
 
-}
-
-.leaderboard-row {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  margin-top: 12px;
-
-  padding: 12px;
-
-  border-radius: 12px;
-
-  background:
-
-    rgba(255,255,255,0.05);
+  line-height: 1.7;
 
 }
 
-.probability-container {
+.progress-bar {
 
-  width: 420px;
+  width: 100%;
 
-  height: 24px;
+  height: 22px;
 
   background: #222;
 
@@ -212,20 +179,76 @@ body {
 
   overflow: hidden;
 
-  margin: auto;
-
-  margin-top: 20px;
+  margin-top: 15px;
 
 }
 
-.probability-fill {
+.progress-fill {
 
   height: 100%;
 
   background:
+    linear-gradient(
+      to right,
+      red,
+      orange,
+      yellow
+    );
 
-    linear-gradient(to right, red, orange);
+  transition: 1s;
 
-  transition: 0.5s;
+}
+
+.mini-card {
+
+  background:
+    rgba(255,255,255,0.04);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  border-radius: 15px;
+
+  padding: 15px;
+
+  text-align: center;
+
+}
+
+.label {
+
+  color: #999;
+
+  font-size: 14px;
+
+  margin-bottom: 10px;
+
+}
+
+button {
+
+  cursor: pointer;
+
+}
+
+@media (max-width: 900px) {
+
+  .title {
+
+    font-size: 42px;
+
+  }
+
+  .probability {
+
+    font-size: 34px;
+
+  }
+
+  .cards-container {
+
+    grid-template-columns: 1fr;
+
+  }
 
 }
