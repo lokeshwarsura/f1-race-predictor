@@ -1,62 +1,25 @@
-import { useEffect, useState } from 'react'
+import React, { useState, useEffect } from "react"
 
 function LiveRaceMap() {
 
-  const [cars, setCars] = useState([
-
-    {
-
-      id: 1,
-
-      name: 'VER',
-
-      left: 10,
-
-      top: 220,
-
-      color: 'red'
-
-    },
-
-    {
-
-      id: 2,
-
-      name: 'HAM',
-
-      left: 60,
-
-      top: 260,
-
-      color: 'cyan'
-
-    }
-
-  ])
+  const [cars, setCars] = useState([])
 
   useEffect(() => {
 
     const interval = setInterval(() => {
 
-      setCars((prev) =>
+      setCars((prev) => {
 
-        prev.map((car) => ({
-
+        const updated = (prev || []).map((car) => ({
           ...car,
-
-          left:
-
-            car.left >= 90
-
-              ? 10
-
-              : car.left + 2
-
+          x: car.x + Math.random() * 10
         }))
 
-      )
+        return updated
 
-    }, 300)
+      })
+
+    }, 2000)
 
     return () => clearInterval(interval)
 
@@ -64,61 +27,21 @@ function LiveRaceMap() {
 
   return (
 
-    <div className="race-map-panel">
+    <div className="panel">
 
-      <h2>
-        🗺️ Live Race Map
-      </h2>
+      <h2>🗺️ Live Race Map</h2>
 
-      <div className="track-container">
+      {(cars || []).map((car, index) => (
 
-        <img
+        <div key={index}>
 
-          src="/images/monaco-track.png"
+          <p>
+            {car.name}
+          </p>
 
-          alt="track"
+        </div>
 
-          className="track-map-image"
-
-        />
-
-        {
-
-          cars.map((car) => (
-
-            <div
-
-              key={car.id}
-
-              className="car-marker"
-
-              style={{
-
-                left: `${car.left}%`,
-
-                top: `${car.top}px`,
-
-                backgroundColor: car.color
-
-              }}
-
-            >
-
-              {car.name}
-
-            </div>
-
-          ))
-
-        }
-
-      </div>
-
-      <p>
-        📍 Current Circuit:
-        {' '}
-        Monaco
-      </p>
+      ))}
 
     </div>
 

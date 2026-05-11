@@ -1,157 +1,30 @@
-import {
-
-  Line
-
-} from 'react-chartjs-2'
-
-import {
-
-  Chart as ChartJS,
-
-  CategoryScale,
-
-  LinearScale,
-
-  PointElement,
-
-  LineElement,
-
-  Title,
-
-  Tooltip,
-
-  Legend
-
-} from 'chart.js'
-
-ChartJS.register(
-
-  CategoryScale,
-
-  LinearScale,
-
-  PointElement,
-
-  LineElement,
-
-  Title,
-
-  Tooltip,
-
-  Legend
-
-)
-
-function PredictionChart({
-
-  leaderboardData
-
-}) {
-
-  const data = {
-
-    labels:
-
-      leaderboardData.map(
-
-        (entry, index) =>
-
-          `Prediction ${index + 1}`
-
-      ),
-
-    datasets: [
-
-      {
-
-        label:
-
-          'Win Probability %',
-
-        data:
-
-          leaderboardData.map(
-
-            (entry) =>
-
-              entry.probability
-
-          ),
-
-        borderColor: 'red',
-
-        backgroundColor:
-
-          'rgba(255,0,0,0.2)',
-
-        tension: 0.4
-
-      }
-
-    ]
-
-  }
-
-  const options = {
-
-    responsive: true,
-
-    plugins: {
-
-      legend: {
-
-        labels: {
-
-          color: 'white'
-
-        }
-
-      }
-
-    },
-
-    scales: {
-
-      x: {
-
-        ticks: {
-
-          color: 'white'
-
-        }
-
-      },
-
-      y: {
-
-        ticks: {
-
-          color: 'white'
-
-        }
-
-      }
-
-    }
-
-  }
+import React from "react"
+
+function PredictionChart() {
+
+  const leaderboardData = [
+    { driver: "Max Verstappen", probability: 95 },
+    { driver: "Lewis Hamilton", probability: 80 },
+    { driver: "Fernando Alonso", probability: 72 }
+  ]
 
   return (
 
-    <div
-      style={{
-        width: '800px',
-        margin: '40px auto'
-      }}
-    >
+    <div className="panel">
 
-      <Line
+      <h2>📈 Prediction Chart</h2>
 
-        data={data}
+      {(leaderboardData || []).map((item, index) => (
 
-        options={options}
+        <div key={index}>
 
-      />
+          <p>
+            {item.driver}: {item.probability}%
+          </p>
+
+        </div>
+
+      ))}
 
     </div>
 

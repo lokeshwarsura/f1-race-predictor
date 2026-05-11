@@ -1,60 +1,26 @@
-import {
-
-  useEffect,
-
-  useState
-
-} from 'react'
+import React from "react"
 
 function PredictionInsights() {
 
-  const [insights,
-
-    setInsights] = useState([])
-
-  useEffect(() => {
-
-    const generatedInsights = [
-
-      '🏎️ Verstappen showing strongest race pace',
-
-      '⚡ Mercedes gaining sector 2 advantage',
-
-      '🟡 Tire degradation increasing rapidly',
-
-      '🚗 Pit stop window opening soon',
-
-      '🌧️ Weather conditions stable'
-
-    ]
-
-    setInsights(
-
-      generatedInsights
-
-    )
-
-  }, [])
+  const insights = [
+    "Max Verstappen has strong pace advantage",
+    "Mercedes showing tire degradation",
+    "Ferrari improving sector timings"
+  ]
 
   return (
 
-    <div className="insights-panel">
+    <div className="panel">
 
-      <h2>
-        🧠 AI Prediction Insights
-      </h2>
+      <h2>💡 Prediction Insights</h2>
 
-      {
+      {(insights || []).map((item, index) => (
 
-        insights.map((item, index) => (
+        <p key={index}>
+          {item}
+        </p>
 
-          <p key={index}>
-            {item}
-          </p>
-
-        ))
-
-      }
+      ))}
 
     </div>
 

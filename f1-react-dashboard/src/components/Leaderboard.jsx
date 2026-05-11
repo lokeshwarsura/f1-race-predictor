@@ -1,59 +1,35 @@
-function Leaderboard({
+import React from "react"
 
-  leaderboardData
+function Leaderboard({ probability }) {
 
-}) {
+  const leaderboardData = [
+    { driver: "Max Verstappen", points: 575 },
+    { driver: "Lewis Hamilton", points: 387 },
+    { driver: "Fernando Alonso", points: 301 },
+    { driver: "Carlos Sainz", points: 275 }
+  ]
 
   return (
 
-    <div>
+    <div className="panel">
 
-      <h2>
-        🏁 Live Leaderboard
-      </h2>
+      <h2>🏆 Leaderboard</h2>
 
-      <table>
+      {(leaderboardData || []).map((item, index) => (
 
-        <thead>
+        <div key={index}>
 
-          <tr>
+          <p>
+            {item.driver} - {item.points} pts
+          </p>
 
-            <th>Position</th>
+        </div>
 
-            <th>Driver</th>
+      ))}
 
-            <th>Win Probability</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          {leaderboardData.map(
-            (entry, index) => (
-
-            <tr key={index}>
-
-              <td>
-                {index + 1}
-              </td>
-
-              <td>
-                {entry.driver}
-              </td>
-
-              <td>
-                {entry.probability}%
-              </td>
-
-            </tr>
-
-          ))}
-
-        </tbody>
-
-      </table>
+      <p>
+        Prediction Accuracy: {probability.toFixed(2)}%
+      </p>
 
     </div>
 
