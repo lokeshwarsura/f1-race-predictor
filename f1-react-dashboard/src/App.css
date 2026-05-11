@@ -2,47 +2,69 @@ body {
 
   margin: 0;
 
-  font-family: Arial;
+  padding: 0;
 
-  background-color: black;
+  background-color: #000;
 
-  color: white;
+  font-family: Arial, sans-serif;
+
+  overflow-x: hidden;
 
 }
 
 .container {
 
-  text-align: center;
+  width: 100%;
 
-  margin-top: 40px;
+  min-height: 100vh;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  color: white;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
 
 }
 
 h1 {
 
-  font-size: 48px;
+  color: red;
 
-  margin-bottom: 30px;
+  font-size: 42px;
+
+  margin-bottom: 25px;
+
+  text-align: center;
 
 }
 
 select {
 
-  width: 250px;
+  width: 240px;
 
   padding: 12px;
 
   margin: 10px;
 
-  font-size: 16px;
+  border-radius: 10px;
 
-  border-radius: 8px;
+  border: none;
+
+  background-color: #1a1a1a;
+
+  color: white;
+
+  font-size: 16px;
 
 }
 
 button {
-
-  padding: 12px 24px;
 
   background-color: red;
 
@@ -50,9 +72,11 @@ button {
 
   border: none;
 
-  font-size: 18px;
+  padding: 14px 28px;
 
-  border-radius: 8px;
+  border-radius: 10px;
+
+  font-size: 18px;
 
   cursor: pointer;
 
@@ -66,53 +90,145 @@ button:hover {
 
 }
 
-h2 {
+.dashboard-grid {
 
-  margin-top: 25px;
+  width: 100%;
 
-  color: yellow;
+  max-width: 1600px;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 30px;
+
+  margin-top: 30px;
+
+  align-items: start;
 
 }
 
-.bar-container {
+.left-panel,
 
-  width: 350px;
+.right-panel {
 
-  height: 30px;
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 25px;
+
+}
+
+.right-panel {
+
+  background-color: #111;
+
+  border: 2px solid red;
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+}
+
+.driver-card,
+
+.telemetry-panel,
+
+.comparison-panel,
+
+.strategy-panel,
+
+.race-control-panel,
+
+.race-status-panel,
+
+.insights-panel,
+
+.race-map-panel,
+
+.chart-panel,
+
+.weather-panel,
+
+.tire-panel,
+
+.sector-panel {
+
+  background-color: #111;
+
+  border-radius: 18px;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+}
+
+.sector-panel {
+
+  border: 2px solid #00ff99;
+
+}
+
+.sector-panel h3 {
+
+  color: #00ff99;
+
+  margin-top: 20px;
+
+}
+
+.tire-panel {
+
+  border: 2px solid orange;
+
+}
+
+.tire-life-bar {
+
+  width: 100%;
+
+  height: 25px;
 
   background-color: #333;
 
-  margin: 20px auto;
-
   border-radius: 20px;
+
+  margin-top: 15px;
 
   overflow: hidden;
 
 }
 
-.bar {
+.tire-life-fill {
 
   height: 100%;
 
-  background-color: red;
+  background-color: orange;
 
-  transition: 0.5s;
+  transition: width 0.5s ease;
 
 }
 
-.card {
+.weather-panel {
 
-  width: 400px;
+  border: 2px solid skyblue;
 
-  margin: 30px auto;
+}
 
-  background-color: #111;
+.weather-panel h2 {
 
-  padding: 25px;
+  color: skyblue;
 
-  border-radius: 20px;
+}
 
-  border: 3px solid red;
+.driver-card {
+
+  border: 2px solid red;
+
+  text-align: center;
 
 }
 
@@ -120,20 +236,240 @@ h2 {
 
   width: 220px;
 
-  border-radius: 15px;
+  height: 260px;
+
+  object-fit: cover;
+
+  border-radius: 18px;
 
 }
 
 .team-logo {
 
-  width: 120px;
+  width: 140px;
+
+  margin-top: 15px;
+
+}
+
+.driver-card h2 {
+
+  color: yellow;
+
+}
+
+.driver-card h3 {
+
+  color: white;
+
+}
+
+.probability-container {
+
+  width: 100%;
+
+  max-width: 500px;
+
+  height: 28px;
+
+  background-color: #333;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+}
+
+.probability-bar {
+
+  height: 100%;
+
+  background-color: red;
+
+  transition: width 0.5s ease;
+
+}
+
+.telemetry-panel {
+
+  border: 2px solid cyan;
+
+}
+
+.chart-panel {
+
+  border: 2px solid cyan;
+
+  width: 100%;
+
+}
+
+.comparison-panel {
+
+  border: 2px solid #555;
+
+}
+
+.strategy-panel {
+
+  border: 2px solid yellow;
+
+  text-align: center;
+
+}
+
+.strategy-panel h3 {
+
+  color: yellow;
+
+  font-size: 24px;
 
   margin-top: 20px;
 
-  background-color: white;
+}
+
+.race-control-panel {
+
+  border: 2px solid lime;
+
+}
+
+.race-status-panel {
+
+  border: 2px solid orange;
+
+}
+
+.insights-panel {
+
+  border: 2px solid violet;
+
+}
+
+.race-map-panel {
+
+  border: 2px solid white;
+
+  text-align: center;
+
+}
+
+.track-container {
+
+  position: relative;
+
+  width: 100%;
+
+  margin-top: 20px;
+
+}
+
+.track-map-image {
+
+  width: 100%;
+
+  max-width: 700px;
+
+  border-radius: 12px;
+
+}
+
+.car-marker {
+
+  position: absolute;
+
+  width: 45px;
+
+  height: 24px;
+
+  border-radius: 12px;
+
+  color: white;
+
+  font-size: 12px;
+
+  font-weight: bold;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transition: left 0.3s linear;
+
+  box-shadow: 0 0 10px white;
+
+}
+
+h2 {
+
+  color: yellow;
+
+  margin-top: 0;
+
+}
+
+p {
+
+  line-height: 1.7;
+
+}
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+}
+
+th {
+
+  background-color: red;
+
+  color: white;
+
+  padding: 12px;
+
+}
+
+td {
+
+  border: 1px solid #333;
 
   padding: 10px;
 
-  border-radius: 10px;
+  text-align: center;
+
+  color: white;
+
+}
+
+@media screen and (max-width: 1100px) {
+
+  .dashboard-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+@media screen and (max-width: 700px) {
+
+  h1 {
+
+    font-size: 30px;
+
+  }
+
+  .driver-image {
+
+    width: 180px;
+
+    height: 220px;
+
+  }
 
 }

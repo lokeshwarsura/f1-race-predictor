@@ -12,22 +12,34 @@ function DriverCard({
 
   return (
 
-    <div className="card">
+    <div className="driver-card">
 
       <img
+
         src={image}
-        alt="driver"
+
+        alt={driver}
+
         className="driver-image"
+
       />
 
-      <h2>{driver}</h2>
+      <h2>
+        {driver}
+      </h2>
 
-      <h3>{team}</h3>
+      <h3>
+        {team}
+      </h3>
 
       <img
+
         src={logo}
-        alt="logo"
+
+        alt={team}
+
         className="team-logo"
+
       />
 
     </div>
