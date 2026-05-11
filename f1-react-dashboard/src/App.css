@@ -1,76 +1,66 @@
+/* App.css */
+
 body {
+
   margin: 0;
+
   padding: 0;
-  background: #000;
-  font-family: Arial, Helvetica, sans-serif;
+
+  background: black;
+
+  font-family: Arial, sans-serif;
+
 }
 
 .app {
+
   min-height: 100vh;
-  background:
-    linear-gradient(
-      to bottom,
-      #000000,
-      #050505,
-      #0a0a0a
-    );
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 
-  padding: 40px;
+  background: black;
+
+  padding: 30px;
+
 }
 
 .title {
 
   color: white;
 
-  font-size: 64px;
+  font-size: 60px;
 
   margin-bottom: 30px;
 
-  text-shadow:
-    0 0 10px red,
-    0 0 20px red;
+  text-shadow: 0 0 20px red;
+
 }
 
 .dropdown {
 
-  padding: 12px 18px;
+  padding: 12px;
 
   margin: 10px;
 
   font-size: 18px;
 
-  border-radius: 12px;
-
-  border: 2px solid red;
+  border-radius: 10px;
 
   background: #111;
 
   color: white;
 
-  transition: 0.3s;
-}
+  border: 2px solid white;
 
-.dropdown:hover {
-
-  box-shadow: 0 0 15px red;
 }
 
 .predict-btn {
 
-  margin-top: 20px;
-
   padding: 15px 35px;
 
-  background:
-    linear-gradient(
-      to right,
-      red,
-      darkred
-    );
+  font-size: 24px;
+
+  background: red;
 
   color: white;
 
@@ -78,56 +68,42 @@ body {
 
   border-radius: 12px;
 
-  font-size: 22px;
-
   cursor: pointer;
 
-  transition: 0.3s;
+  margin-top: 20px;
+
+  box-shadow: 0 0 20px red;
+
 }
 
 .predict-btn:hover {
 
-  transform: scale(1.05);
+  background: darkred;
 
-  box-shadow:
-    0 0 20px red;
 }
 
 .probability {
 
   color: yellow;
 
-  font-size: 42px;
+  font-size: 48px;
 
   margin-top: 30px;
 
-  text-shadow:
-    0 0 10px yellow;
+  text-shadow: 0 0 15px yellow;
+
 }
 
 .cards-container {
 
   display: flex;
 
-  flex-direction: column;
+  flex-wrap: wrap;
 
-  gap: 25px;
+  justify-content: center;
 
-  margin-top: 30px;
-}
+  gap: 30px;
 
-@media screen and (max-width: 600px) {
-
-  .title {
-
-    font-size: 42px;
-
-    text-align: center;
-  }
-
-  .probability {
-
-    font-size: 28px;
-  }
+  margin-top: 40px;
 
 }
