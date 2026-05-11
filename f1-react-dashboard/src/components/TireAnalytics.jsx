@@ -1,56 +1,87 @@
 import { useEffect, useState } from 'react'
 
-function TireAnalytics({ probability }) {
+function TireAnalytics({
+
+  probability,
+
+  currentLap
+
+}) {
+
+  const totalLaps = 58
 
   const [softWear, setSoftWear] =
-    useState(85)
+    useState(5)
 
   const [mediumWear, setMediumWear] =
-    useState(70)
+    useState(3)
 
   const [hardWear, setHardWear] =
-    useState(55)
+    useState(2)
 
   useEffect(() => {
+
+    if (currentLap >= totalLaps) {
+
+      return
+
+    }
 
     const interval = setInterval(() => {
 
       setSoftWear((prev) =>
-        Math.max(prev - 1, 5)
+
+        Math.min(prev + 2, 100)
+
       )
 
       setMediumWear((prev) =>
-        Math.max(prev - 0.7, 10)
+
+        Math.min(prev + 1.4, 100)
+
       )
 
       setHardWear((prev) =>
-        Math.max(prev - 0.4, 15)
+
+        Math.min(prev + 1, 100)
+
       )
 
-    }, 2000)
+    }, 5000)
 
     return () => clearInterval(interval)
 
-  }, [])
+  }, [currentLap])
 
   const predictedPitLap =
     38 + Math.floor(probability / 8)
 
   const tireLife =
-    Math.floor(
-      (softWear + mediumWear + hardWear) / 3
+
+    Math.max(
+
+      100 -
+
+      (
+        softWear +
+        mediumWear +
+        hardWear
+      ) / 3,
+
+      0
+
     )
 
   let recommendation = ''
 
-  if (softWear < 30) {
+  if (softWear >= 80) {
 
     recommendation =
-      '🛞 Box this lap for fresh tires.'
+      '🛞 Immediate pit stop required.'
 
   }
 
-  else if (mediumWear < 40) {
+  else if (mediumWear >= 60) {
 
     recommendation =
       '⚠️ Tire degradation increasing.'
@@ -118,7 +149,7 @@ function TireAnalytics({ probability }) {
               background:
                 'linear-gradient(to right, red, darkred)',
 
-              transition: '2s linear'
+              transition: '5s linear'
 
             }}
           >
@@ -167,7 +198,7 @@ function TireAnalytics({ probability }) {
               background:
                 'linear-gradient(to right, gold, yellow)',
 
-              transition: '2s linear'
+              transition: '5s linear'
 
             }}
           >
@@ -216,7 +247,7 @@ function TireAnalytics({ probability }) {
               background:
                 'linear-gradient(to right, white, gray)',
 
-              transition: '2s linear'
+              transition: '5s linear'
 
             }}
           >

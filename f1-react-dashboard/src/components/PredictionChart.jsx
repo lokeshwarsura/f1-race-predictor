@@ -1,72 +1,79 @@
 function PredictionChart({ probability }) {
 
-  const performance = [
+  const practice1 =
+    Math.min(70 + Math.floor(probability / 4), 100)
+
+  const practice2 =
+    Math.min(75 + Math.floor(probability / 5), 100)
+
+  const practice3 =
+    Math.min(80 + Math.floor(probability / 5), 100)
+
+  const qualifying =
+    Math.min(78 + Math.floor(probability / 4), 100)
+
+  const sprint =
+    Math.min(82 + Math.floor(probability / 5), 100)
+
+  const racePace =
+    Math.min(probability, 100)
+
+  const performanceData = [
 
     {
-
       label: 'Practice 1',
-
-      value: 62
-
+      value: practice1
     },
 
     {
-
       label: 'Practice 2',
-
-      value: 68
-
+      value: practice2
     },
 
     {
-
       label: 'Practice 3',
-
-      value: 74
-
+      value: practice3
     },
 
     {
-
       label: 'Qualifying',
-
-      value: 83
-
+      value: qualifying
     },
 
     {
-
       label: 'Sprint',
-
-      value: 88
-
+      value: sprint
     },
 
     {
-
       label: 'Race Pace',
-
-      value: probability
-
+      value: racePace
     }
 
   ]
 
-  const momentum =
+  let aiInsight = ''
 
-    probability >= 90
+  if (probability >= 90) {
 
-      ? 'Dominant momentum detected 🔥'
+    aiInsight =
+      '🏆 Dominating weekend performance detected.'
 
-      : probability >= 80
+  }
 
-      ? 'Strong pace advantage ⚡'
+  else if (probability >= 75) {
 
-      : probability >= 70
+    aiInsight =
+      '⚡ Strong race pace with podium potential.'
 
-      ? 'Balanced race pace 🟡'
+  }
 
-      : 'Recovery strategy required 🔴'
+  else {
+
+    aiInsight =
+      '⚠️ Additional setup optimization required.'
+
+  }
 
   return (
 
@@ -81,40 +88,63 @@ function PredictionChart({ probability }) {
 
         }}
       >
-        📈 AI Performance Analyzer
+        📊 AI Performance Analyzer
       </h2>
 
-      <div
-        style={{
+      {
 
-          display: 'flex',
+        performanceData.map((item) => (
 
-          alignItems: 'flex-end',
-
-          justifyContent: 'space-between',
-
-          gap: '12px',
-
-          height: '260px'
-
-        }}
-      >
-
-        {
-
-          performance.map((item, index) => (
+          <div
+            key={item.label}
+            style={{
+              marginBottom: '18px'
+            }}
+          >
 
             <div
-              key={index}
               style={{
 
                 display: 'flex',
 
-                flexDirection: 'column',
+                justifyContent:
+                  'space-between',
 
-                alignItems: 'center',
+                marginBottom: '8px'
 
-                flex: 1
+              }}
+            >
+
+              <span
+                style={{
+                  color: 'white'
+                }}
+              >
+                {item.label}
+              </span>
+
+              <span
+                style={{
+                  color: 'cyan'
+                }}
+              >
+                {item.value}%
+              </span>
+
+            </div>
+
+            <div
+              style={{
+
+                width: '100%',
+
+                height: '18px',
+
+                background: '#222',
+
+                borderRadius: '20px',
+
+                overflow: 'hidden'
 
               }}
             >
@@ -122,47 +152,27 @@ function PredictionChart({ probability }) {
               <div
                 style={{
 
-                  width: '100%',
+                  width: `${item.value}%`,
 
-                  maxWidth: '45px',
-
-                  height: `${item.value * 2}px`,
+                  height: '100%',
 
                   background:
-                    'linear-gradient(to top, cyan, blue)',
+                    'linear-gradient(to right, blue, cyan)',
 
-                  borderRadius: '12px',
-
-                  transition: '0.5s'
+                  transition: '1s'
 
                 }}
               >
 
               </div>
 
-              <p
-                style={{
-
-                  color: 'white',
-
-                  marginTop: '10px',
-
-                  fontSize: '12px',
-
-                  textAlign: 'center'
-
-                }}
-              >
-                {item.label}
-              </p>
-
             </div>
 
-          ))
+          </div>
 
-        }
+        ))
 
-      </div>
+      }
 
       <div
         style={{
@@ -187,15 +197,13 @@ function PredictionChart({ probability }) {
 
             color: 'yellow',
 
-            lineHeight: '1.8',
+            fontSize: '17px',
 
-            fontSize: '17px'
+            lineHeight: '1.8'
 
           }}
         >
-          🤖 AI Momentum:
-          {' '}
-          {momentum}
+          {aiInsight}
         </p>
 
       </div>
