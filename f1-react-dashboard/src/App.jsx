@@ -6,6 +6,7 @@ import DriverCard from './components/DriverCard'
 import ProbabilityBar from './components/ProbabilityBar'
 import StatsPanel from './components/StatsPanel'
 import Leaderboard from './components/Leaderboard'
+import WeatherPanel from './components/WeatherPanel'
 
 function App() {
 
@@ -120,18 +121,12 @@ function App() {
 
         <h3
           style={{
-
             color: 'white',
-
             marginTop: '15px',
-
             fontSize: '24px'
-
           }}
         >
-
           Team: {team}
-
         </h3>
 
       </div>
@@ -161,6 +156,8 @@ function App() {
         <StatsPanel probability={probability} />
 
         <Leaderboard probability={probability} />
+
+        <WeatherPanel />
 
       </div>
 
