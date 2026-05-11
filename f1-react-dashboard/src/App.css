@@ -7,16 +7,17 @@ body{
 }
 
 .app{
-  min-height:100vh;
   background:black;
+  min-height:100vh;
   padding:20px;
-  text-align:center;
 }
 
 .title{
-  color:#111;
-  font-size:60px;
-  margin-bottom:30px;
+  color:white;
+  text-align:center;
+  margin-bottom:20px;
+  font-size:48px;
+  font-weight:bold;
 }
 
 .top-controls{
@@ -29,72 +30,42 @@ body{
 
 select{
   padding:12px;
-  width:250px;
   border-radius:10px;
   border:none;
-  font-size:18px;
+  font-size:16px;
+  background:#111;
+  color:white;
 }
 
 button{
-  padding:12px 25px;
+  padding:12px 24px;
   border:none;
   border-radius:10px;
   background:red;
   color:white;
-  font-size:20px;
+  font-size:16px;
   cursor:pointer;
   transition:0.3s;
 }
 
 button:hover{
   transform:scale(1.05);
+  background:#ff1a1a;
 }
 
 .probability-text{
   color:yellow;
+  text-align:center;
   margin-top:20px;
   margin-bottom:20px;
-}
-
-.driver-card{
-  background:#111;
-  border:3px solid red;
-  border-radius:20px;
-  padding:20px;
-  width:350px;
-  margin:auto;
-}
-
-.driver-image{
-  width:220px;
-  height:320px;
-  object-fit:cover;
-  border-radius:20px;
-}
-
-.team-logo{
-  width:140px;
-  margin-top:20px;
-  border-radius:10px;
-  background:white;
-  padding:10px;
-}
-
-.driver-name{
-  color:yellow;
-  margin-top:20px;
-}
-
-.team-name{
-  color:white;
+  font-size:28px;
 }
 
 .dashboard-layout{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
   gap:20px;
-  margin-top:30px;
-  padding:20px;
+  margin-top:20px;
 }
 
 .left-panel,
@@ -105,13 +76,34 @@ button:hover{
   gap:20px;
 }
 
-.left-panel > *,
-.center-panel > *,
-.right-panel > *{
+.panel,
+.driver-card,
+.stats-panel{
   background:#111;
   border:2px solid red;
   border-radius:15px;
-  padding:15px;
+  padding:20px;
+  color:white;
+  box-shadow:0 0 10px rgba(255,0,0,0.4);
+}
+
+h1,h2,h3,p{
+  color:white;
+}
+
+.driver-image{
+  width:100%;
+  max-width:250px;
+  border-radius:15px;
+  margin-top:10px;
+}
+
+.team-logo{
+  width:100px;
+  margin-top:10px;
+  background:white;
+  padding:10px;
+  border-radius:10px;
 }
 
 @media screen and (max-width:1000px){

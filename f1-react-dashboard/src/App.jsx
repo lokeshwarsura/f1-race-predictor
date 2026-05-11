@@ -59,7 +59,7 @@ function App() {
 
       const data = await response.json()
 
-      setProbability(data.win_probability)
+      setProbability(data.win_probability || 0)
 
       setImage(driverImages[driver])
 
