@@ -1,40 +1,66 @@
+import { useEffect, useState } from 'react'
+
 function TireAnalytics({ probability }) {
 
-  const softWear =
-    65 + Math.floor(probability / 8)
+  const [softWear, setSoftWear] =
+    useState(85)
 
-  const mediumWear =
-    45 + Math.floor(probability / 10)
+  const [mediumWear, setMediumWear] =
+    useState(70)
 
-  const hardWear =
-    30 + Math.floor(probability / 12)
+  const [hardWear, setHardWear] =
+    useState(55)
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setSoftWear((prev) =>
+        Math.max(prev - 1, 5)
+      )
+
+      setMediumWear((prev) =>
+        Math.max(prev - 0.7, 10)
+      )
+
+      setHardWear((prev) =>
+        Math.max(prev - 0.4, 15)
+      )
+
+    }, 2000)
+
+    return () => clearInterval(interval)
+
+  }, [])
 
   const predictedPitLap =
-    36 + Math.floor(probability / 7)
+    38 + Math.floor(probability / 8)
 
   const tireLife =
-    100 - Math.floor(probability / 1.8)
+    Math.floor(
+      (softWear + mediumWear + hardWear) / 3
+    )
 
   let recommendation = ''
 
-  if (probability >= 90) {
+  if (softWear < 30) {
 
     recommendation =
-      'Aggressive soft tire strategy recommended.'
+      '🛞 Box this lap for fresh tires.'
 
   }
 
-  else if (probability >= 75) {
+  else if (mediumWear < 40) {
 
     recommendation =
-      'Medium tires optimal for race balance.'
+      '⚠️ Tire degradation increasing.'
 
   }
 
   else {
 
     recommendation =
-      'Hard tires recommended for long stint defense.'
+      '✅ Tire performance stable.'
 
   }
 
@@ -51,7 +77,7 @@ function TireAnalytics({ probability }) {
 
         }}
       >
-        🛞 Advanced Tire Analytics
+        🛞 Live Tire Analytics
       </h2>
 
       <div
@@ -61,7 +87,9 @@ function TireAnalytics({ probability }) {
       >
 
         <p className="stats-text">
-          Soft Tire Wear: {softWear}%
+          Soft Tire Wear:
+          {' '}
+          {softWear.toFixed(0)}%
         </p>
 
         <div
@@ -88,7 +116,9 @@ function TireAnalytics({ probability }) {
               height: '100%',
 
               background:
-                'linear-gradient(to right, red, darkred)'
+                'linear-gradient(to right, red, darkred)',
+
+              transition: '2s linear'
 
             }}
           >
@@ -106,7 +136,9 @@ function TireAnalytics({ probability }) {
       >
 
         <p className="stats-text">
-          Medium Tire Wear: {mediumWear}%
+          Medium Tire Wear:
+          {' '}
+          {mediumWear.toFixed(0)}%
         </p>
 
         <div
@@ -133,7 +165,9 @@ function TireAnalytics({ probability }) {
               height: '100%',
 
               background:
-                'linear-gradient(to right, gold, yellow)'
+                'linear-gradient(to right, gold, yellow)',
+
+              transition: '2s linear'
 
             }}
           >
@@ -151,7 +185,9 @@ function TireAnalytics({ probability }) {
       >
 
         <p className="stats-text">
-          Hard Tire Wear: {hardWear}%
+          Hard Tire Wear:
+          {' '}
+          {hardWear.toFixed(0)}%
         </p>
 
         <div
@@ -178,7 +214,9 @@ function TireAnalytics({ probability }) {
               height: '100%',
 
               background:
-                'linear-gradient(to right, white, gray)'
+                'linear-gradient(to right, white, gray)',
+
+              transition: '2s linear'
 
             }}
           >
@@ -190,11 +228,15 @@ function TireAnalytics({ probability }) {
       </div>
 
       <p className="stats-text">
-        Predicted Pit Stop Lap: {predictedPitLap}
+        Predicted Pit Stop Lap:
+        {' '}
+        {predictedPitLap}
       </p>
 
       <p className="stats-text">
-        Estimated Tire Life: {tireLife}%
+        Estimated Tire Life:
+        {' '}
+        {tireLife.toFixed(0)}%
       </p>
 
       <div

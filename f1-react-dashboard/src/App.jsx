@@ -24,51 +24,69 @@ function App() {
 
   const [loading, setLoading] = useState(false)
 
-  const [driver, setDriver] = useState('Max Verstappen')
+  const [driver, setDriver] =
+    useState('Max Verstappen')
 
-  const [team, setTeam] = useState('Red Bull')
+  const [team, setTeam] =
+    useState('Red Bull')
 
-  const [image, setImage] = useState('/images/max.png')
+  const [image, setImage] =
+    useState('/images/max.png')
 
-  const [logo, setLogo] = useState('/images/redbull.png')
+  const [logo, setLogo] =
+    useState('/images/redbull.png')
 
   const driverImages = {
 
-    'Max Verstappen': '/images/max.png',
+    'Max Verstappen':
+      '/images/max.png',
 
-    'Lewis Hamilton': '/images/hamilton.png',
+    'Lewis Hamilton':
+      '/images/hamilton.png',
 
-    'Fernando Alonso': '/images/alonso.png',
+    'Fernando Alonso':
+      '/images/alonso.png',
 
-    'Carlos Sainz': '/images/sainz.png',
+    'Carlos Sainz':
+      '/images/sainz.png',
 
-    'Sergio Perez': '/images/perez.png'
+    'Sergio Perez':
+      '/images/perez.png'
 
   }
 
   const teamLogos = {
 
-    'Red Bull': '/images/redbull.png',
+    'Red Bull':
+      '/images/redbull.png',
 
-    'Ferrari': '/images/ferrari.png',
+    'Ferrari':
+      '/images/ferrari.png',
 
-    'Mercedes': '/images/mercedes.png',
+    'Mercedes':
+      '/images/mercedes.png',
 
-    'Aston Martin': '/images/astonmartin.png'
+    'Aston Martin':
+      '/images/astonmartin.png'
 
   }
 
   const driverTeams = {
 
-    'Max Verstappen': 'Red Bull',
+    'Max Verstappen':
+      'Red Bull',
 
-    'Lewis Hamilton': 'Ferrari',
+    'Lewis Hamilton':
+      'Ferrari',
 
-    'Fernando Alonso': 'Aston Martin',
+    'Fernando Alonso':
+      'Aston Martin',
 
-    'Carlos Sainz': 'Ferrari',
+    'Carlos Sainz':
+      'Ferrari',
 
-    'Sergio Perez': 'Red Bull'
+    'Sergio Perez':
+      'Red Bull'
 
   }
 
@@ -79,13 +97,20 @@ function App() {
     setTimeout(() => {
 
       const randomProbability =
-        Math.floor(Math.random() * 41) + 60
+
+        Math.floor(
+          Math.random() * 41
+        ) + 60
 
       setProbability(randomProbability)
 
-      setImage(driverImages[driver])
+      setImage(
+        driverImages[driver]
+      )
 
-      setLogo(teamLogos[team])
+      setLogo(
+        teamLogos[team]
+      )
 
       setLoading(false)
 
@@ -108,34 +133,51 @@ function App() {
           value={driver}
           onChange={(e) => {
 
-            const selectedDriver = e.target.value
+            const selectedDriver =
+              e.target.value
 
             setDriver(selectedDriver)
 
-            setTeam(driverTeams[selectedDriver])
+            setTeam(
+              driverTeams[selectedDriver]
+            )
 
             setLogo(
               teamLogos[
-                driverTeams[selectedDriver]
+                driverTeams[
+                  selectedDriver
+                ]
               ]
             )
 
             setImage(
-              driverImages[selectedDriver]
+              driverImages[
+                selectedDriver
+              ]
             )
 
           }}
         >
 
-          <option>Max Verstappen</option>
+          <option>
+            Max Verstappen
+          </option>
 
-          <option>Lewis Hamilton</option>
+          <option>
+            Lewis Hamilton
+          </option>
 
-          <option>Fernando Alonso</option>
+          <option>
+            Fernando Alonso
+          </option>
 
-          <option>Carlos Sainz</option>
+          <option>
+            Carlos Sainz
+          </option>
 
-          <option>Sergio Perez</option>
+          <option>
+            Sergio Perez
+          </option>
 
         </select>
 
@@ -163,7 +205,9 @@ function App() {
         {
 
           loading
+
             ? 'Analyzing Race Data...'
+
             : 'Predict Winner'
 
         }
@@ -171,10 +215,16 @@ function App() {
       </button>
 
       <h2 className="probability">
-        Win Probability: {probability}%
+
+        Win Probability:
+        {' '}
+        {probability}%
+
       </h2>
 
-      <ProbabilityBar probability={probability} />
+      <ProbabilityBar
+        probability={probability}
+      />
 
       <div className="cards-container">
 
@@ -185,22 +235,32 @@ function App() {
           logo={logo}
         />
 
-        <StatsPanel probability={probability} />
+        <StatsPanel
+          probability={probability}
+        />
 
-        <Leaderboard probability={probability} />
+        <Leaderboard
+          probability={probability}
+        />
 
         <WeatherCenter />
 
-        <LiveTelemetry probability={probability} />
+        <LiveTelemetry
+          probability={probability}
+        />
 
-        <RaceStatus probability={probability} />
+        <RaceStatus
+          probability={probability}
+        />
 
         <PredictionInsights
           probability={probability}
           driver={driver}
         />
 
-        <StrategyPanel probability={probability} />
+        <StrategyPanel
+          probability={probability}
+        />
 
         <DriverComparison
           probability={probability}

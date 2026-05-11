@@ -1,13 +1,37 @@
-function SectorAnalysis({ probability }) {
+import { useEffect, useState } from 'react'
 
-  const sector1 =
-    (28 + probability / 20).toFixed(2)
+function SectorAnalysis() {
 
-  const sector2 =
-    (31 + probability / 18).toFixed(2)
+  const [sector1, setSector1] =
+    useState(28.45)
 
-  const sector3 =
-    (26 + probability / 22).toFixed(2)
+  const [sector2, setSector2] =
+    useState(31.22)
+
+  const [sector3, setSector3] =
+    useState(27.88)
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setSector1(
+        (Math.random() * 32 + 1).toFixed(2)
+      )
+
+      setSector2(
+        (Math.random() * 32 + 1).toFixed(2)
+      )
+
+      setSector3(
+        (Math.random() * 32 + 1).toFixed(2)
+      )
+
+    }, 2500)
+
+    return () => clearInterval(interval)
+
+  }, [])
 
   const sectors = [
 
@@ -25,7 +49,9 @@ function SectorAnalysis({ probability }) {
     ) + 1
 
   const lapDelta =
-    (probability / 40).toFixed(2)
+    (
+      Math.random() * 2
+    ).toFixed(2)
 
   return (
 
@@ -40,7 +66,7 @@ function SectorAnalysis({ probability }) {
 
         }}
       >
-        📊 Advanced Sector Analysis
+        📊 Live Sector Analysis
       </h2>
 
       <div
@@ -50,7 +76,9 @@ function SectorAnalysis({ probability }) {
       >
 
         <p className="stats-text">
-          Sector 1: {sector1}s
+          Sector 1:
+          {' '}
+          {sector1}s
         </p>
 
         <div
@@ -72,12 +100,14 @@ function SectorAnalysis({ probability }) {
           <div
             style={{
 
-              width: '88%',
+              width: `${sector1 * 3}%`,
 
               height: '100%',
 
               background:
-                'linear-gradient(to right, cyan, blue)'
+                'linear-gradient(to right, cyan, blue)',
+
+              transition: '2s'
 
             }}
           >
@@ -95,39 +125,27 @@ function SectorAnalysis({ probability }) {
       >
 
         <p className="stats-text">
-          Sector 2: {sector2}s
+          Sector 2:
+          {' '}
+          {sector2}s
         </p>
 
         <div
           style={{
 
-            width: '100%',
+            width: `${sector2 * 3}%`,
 
             height: '18px',
 
-            background: '#222',
+            background:
+              'linear-gradient(to right, violet, purple)',
 
             borderRadius: '20px',
 
-            overflow: 'hidden'
+            transition: '2s'
 
           }}
         >
-
-          <div
-            style={{
-
-              width: '92%',
-
-              height: '100%',
-
-              background:
-                'linear-gradient(to right, violet, purple)'
-
-            }}
-          >
-
-          </div>
 
         </div>
 
@@ -136,39 +154,27 @@ function SectorAnalysis({ probability }) {
       <div>
 
         <p className="stats-text">
-          Sector 3: {sector3}s
+          Sector 3:
+          {' '}
+          {sector3}s
         </p>
 
         <div
           style={{
 
-            width: '100%',
+            width: `${sector3 * 3}%`,
 
             height: '18px',
 
-            background: '#222',
+            background:
+              'linear-gradient(to right, lime, green)',
 
             borderRadius: '20px',
 
-            overflow: 'hidden'
+            transition: '2s'
 
           }}
         >
-
-          <div
-            style={{
-
-              width: '84%',
-
-              height: '100%',
-
-              background:
-                'linear-gradient(to right, lime, green)'
-
-            }}
-          >
-
-          </div>
 
         </div>
 
