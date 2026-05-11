@@ -118,23 +118,21 @@ function App() {
 
         </select>
 
-        <select
-          className="dropdown"
-          value={team}
-          onChange={(e) =>
-            setTeam(e.target.value)
-          }
+        <h3
+          style={{
+
+            color: 'white',
+
+            marginTop: '15px',
+
+            fontSize: '24px'
+
+          }}
         >
 
-          <option>Red Bull</option>
+          Team: {team}
 
-          <option>Ferrari</option>
-
-          <option>Mercedes</option>
-
-          <option>Aston Martin</option>
-
-        </select>
+        </h3>
 
       </div>
 
