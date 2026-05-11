@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import DriverCard from './components/DriverCard'
+import ProbabilityBar from './components/ProbabilityBar'
 
 function App() {
 
@@ -46,7 +47,10 @@ function App() {
 
   function predictWinner() {
 
-    setProbability(78.42)
+    const randomProbability =
+      (Math.random() * 40 + 60).toFixed(2)
+
+    setProbability(randomProbability)
 
     setImage(driverImages[driver])
 
@@ -137,6 +141,8 @@ function App() {
       >
         Win Probability: {probability}%
       </h2>
+
+      <ProbabilityBar probability={probability} />
 
       <DriverCard
         driver={driver}

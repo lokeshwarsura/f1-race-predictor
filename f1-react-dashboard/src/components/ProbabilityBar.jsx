@@ -1,21 +1,26 @@
-function ProbabilityBar({
-
-  probability
-
-}) {
+function ProbabilityBar({ probability }) {
 
   return (
 
-    <div className="bar-container">
+    <div
+      style={{
+        width: '350px',
+        height: '35px',
+        background: '#333',
+        borderRadius: '20px',
+        overflow: 'hidden',
+        marginTop: '10px'
+      }}
+    >
 
       <div
-        className="bar"
         style={{
-          width: `${probability}%`
+          width: `${probability}%`,
+          height: '100%',
+          background: 'red',
+          transition: '0.5s'
         }}
-      >
-
-      </div>
+      />
 
     </div>
 
