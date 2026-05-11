@@ -1,138 +1,160 @@
-import {
+function SectorAnalysis({ probability }) {
 
-  useEffect,
+  const sector1 =
+    (28 + probability / 20).toFixed(2)
 
-  useState
+  const sector2 =
+    (31 + probability / 18).toFixed(2)
 
-} from 'react'
-
-function SectorAnalysis() {
-
-  const [sectorData,
-
-    setSectorData] = useState({})
-
-  function formatLapTime(totalSeconds) {
-
-    const minutes = Math.floor(
-
-      totalSeconds / 60
-
-    )
-
-    const seconds = (
-
-      totalSeconds % 60
-
-    ).toFixed(3)
-
-    return `${minutes}:${seconds.padStart(6, '0')}`
-
-  }
-
-  function generateSectorData() {
-
-    const sector1 = (
-
-      Math.random() * 10 + 28
-
-    ).toFixed(3)
-
-    const sector2 = (
-
-      Math.random() * 10 + 35
-
-    ).toFixed(3)
-
-    const sector3 = (
-
-      Math.random() * 10 + 24
-
-    ).toFixed(3)
-
-    const total = (
-
-      Number(sector1) +
-
-      Number(sector2) +
-
-      Number(sector3)
-
-    ).toFixed(3)
-
-    const formattedLap =
-
-      formatLapTime(
-
-        Number(total)
-
-      )
-
-    setSectorData({
-
-      sector1,
-
-      sector2,
-
-      sector3,
-
-      total: formattedLap
-
-    })
-
-  }
-
-  useEffect(() => {
-
-    generateSectorData()
-
-    const interval = setInterval(
-
-      generateSectorData,
-
-      5000
-
-    )
-
-    return () => clearInterval(
-
-      interval
-
-    )
-
-  }, [])
+  const sector3 =
+    (26 + probability / 22).toFixed(2)
 
   return (
 
-    <div className="sector-panel">
+    <div className="card">
 
-      <h2>
-        ⏱️ Sector Analysis
+      <h2
+        style={{
+
+          color: 'aqua',
+
+          marginBottom: '20px'
+
+        }}
+      >
+        📊 Sector Analysis
       </h2>
 
-      <p>
-        Sector 1:
-        {' '}
-        {sectorData.sector1}s
-      </p>
+      <div
+        style={{
+          marginBottom: '20px'
+        }}
+      >
 
-      <p>
-        Sector 2:
-        {' '}
-        {sectorData.sector2}s
-      </p>
+        <p className="stats-text">
+          Sector 1: {sector1}s
+        </p>
 
-      <p>
-        Sector 3:
-        {' '}
-        {sectorData.sector3}s
-      </p>
+        <div
+          style={{
 
-      <h3>
-        Fast Lap:
-        {' '}
-        {sectorData.total}
-      </h3>
+            width: '100%',
+
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: '88%',
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, cyan, blue)'
+
+            }}
+          >
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        style={{
+          marginBottom: '20px'
+        }}
+      >
+
+        <p className="stats-text">
+          Sector 2: {sector2}s
+        </p>
+
+        <div
+          style={{
+
+            width: '100%',
+
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: '92%',
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, violet, purple)'
+
+            }}
+          >
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <p className="stats-text">
+          Sector 3: {sector3}s
+        </p>
+
+        <div
+          style={{
+
+            width: '100%',
+
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: '84%',
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, lime, green)'
+
+            }}
+          >
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 

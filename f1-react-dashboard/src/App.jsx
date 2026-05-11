@@ -15,6 +15,8 @@ import DriverComparison from './components/DriverComparison'
 import PredictionChart from './components/PredictionChart'
 import LiveRaceMap from './components/LiveRaceMap'
 import RaceControlCenter from './components/RaceControlCenter'
+import TireAnalytics from './components/TireAnalytics'
+import SectorAnalysis from './components/SectorAnalysis'
 
 function App() {
 
@@ -196,6 +198,14 @@ function App() {
         />
 
         <RaceControlCenter
+          probability={probability}
+        />
+
+        <TireAnalytics
+          probability={probability}
+        />
+
+        <SectorAnalysis
           probability={probability}
         />
 

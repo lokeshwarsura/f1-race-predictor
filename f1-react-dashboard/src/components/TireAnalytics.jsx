@@ -1,140 +1,156 @@
-import {
+function TireAnalytics({ probability }) {
 
-  useEffect,
+  const softWear =
+    65 + Math.floor(probability / 8)
 
-  useState
+  const mediumWear =
+    45 + Math.floor(probability / 10)
 
-} from 'react'
-
-function TireAnalytics() {
-
-  const [tireData,
-
-    setTireData] = useState({})
-
-  function generateTireData() {
-
-    const compounds = [
-
-      'Soft',
-
-      'Medium',
-
-      'Hard',
-
-      'Intermediate',
-
-      'Wet'
-
-    ]
-
-    const selectedCompound =
-
-      compounds[
-
-        Math.floor(
-
-          Math.random() *
-
-          compounds.length
-
-        )
-
-      ]
-
-    const tireLife =
-
-      Math.floor(
-
-        Math.random() * 100
-
-      )
-
-    const degradation =
-
-      Math.floor(
-
-        Math.random() * 10
-
-      ) + '%'
-
-    setTireData({
-
-      compound:
-
-        selectedCompound,
-
-      life:
-
-        tireLife,
-
-      degradation
-
-    })
-
-  }
-
-  useEffect(() => {
-
-    generateTireData()
-
-    const interval = setInterval(
-
-      generateTireData,
-
-      5000
-
-    )
-
-    return () => clearInterval(
-
-      interval
-
-    )
-
-  }, [])
+  const hardWear =
+    30 + Math.floor(probability / 12)
 
   return (
 
-    <div className="tire-panel">
+    <div className="card">
 
-      <h2>
+      <h2
+        style={{
+
+          color: 'white',
+
+          marginBottom: '20px'
+
+        }}
+      >
         🛞 Tire Analytics
       </h2>
 
-      <p>
-        Compound:
-        {' '}
-        {tireData.compound}
-      </p>
+      <div
+        style={{
+          marginBottom: '20px'
+        }}
+      >
 
-      <p>
-        Tire Life:
-        {' '}
-        {tireData.life}%
-      </p>
-
-      <p>
-        Degradation:
-        {' '}
-        {tireData.degradation}
-      </p>
-
-      <div className="tire-life-bar">
+        <p className="stats-text">
+          Soft Tire Wear: {softWear}%
+        </p>
 
         <div
-
-          className="tire-life-fill"
-
           style={{
 
-            width:
+            width: '100%',
 
-              `${tireData.life}%`
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
 
           }}
-
         >
+
+          <div
+            style={{
+
+              width: `${softWear}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, red, darkred)'
+
+            }}
+          >
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        style={{
+          marginBottom: '20px'
+        }}
+      >
+
+        <p className="stats-text">
+          Medium Tire Wear: {mediumWear}%
+        </p>
+
+        <div
+          style={{
+
+            width: '100%',
+
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: `${mediumWear}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, gold, yellow)'
+
+            }}
+          >
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <p className="stats-text">
+          Hard Tire Wear: {hardWear}%
+        </p>
+
+        <div
+          style={{
+
+            width: '100%',
+
+            height: '18px',
+
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
+
+          }}
+        >
+
+          <div
+            style={{
+
+              width: `${hardWear}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, white, gray)'
+
+            }}
+          >
+
+          </div>
 
         </div>
 

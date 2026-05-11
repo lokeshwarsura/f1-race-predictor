@@ -1,27 +1,17 @@
 function RaceControlCenter({ probability }) {
 
-  let raceMessage = ''
+  const lapsRemaining =
+    58 - (42 + Math.floor(probability / 5))
 
-  if (probability >= 90) {
+  const estimatedFinish =
+    `${1 + Math.floor(lapsRemaining / 10)} mins`
 
-    raceMessage =
-      'Push mode enabled. Driver is dominating the race.'
-
-  }
-
-  else if (probability >= 75) {
-
-    raceMessage =
-      'Maintain current pace and monitor tire wear.'
-
-  }
-
-  else {
-
-    raceMessage =
-      'Consider alternative pit strategy and energy saving.'
-
-  }
+  const raceMode =
+    probability > 85
+      ? 'Full Attack'
+      : probability > 70
+      ? 'Balanced Push'
+      : 'Recovery Mode'
 
   return (
 
@@ -30,7 +20,7 @@ function RaceControlCenter({ probability }) {
       <h2
         style={{
 
-          color: 'red',
+          color: 'orange',
 
           marginBottom: '20px'
 
@@ -39,18 +29,24 @@ function RaceControlCenter({ probability }) {
         🎛️ Race Control Center
       </h2>
 
-      <p
-        style={{
+      <p className="stats-text">
+        Race Mode: {raceMode}
+      </p>
 
-          color: 'white',
+      <p className="stats-text">
+        Laps Remaining: {lapsRemaining}
+      </p>
 
-          fontSize: '18px',
+      <p className="stats-text">
+        Estimated Finish: {estimatedFinish}
+      </p>
 
-          lineHeight: '1.8'
+      <p className="stats-text">
+        Team Radio: Clear ✅
+      </p>
 
-        }}
-      >
-        {raceMessage}
+      <p className="stats-text">
+        Overtake Mode: Active
       </p>
 
       <div
@@ -60,23 +56,23 @@ function RaceControlCenter({ probability }) {
 
           display: 'flex',
 
-          flexDirection: 'column',
+          gap: '10px',
 
-          gap: '10px'
+          flexWrap: 'wrap'
 
         }}
       >
 
         <button className="predict-btn">
-          Radio Check
+          PUSH
         </button>
 
         <button className="predict-btn">
-          Deploy ERS
+          BOX
         </button>
 
         <button className="predict-btn">
-          Box This Lap
+          DEFEND
         </button>
 
       </div>

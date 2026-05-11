@@ -1,12 +1,12 @@
 function PredictionChart({ probability }) {
 
-  const laps = [
+  const performance = [
 
-    58,
     62,
-    66,
-    71,
-    74,
+    68,
+    72,
+    79,
+    83,
     probability
 
   ]
@@ -24,7 +24,7 @@ function PredictionChart({ probability }) {
 
         }}
       >
-        📈 Prediction Trend
+        📈 Qualifying Pace Trend
       </h2>
 
       <div
@@ -36,7 +36,7 @@ function PredictionChart({ probability }) {
 
           justifyContent: 'space-between',
 
-          height: '220px',
+          height: '240px',
 
           marginTop: '20px'
 
@@ -45,7 +45,7 @@ function PredictionChart({ probability }) {
 
         {
 
-          laps.map((lap, index) => (
+          performance.map((value, index) => (
 
             <div
               key={index}
@@ -63,16 +63,14 @@ function PredictionChart({ probability }) {
               <div
                 style={{
 
-                  width: '35px',
+                  width: '38px',
 
-                  height: `${lap * 1.5}px`,
+                  height: `${value * 2}px`,
 
                   background:
-                    'linear-gradient(to top, cyan, blue)',
+                    'linear-gradient(to top, lime, cyan)',
 
-                  borderRadius: '10px',
-
-                  marginBottom: '10px',
+                  borderRadius: '12px',
 
                   transition: '0.5s'
 
@@ -86,11 +84,11 @@ function PredictionChart({ probability }) {
 
                   color: 'white',
 
-                  fontSize: '14px'
+                  marginTop: '10px'
 
                 }}
               >
-                L{index + 1}
+                Q{index + 1}
               </p>
 
             </div>
@@ -100,6 +98,20 @@ function PredictionChart({ probability }) {
         }
 
       </div>
+
+      <p
+        style={{
+
+          color: 'white',
+
+          marginTop: '20px',
+
+          fontSize: '18px'
+
+        }}
+      >
+        Final Pace Score: {probability}%
+      </p>
 
     </div>
 

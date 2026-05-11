@@ -1,13 +1,18 @@
 function RaceStatus({ probability }) {
 
-  const laps =
-    45 + Math.floor(probability / 10)
+  const currentLap =
+    42 + Math.floor(probability / 5)
 
-  const tireWear =
-    20 + Math.floor(probability / 2)
+  const totalLaps = 58
 
-  const pitStops =
-    probability > 80 ? 1 : 2
+  const fuelLoad =
+    Math.max(100 - probability, 15)
+
+  const gapAhead =
+    (Math.random() * 3).toFixed(1)
+
+  const gapBehind =
+    (Math.random() * 2).toFixed(1)
 
   return (
 
@@ -16,34 +21,75 @@ function RaceStatus({ probability }) {
       <h2
         style={{
 
-          color: 'cyan',
+          color: 'red',
 
           marginBottom: '20px'
 
         }}
       >
-        🏁 Race Status
+        🏁 Live Race Status
       </h2>
 
       <p className="stats-text">
-        Current Lap: {laps}/58
+        Current Lap: {currentLap}/{totalLaps}
       </p>
 
       <p className="stats-text">
-        Tire Wear: {tireWear}%
+        Fuel Remaining: {fuelLoad}%
       </p>
 
       <p className="stats-text">
-        Pit Stops: {pitStops}
+        Gap Ahead: +{gapAhead}s
       </p>
 
       <p className="stats-text">
-        DRS: Enabled
+        Gap Behind: +{gapBehind}s
       </p>
 
       <p className="stats-text">
-        Track Status: Green Flag 🟢
+        Safety Car: No
       </p>
+
+      <p className="stats-text">
+        DRS Status: Enabled
+      </p>
+
+      <div
+        style={{
+
+          marginTop: '20px',
+
+          width: '100%',
+
+          height: '18px',
+
+          background: '#222',
+
+          borderRadius: '20px',
+
+          overflow: 'hidden'
+
+        }}
+      >
+
+        <div
+          style={{
+
+            width: `${(currentLap / totalLaps) * 100}%`,
+
+            height: '100%',
+
+            background:
+              'linear-gradient(to right, red, orange)',
+
+            transition: '0.5s'
+
+          }}
+        >
+
+        </div>
+
+      </div>
 
     </div>
 
