@@ -2,6 +2,22 @@ import { useState } from 'react'
 
 import './App.css'
 
+import DriverCard from './components/DriverCard'
+import LiveTelemetry from "./components/LiveTelemetry"
+import SectorAnalysis from "./components/SectorAnalysis"
+import Leaderboard from "./components/Leaderboard"
+import RaceStatus from "./components/RaceStatus"
+import RaceControlCenter from "./components/RaceControlCenter"
+import StrategyPanel from "./components/StrategyPanel"
+import WeatherCenter from "./components/WeatherCenter"
+import TireAnalytics from "./components/TireAnalytics"
+import PredictionInsights from "./components/PredictionInsights"
+import DriverComparison from "./components/DriverComparison"
+import ProbabilityBar from "./components/ProbabilityBar"
+import PredictionChart from "./components/PredictionChart"
+import StatsPanel from "./components/StatsPanel"
+import LiveRaceMap from "./components/LiveRaceMap"
+
 function App() {
 
   const [probability, setProbability] = useState(0)
@@ -44,101 +60,132 @@ function App() {
 
   }
 
-  function predictWinner() {
+  async function predictWinner() {
 
-    const randomProbability =
-      (Math.random() * 100).toFixed(2)
+    try {
 
-    setProbability(randomProbability)
+      const response = await fetch(
+        `https://f1-backend-kwlj.onrender.com/predict?driver=${driver}&team=${team}`
+      )
 
-    setImage(driverImages[driver])
+      const data = await response.json()
 
-    setLogo(teamLogos[team])
+      setProbability(data.win_probability)
+
+      setImage(driverImages[driver])
+
+      setLogo(teamLogos[team])
+
+    }
+
+    catch (error) {
+
+      console.log(error)
+
+    }
 
   }
 
   return (
 
-    <div className="container">
+    <div className="app">
 
-      <h1>🏎️ F1 React Dashboard</h1>
+      <h1 className="title">
+        🏎️ F1 React Dashboard
+      </h1>
 
-      <select
-        onChange={(e) =>
-          setDriver(e.target.value)
-        }
-      >
+      <div className="top-controls">
 
-        <option>Max Verstappen</option>
-
-        <option>Lewis Hamilton</option>
-
-        <option>Fernando Alonso</option>
-
-        <option>Carlos Sainz</option>
-
-        <option>Sergio Perez</option>
-
-      </select>
-
-      <br />
-
-      <select
-        onChange={(e) =>
-          setTeam(e.target.value)
-        }
-      >
-
-        <option>Red Bull</option>
-
-        <option>Mercedes</option>
-
-        <option>Ferrari</option>
-
-        <option>Aston Martin</option>
-
-      </select>
-
-      <br />
-
-      <button onClick={predictWinner}>
-        Predict Winner
-      </button>
-
-      <h2>
-        Win Probability: {probability}%
-      </h2>
-
-      <div className="bar-container">
-
-        <div
-          className="bar"
-          style={{
-            width: `${probability}%`
-          }}
+        <select
+          value={driver}
+          onChange={(e) => setDriver(e.target.value)}
         >
 
-        </div>
+          <option>Max Verstappen</option>
+
+          <option>Lewis Hamilton</option>
+
+          <option>Fernando Alonso</option>
+
+          <option>Carlos Sainz</option>
+
+          <option>Sergio Perez</option>
+
+        </select>
+
+        <select
+          value={team}
+          onChange={(e) => setTeam(e.target.value)}
+        >
+
+          <option>Red Bull</option>
+
+          <option>Mercedes</option>
+
+          <option>Ferrari</option>
+
+          <option>Aston Martin</option>
+
+        </select>
+
+        <button onClick={predictWinner}>
+          Predict Winner
+        </button>
 
       </div>
 
-      <div className="card">
+      <h2 className="probability-text">
+        Win Probability: {probability.toFixed(2)}%
+      </h2>
 
-        <img
-          src={image}
-          alt="driver"
-          className="driver-image"
-        />
+      <ProbabilityBar probability={probability} />
 
-        <h2>{driver}</h2>
+      <div className="dashboard-layout">
 
-        <h3>{team}</h3>
+        <div className="left-panel">
 
-        <img
-          src={logo}
-          alt="logo"
-          className="team-logo"
-        />
+          <DriverCard
+            driver={driver}
+            team={team}
+            image={image}
+            logo={logo}
+          />
+
+          <StatsPanel />
+
+          <PredictionChart probability={probability} />
+
+        </div>
+
+        <div className="center-panel">
+
+          <LiveRaceMap />
+
+          <SectorAnalysis />
+
+          <TireAnalytics />
+
+        </div>
+
+        <div className="right-panel">
+
+          <RaceControlCenter />
+
+          <RaceStatus />
+
+          <LiveTelemetry />
+
+          <WeatherCenter />
+
+          <DriverComparison />
+
+          <StrategyPanel />
+
+          <PredictionInsights />
+
+          <Leaderboard probability={probability} />
+
+        </div>
 
       </div>
 
