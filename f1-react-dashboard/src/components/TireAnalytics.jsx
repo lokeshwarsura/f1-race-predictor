@@ -10,6 +10,35 @@ function TireAnalytics({
 
   const totalLaps = 58
 
+  const compounds = [
+
+    'SOFT',
+
+    'MEDIUM',
+
+    'HARD',
+
+    'INTERMEDIATE',
+
+    'WET'
+
+  ]
+
+  const [weather, setWeather] =
+    useState('DRY')
+
+  const [currentCompound, setCurrentCompound] =
+    useState('SOFT')
+
+  const [pitStops, setPitStops] =
+    useState(0)
+
+  const [lastPitLap, setLastPitLap] =
+    useState(null)
+
+  const [lapsSincePit, setLapsSincePit] =
+    useState(0)
+
   const [softWear, setSoftWear] =
     useState(0)
 
@@ -19,14 +48,114 @@ function TireAnalytics({
   const [hardWear, setHardWear] =
     useState(0)
 
-  const [pitStops, setPitStops] =
+  const [intermediateWear, setIntermediateWear] =
     useState(0)
 
-  const [currentCompound, setCurrentCompound] =
-    useState('SOFT')
-
-  const [lastPitLap, setLastPitLap] =
+  const [wetWear, setWetWear] =
     useState(0)
+
+  useEffect(() => {
+
+    if (currentLap >= totalLaps) {
+
+      return
+
+    }
+
+    const weatherInterval = setInterval(() => {
+
+      const randomWeather =
+        Math.random()
+
+      if (randomWeather > 0.82) {
+
+        setWeather('HEAVY RAIN')
+
+      }
+
+      else if (randomWeather > 0.62) {
+
+        setWeather('LIGHT RAIN')
+
+      }
+
+      else {
+
+        setWeather('DRY')
+
+      }
+
+    }, 12000)
+
+    return () =>
+      clearInterval(weatherInterval)
+
+  }, [currentLap])
+
+  useEffect(() => {
+
+    if (lastPitLap !== null) {
+
+      setLapsSincePit(
+
+        currentLap - lastPitLap
+
+      )
+
+    }
+
+  }, [currentLap, lastPitLap])
+
+  function performPitStop() {
+
+    let nextCompound = 'MEDIUM'
+
+    if (weather === 'HEAVY RAIN') {
+
+      nextCompound = 'WET'
+
+    }
+
+    else if (weather === 'LIGHT RAIN') {
+
+      nextCompound = 'INTERMEDIATE'
+
+    }
+
+    else {
+
+      const dryChoices = [
+
+        'SOFT',
+
+        'MEDIUM',
+
+        'HARD'
+
+      ]
+
+      nextCompound =
+
+        dryChoices[
+
+          Math.floor(
+            Math.random() *
+            dryChoices.length
+          )
+
+        ]
+
+    }
+
+    setCurrentCompound(nextCompound)
+
+    setPitStops((prev) => prev + 1)
+
+    setLastPitLap(currentLap)
+
+    setLapsSincePit(0)
+
+  }
 
   useEffect(() => {
 
@@ -46,25 +175,17 @@ function TireAnalytics({
 
             prev +
 
-            (1.8 + Math.random() * 1.4)
+            (2 + Math.random() * 1.8)
 
           if (
 
-            updated >= 72 &&
+            updated >= 75 &&
 
-            pitStops === 0 &&
-
-            currentLap >= 14
+            currentLap > 12
 
           ) {
 
-            setPitStops(1)
-
-            setCurrentCompound('MEDIUM')
-
-            setLastPitLap(currentLap)
-
-            return updated
+            performPitStop()
 
           }
 
@@ -74,7 +195,11 @@ function TireAnalytics({
 
       }
 
-      else if (currentCompound === 'MEDIUM') {
+      else if (
+
+        currentCompound === 'MEDIUM'
+
+      ) {
 
         setMediumWear((prev) => {
 
@@ -82,25 +207,69 @@ function TireAnalytics({
 
             prev +
 
-            (1.2 + Math.random() * 1.1)
+            (1.4 + Math.random() * 1.2)
 
           if (
 
-            updated >= 68 &&
+            updated >= 70 &&
 
-            pitStops === 1 &&
-
-            currentLap >= 36
+            currentLap > 30
 
           ) {
 
-            setPitStops(2)
+            performPitStop()
 
-            setCurrentCompound('HARD')
+          }
 
-            setLastPitLap(currentLap)
+          return Math.min(updated, 100)
 
-            return updated
+        })
+
+      }
+
+      else if (
+
+        currentCompound === 'HARD'
+
+      ) {
+
+        setHardWear((prev) => {
+
+          const updated =
+
+            prev +
+
+            (0.8 + Math.random() * 0.7)
+
+          return Math.min(updated, 100)
+
+        })
+
+      }
+
+      else if (
+
+        currentCompound === 'INTERMEDIATE'
+
+      ) {
+
+        setIntermediateWear((prev) => {
+
+          const updated =
+
+            prev +
+
+            (1.6 + Math.random() * 1.1)
+
+          if (
+
+            updated >= 65 &&
+
+            currentLap > 20
+
+          ) {
+
+            performPitStop()
 
           }
 
@@ -112,13 +281,25 @@ function TireAnalytics({
 
       else {
 
-        setHardWear((prev) => {
+        setWetWear((prev) => {
 
           const updated =
 
             prev +
 
-            (0.8 + Math.random() * 0.8)
+            (1.2 + Math.random() * 1)
+
+          if (
+
+            updated >= 60 &&
+
+            currentLap > 15
+
+          ) {
+
+            performPitStop()
+
+          }
 
           return Math.min(updated, 100)
 
@@ -136,7 +317,7 @@ function TireAnalytics({
 
     currentCompound,
 
-    pitStops
+    weather
 
   ])
 
@@ -154,9 +335,25 @@ function TireAnalytics({
 
   }
 
-  else {
+  else if (currentCompound === 'HARD') {
 
     activeWear = hardWear
+
+  }
+
+  else if (
+
+    currentCompound === 'INTERMEDIATE'
+
+  ) {
+
+    activeWear = intermediateWear
+
+  }
+
+  else {
+
+    activeWear = wetWear
 
   }
 
@@ -167,6 +364,20 @@ function TireAnalytics({
       0
     )
 
+  let weatherColor = 'lime'
+
+  if (weather === 'LIGHT RAIN') {
+
+    weatherColor = 'orange'
+
+  }
+
+  if (weather === 'HEAVY RAIN') {
+
+    weatherColor = 'cyan'
+
+  }
+
   let recommendation = ''
 
   if (currentLap >= totalLaps) {
@@ -176,24 +387,31 @@ function TireAnalytics({
 
   }
 
-  else if (activeWear >= 75) {
+  else if (weather === 'HEAVY RAIN') {
 
     recommendation =
-      '🔴 Severe tire degradation detected.'
+      '🌧️ Heavy rain strategy active.'
 
   }
 
-  else if (activeWear >= 55) {
+  else if (weather === 'LIGHT RAIN') {
 
     recommendation =
-      '🟡 Tire wear entering critical window.'
+      '☔ Intermediate tire crossover window.'
+
+  }
+
+  else if (activeWear >= 75) {
+
+    recommendation =
+      '🔴 Tire degradation critical.'
 
   }
 
   else {
 
     recommendation =
-      '🟢 Tire performance within target range.'
+      '🟢 Tire performance within operating window.'
 
   }
 
@@ -213,6 +431,17 @@ function TireAnalytics({
         🛞 Live Tire Analytics
       </h2>
 
+      <p
+        className="stats-text"
+        style={{
+          color: weatherColor
+        }}
+      >
+        Weather:
+        {' '}
+        {weather}
+      </p>
+
       <p className="stats-text">
         Current Compound:
         {' '}
@@ -230,7 +459,7 @@ function TireAnalytics({
         {' '}
         {
 
-          lastPitLap === 0
+          lastPitLap === null
 
             ? 'No Stops'
 
@@ -239,152 +468,131 @@ function TireAnalytics({
         }
       </p>
 
-      <div
-        style={{
-          marginTop: '20px'
-        }}
-      >
+      <p className="stats-text">
+        Laps Since Pit:
+        {' '}
+        {
 
-        <p className="stats-text">
-          Soft Tire Wear:
-          {' '}
-          {softWear.toFixed(0)}%
-        </p>
+          lastPitLap === null
 
-        <div
-          style={{
+            ? '--'
 
-            width: '100%',
+            : lapsSincePit
 
-            height: '16px',
+        }
+      </p>
 
-            background: '#222',
+      {
 
-            borderRadius: '20px',
+        compounds.map((compound) => {
 
-            overflow: 'hidden'
+          let wear = 0
 
-          }}
-        >
+          let color = 'white'
 
-          <div
-            style={{
+          if (compound === 'SOFT') {
 
-              width: `${softWear}%`,
+            wear = softWear
+            color = 'red'
 
-              height: '100%',
+          }
 
-              background:
-                'linear-gradient(to right, red, darkred)',
+          else if (
 
-              transition: '2s linear'
+            compound === 'MEDIUM'
 
-            }}
-          >
+          ) {
 
-          </div>
+            wear = mediumWear
+            color = 'gold'
 
-        </div>
+          }
 
-      </div>
+          else if (
 
-      <div
-        style={{
-          marginTop: '20px'
-        }}
-      >
+            compound === 'HARD'
 
-        <p className="stats-text">
-          Medium Tire Wear:
-          {' '}
-          {mediumWear.toFixed(0)}%
-        </p>
+          ) {
 
-        <div
-          style={{
+            wear = hardWear
+            color = '#ddd'
 
-            width: '100%',
+          }
 
-            height: '16px',
+          else if (
 
-            background: '#222',
+            compound === 'INTERMEDIATE'
 
-            borderRadius: '20px',
+          ) {
 
-            overflow: 'hidden'
+            wear = intermediateWear
+            color = 'green'
 
-          }}
-        >
+          }
 
-          <div
-            style={{
+          else {
 
-              width: `${mediumWear}%`,
+            wear = wetWear
+            color = 'blue'
 
-              height: '100%',
+          }
 
-              background:
-                'linear-gradient(to right, gold, yellow)',
+          return (
 
-              transition: '2s linear'
+            <div
+              key={compound}
+              style={{
+                marginTop: '18px'
+              }}
+            >
 
-            }}
-          >
+              <p className="stats-text">
+                {compound} Tire Wear:
+                {' '}
+                {wear.toFixed(0)}%
+              </p>
 
-          </div>
+              <div
+                style={{
 
-        </div>
+                  width: '100%',
 
-      </div>
+                  height: '16px',
 
-      <div
-        style={{
-          marginTop: '20px'
-        }}
-      >
+                  background: '#222',
 
-        <p className="stats-text">
-          Hard Tire Wear:
-          {' '}
-          {hardWear.toFixed(0)}%
-        </p>
+                  borderRadius: '20px',
 
-        <div
-          style={{
+                  overflow: 'hidden'
 
-            width: '100%',
+                }}
+              >
 
-            height: '16px',
+                <div
+                  style={{
 
-            background: '#222',
+                    width: `${wear}%`,
 
-            borderRadius: '20px',
+                    height: '100%',
 
-            overflow: 'hidden'
+                    background: color,
 
-          }}
-        >
+                    transition: '2s linear'
 
-          <div
-            style={{
+                  }}
+                >
 
-              width: `${hardWear}%`,
+                </div>
 
-              height: '100%',
+              </div>
 
-              background:
-                'linear-gradient(to right, white, gray)',
+            </div>
 
-              transition: '2s linear'
+          )
 
-            }}
-          >
+        })
 
-          </div>
-
-        </div>
-
-      </div>
+      }
 
       <div
         style={{
@@ -399,19 +607,19 @@ function TireAnalytics({
         </p>
 
         <p className="stats-text">
-          Predicted Strategy:
+          Active Strategy:
           {' '}
           {
 
-            pitStops === 0
+            weather === 'HEAVY RAIN'
 
-              ? '1 Stop Window'
+              ? 'Wet Race Strategy'
 
-              : pitStops === 1
+              : weather === 'LIGHT RAIN'
 
-              ? 'Final Stop Complete'
+              ? 'Crossover Strategy'
 
-              : 'Race Finish Stint'
+              : 'Dry Race Strategy'
 
           }
         </p>

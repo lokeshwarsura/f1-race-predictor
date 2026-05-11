@@ -1,53 +1,282 @@
+import { useEffect, useState } from 'react'
+
 function PredictionInsights({
 
   probability,
 
-  driver
+  driver,
+
+  currentLap = 1
 
 }) {
 
-  let engineerMessage = ''
+  const totalLaps = 58
 
-  let confidence = ''
+  const [radioMessage, setRadioMessage] =
+    useState('')
 
-  let aiPrediction = ''
+  const [strategyInsight, setStrategyInsight] =
+    useState('')
 
-  if (probability >= 90) {
+  const [confidence, setConfidence] =
+    useState('')
 
-    engineerMessage =
-      'Excellent pace. Push for fastest lap.'
+  const [racePhase, setRacePhase] =
+    useState('Opening Stint')
 
-    confidence =
-      'High Confidence 🟢'
+  const engineerMessages = {
 
-    aiPrediction =
-      'AI predicts dominant race control with minimal tire degradation.'
+    aggressive: [
+
+      'Push now. Rival pace dropping ahead.',
+
+      'Deploy ERS on main straight.',
+
+      'We are fastest in Sector 2.',
+
+      'DRS train breaking ahead. Attack now.',
+
+      'Tyre temps are in the optimal window.',
+
+      'Excellent traction out of final corner.'
+
+    ],
+
+    balanced: [
+
+      'Maintain current pace target.',
+
+      'Tyre degradation under control.',
+
+      'Fuel target achieved. Continue management.',
+
+      'Gap behind stable. Focus forward.',
+
+      'Front tyres beginning to slide slightly.',
+
+      'Battery deployment balanced across lap.'
+
+    ],
+
+    defensive: [
+
+      'Save tyres. Long race ahead.',
+
+      'Rear tyre degradation increasing.',
+
+      'Protect position into Turn 1.',
+
+      'Lift and coast recommended.',
+
+      'Heavy traffic expected after pit cycle.',
+
+      'We may face undercut pressure soon.'
+
+    ],
+
+    rain: [
+
+      'Track grip falling rapidly.',
+
+      'Rain intensity increasing sector by sector.',
+
+      'Intermediate crossover window approaching.',
+
+      'Standing water reported in final sector.',
+
+      'Careful on throttle application.',
+
+      'Aquaplaning risk increasing.'
+
+    ]
 
   }
 
-  else if (probability >= 75) {
+  useEffect(() => {
 
-    engineerMessage =
-      'Maintain tire management and current pace.'
+    if (currentLap >= totalLaps) {
 
-    confidence =
-      'Medium Confidence 🟡'
+      setRacePhase('Race Finished')
 
-    aiPrediction =
-      'AI suggests balanced pace with strong podium probability.'
+      setConfidence('Race Complete')
+
+      setRadioMessage(
+
+        `🏁 Engineer to ${driver}: Excellent work. Race completed successfully.`
+
+      )
+
+      setStrategyInsight(
+
+        'Final telemetry locked. Strategy simulation ended.'
+
+      )
+
+      return
+
+    }
+
+    const interval = setInterval(() => {
+
+      let selectedCategory = 'balanced'
+
+      if (probability >= 90) {
+
+        selectedCategory = 'aggressive'
+
+        setConfidence('High Confidence')
+
+      }
+
+      else if (probability >= 75) {
+
+        selectedCategory = 'balanced'
+
+        setConfidence('Medium Confidence')
+
+      }
+
+      else {
+
+        selectedCategory = 'defensive'
+
+        setConfidence('Low Confidence')
+
+      }
+
+      const rainChance =
+        Math.random()
+
+      if (rainChance > 0.88) {
+
+        selectedCategory = 'rain'
+
+      }
+
+      const messages =
+
+        engineerMessages[
+          selectedCategory
+        ]
+
+      const randomMessage =
+
+        messages[
+
+          Math.floor(
+            Math.random() *
+            messages.length
+          )
+
+        ]
+
+      setRadioMessage(
+
+        `🎧 Engineer to ${driver}: "${randomMessage}"`
+
+      )
+
+      if (currentLap < 15) {
+
+        setRacePhase('Opening Stint')
+
+      }
+
+      else if (currentLap < 38) {
+
+        setRacePhase('Mid Race Strategy')
+
+      }
+
+      else {
+
+        setRacePhase('Final Push Phase')
+
+      }
+
+      if (
+
+        selectedCategory === 'aggressive'
+
+      ) {
+
+        setStrategyInsight(
+
+          'AI predicts strong race-winning pace advantage.'
+
+        )
+
+      }
+
+      else if (
+
+        selectedCategory === 'balanced'
+
+      ) {
+
+        setStrategyInsight(
+
+          'AI predicts stable race management window.'
+
+        )
+
+      }
+
+      else if (
+
+        selectedCategory === 'rain'
+
+      ) {
+
+        setStrategyInsight(
+
+          'AI predicts changing weather could impact strategy.'
+
+        )
+
+      }
+
+      else {
+
+        setStrategyInsight(
+
+          'AI predicts defensive tyre preservation phase.'
+
+        )
+
+      }
+
+    }, 5000)
+
+    return () => clearInterval(interval)
+
+  }, [
+
+    probability,
+
+    driver,
+
+    currentLap
+
+  ])
+
+  let confidenceColor = 'lime'
+
+  if (confidence === 'Medium Confidence') {
+
+    confidenceColor = 'yellow'
 
   }
 
-  else {
+  if (confidence === 'Low Confidence') {
 
-    engineerMessage =
-      'We need a stronger final stint. Save tires.'
+    confidenceColor = 'orange'
 
-    confidence =
-      'Low Confidence 🔴'
+  }
 
-    aiPrediction =
-      'AI predicts increased undercut pressure from rivals.'
+  if (confidence === 'Race Complete') {
+
+    confidenceColor = 'cyan'
 
   }
 
@@ -67,44 +296,54 @@ function PredictionInsights({
         🤖 AI Prediction Insights
       </h2>
 
-      <p
+      <div
         style={{
 
-          color: 'white',
+          padding: '15px',
 
-          fontSize: '18px',
+          borderRadius: '15px',
 
-          lineHeight: '1.8'
+          background:
+            'rgba(255,255,255,0.04)',
+
+          border:
+            '1px solid rgba(255,255,255,0.08)',
+
+          marginBottom: '20px'
 
         }}
       >
-        Engineer to {driver}:
-      </p>
+
+        <p
+          style={{
+
+            color: 'cyan',
+
+            lineHeight: '2',
+
+            fontSize: '20px',
+
+            textAlign: 'center'
+
+          }}
+        >
+          {radioMessage}
+        </p>
+
+      </div>
 
       <p
         style={{
 
-          color: 'cyan',
+          color: confidenceColor,
 
-          marginTop: '15px',
+          fontSize: '20px',
 
-          fontSize: '18px',
+          textAlign: 'center',
 
-          lineHeight: '1.8'
+          marginBottom: '12px',
 
-        }}
-      >
-        "{engineerMessage}"
-      </p>
-
-      <p
-        style={{
-
-          color: 'yellow',
-
-          marginTop: '20px',
-
-          fontSize: '18px'
+          fontWeight: 'bold'
 
         }}
       >
@@ -116,7 +355,26 @@ function PredictionInsights({
       <div
         style={{
 
-          marginTop: '25px',
+          width: '22px',
+
+          height: '22px',
+
+          borderRadius: '50%',
+
+          background: confidenceColor,
+
+          margin: '0 auto 20px auto',
+
+          boxShadow:
+            `0 0 18px ${confidenceColor}`
+
+        }}
+      >
+
+      </div>
+
+      <div
+        style={{
 
           padding: '15px',
 
@@ -126,10 +384,26 @@ function PredictionInsights({
             'rgba(255,255,255,0.05)',
 
           border:
-            '1px solid rgba(255,255,255,0.1)'
+            '1px solid rgba(255,255,255,0.08)',
+
+          marginBottom: '18px'
 
         }}
       >
+
+        <p
+          style={{
+
+            color: 'gold',
+
+            fontSize: '18px',
+
+            marginBottom: '10px'
+
+          }}
+        >
+          🧠 AI Race Analysis
+        </p>
 
         <p
           style={{
@@ -142,7 +416,69 @@ function PredictionInsights({
 
           }}
         >
-          {aiPrediction}
+          {strategyInsight}
+        </p>
+
+      </div>
+
+      <div
+        style={{
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.08)'
+
+        }}
+      >
+
+        <p
+          style={{
+
+            color: 'aqua',
+
+            fontSize: '18px',
+
+            marginBottom: '10px'
+
+          }}
+        >
+          🏎️ Race Phase
+        </p>
+
+        <p
+          style={{
+
+            color: 'white',
+
+            fontSize: '18px',
+
+            lineHeight: '1.8'
+
+          }}
+        >
+          {racePhase}
+        </p>
+
+        <p
+          style={{
+
+            color: '#aaa',
+
+            marginTop: '12px',
+
+            lineHeight: '1.7'
+
+          }}
+        >
+          Current Lap:
+          {' '}
+          {currentLap}/{totalLaps}
         </p>
 
       </div>

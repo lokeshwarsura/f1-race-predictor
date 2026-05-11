@@ -16,6 +16,12 @@ function SectorAnalysis({ currentLap }) {
   const [lapDelta, setLapDelta] =
     useState(-0.184)
 
+  const [topSpeed, setTopSpeed] =
+    useState(327)
+
+  const [miniSectors, setMiniSectors] =
+    useState('GREEN')
+
   useEffect(() => {
 
     if (currentLap >= totalLaps) {
@@ -27,13 +33,13 @@ function SectorAnalysis({ currentLap }) {
     const interval = setInterval(() => {
 
       const s1 =
-        28.5 + Math.random() * 2.2
+        28.4 + Math.random() * 2.2
 
       const s2 =
-        29.8 + Math.random() * 2.5
+        29.7 + Math.random() * 2.6
 
       const s3 =
-        27.9 + Math.random() * 2.1
+        27.8 + Math.random() * 2.1
 
       setSector1(s1)
 
@@ -41,11 +47,38 @@ function SectorAnalysis({ currentLap }) {
 
       setSector3(s3)
 
-      setLapDelta(
+      const delta =
 
         (
-          (Math.random() - 0.5) * 1.2
+          (Math.random() - 0.45) * 1.4
         ).toFixed(3)
+
+      setLapDelta(delta)
+
+      setTopSpeed(
+
+        312 +
+        Math.floor(Math.random() * 18)
+
+      )
+
+      const colors = [
+
+        'GREEN',
+
+        'PURPLE',
+
+        'YELLOW'
+
+      ]
+
+      setMiniSectors(
+
+        colors[
+          Math.floor(
+            Math.random() * colors.length
+          )
+        ]
 
       )
 
@@ -81,10 +114,14 @@ function SectorAnalysis({ currentLap }) {
 
   let paceStatus = ''
 
+  let paceColor = ''
+
   if (totalLapTime < 89.5) {
 
     paceStatus =
       '🟣 Purple lap pace detected.'
+
+    paceColor = 'violet'
 
   }
 
@@ -93,12 +130,39 @@ function SectorAnalysis({ currentLap }) {
     paceStatus =
       '🟢 Competitive race pace.'
 
+    paceColor = 'lime'
+
   }
 
   else {
 
     paceStatus =
-      '🟡 Tire management phase.'
+      '🟡 Tire management phase active.'
+
+    paceColor = 'orange'
+
+  }
+
+  let sectorCondition = ''
+
+  if (miniSectors === 'PURPLE') {
+
+    sectorCondition =
+      'Fastest overall mini-sector.'
+
+  }
+
+  else if (miniSectors === 'GREEN') {
+
+    sectorCondition =
+      'Personal best sector pace.'
+
+  }
+
+  else {
+
+    sectorCondition =
+      'Time loss detected in sector.'
 
   }
 
@@ -120,7 +184,7 @@ function SectorAnalysis({ currentLap }) {
 
       <div
         style={{
-          marginBottom: '20px'
+          marginBottom: '22px'
         }}
       >
 
@@ -170,7 +234,7 @@ function SectorAnalysis({ currentLap }) {
 
       <div
         style={{
-          marginBottom: '20px'
+          marginBottom: '22px'
         }}
       >
 
@@ -269,7 +333,7 @@ function SectorAnalysis({ currentLap }) {
 
           marginTop: '25px',
 
-          padding: '15px',
+          padding: '18px',
 
           borderRadius: '15px',
 
@@ -291,7 +355,7 @@ function SectorAnalysis({ currentLap }) {
         </p>
 
         <p className="stats-text">
-          🕒 Lap Time:
+          ⏱️ Full Lap Time:
           {' '}
           {totalLapTime.toFixed(3)}s
         </p>
@@ -303,17 +367,63 @@ function SectorAnalysis({ currentLap }) {
           {lapDelta}s
         </p>
 
+        <p className="stats-text">
+          🚀 Top Speed:
+          {' '}
+          {topSpeed} km/h
+        </p>
+
+        <p className="stats-text">
+          🎯 Mini Sector:
+          {' '}
+          <span
+            style={{
+
+              color:
+
+                miniSectors === 'PURPLE'
+
+                  ? 'violet'
+
+                  : miniSectors === 'GREEN'
+
+                  ? 'lime'
+
+                  : 'orange'
+
+            }}
+          >
+            {miniSectors}
+          </span>
+        </p>
+
+        <p
+          style={{
+
+            color: '#aaa',
+
+            marginTop: '12px',
+
+            lineHeight: '1.8'
+
+          }}
+        >
+          {sectorCondition}
+        </p>
+
         <p
           style={{
 
             color:
               currentLap >= totalLaps
                 ? 'lime'
-                : 'yellow',
+                : paceColor,
 
-            marginTop: '12px',
+            marginTop: '15px',
 
-            lineHeight: '1.8'
+            lineHeight: '1.8',
+
+            fontWeight: 'bold'
 
           }}
         >

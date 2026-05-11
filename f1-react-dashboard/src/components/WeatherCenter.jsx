@@ -1,42 +1,212 @@
+import { useEffect, useState } from 'react'
+
 function WeatherCenter() {
 
-  const rainChance =
-    Math.floor(Math.random() * 40)
+  const [weather, setWeather] =
+    useState('CLEAR')
 
-  const humidity =
-    40 + Math.floor(Math.random() * 35)
+  const [trackTemp, setTrackTemp] =
+    useState(34)
 
-  const windSpeed =
-    8 + Math.floor(Math.random() * 12)
+  const [airTemp, setAirTemp] =
+    useState(27)
 
-  let trackCondition = ''
+  const [humidity, setHumidity] =
+    useState(42)
 
-  let weatherAdvice = ''
+  const [windSpeed, setWindSpeed] =
+    useState(11)
 
-  if (rainChance >= 30) {
+  const [rainChance, setRainChance] =
+    useState(5)
 
-    trackCondition = '🌧️ Damp Track'
+  const [trackGrip, setTrackGrip] =
+    useState('HIGH')
 
-    weatherAdvice =
-      'Teams preparing intermediate tire strategies.'
+  const [raceForecast, setRaceForecast] =
+    useState(
+      'Stable dry race expected.'
+    )
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      const randomWeather =
+        Math.random()
+
+      if (randomWeather > 0.82) {
+
+        setWeather('HEAVY RAIN')
+
+        setTrackTemp(
+
+          19 +
+          Math.floor(Math.random() * 4)
+
+        )
+
+        setAirTemp(
+
+          18 +
+          Math.floor(Math.random() * 4)
+
+        )
+
+        setHumidity(
+
+          80 +
+          Math.floor(Math.random() * 15)
+
+        )
+
+        setWindSpeed(
+
+          18 +
+          Math.floor(Math.random() * 10)
+
+        )
+
+        setRainChance(
+
+          85 +
+          Math.floor(Math.random() * 15)
+
+        )
+
+        setTrackGrip('LOW')
+
+        setRaceForecast(
+          'Wet race conditions expected. Full wet strategy likely.'
+        )
+
+      }
+
+      else if (randomWeather > 0.58) {
+
+        setWeather('LIGHT RAIN')
+
+        setTrackTemp(
+
+          22 +
+          Math.floor(Math.random() * 5)
+
+        )
+
+        setAirTemp(
+
+          20 +
+          Math.floor(Math.random() * 4)
+
+        )
+
+        setHumidity(
+
+          62 +
+          Math.floor(Math.random() * 12)
+
+        )
+
+        setWindSpeed(
+
+          12 +
+          Math.floor(Math.random() * 7)
+
+        )
+
+        setRainChance(
+
+          45 +
+          Math.floor(Math.random() * 25)
+
+        )
+
+        setTrackGrip('MEDIUM')
+
+        setRaceForecast(
+          'Intermediate crossover window possible.'
+        )
+
+      }
+
+      else {
+
+        setWeather('CLEAR')
+
+        setTrackTemp(
+
+          32 +
+          Math.floor(Math.random() * 7)
+
+        )
+
+        setAirTemp(
+
+          25 +
+          Math.floor(Math.random() * 5)
+
+        )
+
+        setHumidity(
+
+          35 +
+          Math.floor(Math.random() * 15)
+
+        )
+
+        setWindSpeed(
+
+          8 +
+          Math.floor(Math.random() * 8)
+
+        )
+
+        setRainChance(
+
+          5 +
+          Math.floor(Math.random() * 10)
+
+        )
+
+        setTrackGrip('HIGH')
+
+        setRaceForecast(
+          'Stable dry race conditions.'
+        )
+
+      }
+
+    }, 12000)
+
+    return () => clearInterval(interval)
+
+  }, [])
+
+  let weatherColor = 'lime'
+
+  if (weather === 'LIGHT RAIN') {
+
+    weatherColor = 'orange'
 
   }
 
-  else if (rainChance >= 15) {
+  if (weather === 'HEAVY RAIN') {
 
-    trackCondition = '☁️ Cloudy Conditions'
-
-    weatherAdvice =
-      'Grip levels stable with moderate cooling.'
+    weatherColor = 'cyan'
 
   }
 
-  else {
+  let gripColor = 'lime'
 
-    trackCondition = '☀️ Dry Track'
+  if (trackGrip === 'MEDIUM') {
 
-    weatherAdvice =
-      'Optimal conditions for aggressive push laps.'
+    gripColor = 'yellow'
+
+  }
+
+  if (trackGrip === 'LOW') {
+
+    gripColor = 'red'
 
   }
 
@@ -47,25 +217,36 @@ function WeatherCenter() {
       <h2
         style={{
 
-          color: 'orange',
+          color: 'gold',
 
           marginBottom: '20px'
 
         }}
       >
-        🌦️ Weather Intelligence Center
+        🌦️ Dynamic Weather Center
       </h2>
 
-      <p className="stats-text">
-        Track Condition:
+      <p
+        className="stats-text"
+        style={{
+          color: weatherColor
+        }}
+      >
+        Weather:
         {' '}
-        {trackCondition}
+        {weather}
       </p>
 
       <p className="stats-text">
-        Rain Probability:
+        Track Temp:
         {' '}
-        {rainChance}%
+        {trackTemp}°C
+      </p>
+
+      <p className="stats-text">
+        Air Temp:
+        {' '}
+        {airTemp}°C
       </p>
 
       <p className="stats-text">
@@ -82,14 +263,14 @@ function WeatherCenter() {
 
       <div
         style={{
-
-          marginTop: '20px'
-
+          marginTop: '18px'
         }}
       >
 
         <p className="stats-text">
-          Rain Radar
+          Rain Probability:
+          {' '}
+          {rainChance}%
         </p>
 
         <div
@@ -97,7 +278,7 @@ function WeatherCenter() {
 
             width: '100%',
 
-            height: '18px',
+            height: '16px',
 
             background: '#222',
 
@@ -116,9 +297,13 @@ function WeatherCenter() {
               height: '100%',
 
               background:
-                'linear-gradient(to right, cyan, blue)',
+                weather === 'HEAVY RAIN'
+                  ? 'linear-gradient(to right, cyan, blue)'
+                  : weather === 'LIGHT RAIN'
+                  ? 'linear-gradient(to right, orange, yellow)'
+                  : 'linear-gradient(to right, lime, green)',
 
-              transition: '0.5s'
+              transition: '2s linear'
 
             }}
           >
@@ -126,6 +311,25 @@ function WeatherCenter() {
           </div>
 
         </div>
+
+      </div>
+
+      <div
+        style={{
+          marginTop: '20px'
+        }}
+      >
+
+        <p
+          className="stats-text"
+          style={{
+            color: gripColor
+          }}
+        >
+          Track Grip:
+          {' '}
+          {trackGrip}
+        </p>
 
       </div>
 
@@ -150,15 +354,15 @@ function WeatherCenter() {
         <p
           style={{
 
-            color: 'lime',
+            color: weatherColor,
 
             lineHeight: '1.8',
 
-            fontSize: '17px'
+            fontSize: '16px'
 
           }}
         >
-          {weatherAdvice}
+          {raceForecast}
         </p>
 
       </div>
