@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import DriverCard from './components/DriverCard'
 import ProbabilityBar from './components/ProbabilityBar'
+import StatsPanel from './components/StatsPanel'
 
 function App() {
 
@@ -150,6 +151,7 @@ function App() {
         image={image}
         logo={logo}
       />
+
       <StatsPanel probability={probability} />
 
     </div>
