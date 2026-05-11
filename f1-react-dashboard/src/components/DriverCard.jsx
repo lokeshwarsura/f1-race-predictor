@@ -1,54 +1,51 @@
-function DriverCard({ driver, team, image, logo }) {
+function DriverCard({
+
+  driver,
+
+  team,
+
+  image,
+
+  logo
+
+}) {
 
   return (
 
-    <div
-      style={{
-        background: '#111',
-        border: '2px solid red',
-        borderRadius: '20px',
-        padding: '25px',
-        width: '320px',
-        textAlign: 'center',
-        color: 'white',
-        boxShadow: '0 0 20px rgba(255,0,0,0.5)'
-      }}
-    >
+    <div className="card">
 
       <img
         src={image}
         alt={driver}
-        style={{
-          width: '220px',
-          height: '220px',
-          objectFit: 'cover',
-          borderRadius: '15px'
-        }}
+        className="driver-image"
       />
 
       <h2
         style={{
-          marginTop: '15px',
-          color: 'yellow'
+
+          color: 'yellow',
+
+          marginTop: '20px'
+
         }}
       >
         {driver}
       </h2>
 
-      <h3>
+      <h3
+        style={{
+
+          color: 'white'
+
+        }}
+      >
         {team}
       </h3>
 
       <img
         src={logo}
         alt={team}
-        style={{
-          width: '140px',
-          marginTop: '20px',
-          borderRadius: '10px',
-          background: 'white',
-          padding: '10px'
-        }}
+        className="team-logo"
       />
 
     </div>
