@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import './App.css'
+
 import DriverCard from './components/DriverCard'
 import ProbabilityBar from './components/ProbabilityBar'
 import StatsPanel from './components/StatsPanel'
@@ -7,24 +9,15 @@ import Leaderboard from './components/Leaderboard'
 
 function App() {
 
-  const [probability, setProbability] = useState(75)
+  const [probability, setProbability] = useState(0)
 
-  const [driver, setDriver] =
-    useState('Max Verstappen')
+  const [driver, setDriver] = useState('Max Verstappen')
 
-  const driverTeams = {
+  const [team, setTeam] = useState('Red Bull')
 
-    'Max Verstappen': 'Red Bull',
+  const [image, setImage] = useState('/images/max.png')
 
-    'Sergio Perez': 'Red Bull',
-
-    'Lewis Hamilton': 'Mercedes',
-
-    'Fernando Alonso': 'Aston Martin',
-
-    'Carlos Sainz': 'Ferrari'
-
-  }
+  const [logo, setLogo] = useState('/images/redbull.png')
 
   const driverImages = {
 
@@ -52,135 +45,83 @@ function App() {
 
   }
 
-  const team =
-    driverTeams[driver]
+  async function predictWinner() {
 
-  const image =
-    driverImages[driver]
+    const randomProbability =
+      Math.floor(Math.random() * 41) + 60
 
-  const logo =
-    teamLogos[team]
+    setProbability(randomProbability)
 
-  function predictWinner() {
+    setImage(driverImages[driver])
 
-    let generatedProbability = 0
-
-    if (driver === 'Max Verstappen') {
-      generatedProbability = 95
-    }
-
-    else if (driver === 'Lewis Hamilton') {
-      generatedProbability = 88
-    }
-
-    else if (driver === 'Fernando Alonso') {
-      generatedProbability = 82
-    }
-
-    else if (driver === 'Carlos Sainz') {
-      generatedProbability = 80
-    }
-
-    else if (driver === 'Sergio Perez') {
-      generatedProbability = 84
-    }
-
-    generatedProbability =
-      generatedProbability +
-      Math.floor(Math.random() * 5)
-
-    if (generatedProbability > 100) {
-      generatedProbability = 100
-    }
-
-    setProbability(generatedProbability)
+    setLogo(teamLogos[team])
 
   }
 
   return (
 
-    <div
-      style={{
-        background: 'black',
-        minHeight: '100vh',
-        color: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: '40px'
-      }}
-    >
+    <div className="app">
 
-      <h1
-        style={{
-          fontSize: '60px',
-          marginBottom: '20px'
-        }}
-      >
+      <h1 className="title">
         🏎️ F1 React Dashboard
       </h1>
 
-      <select
-        value={driver}
-        onChange={(e) => setDriver(e.target.value)}
-        style={{
-          padding: '12px',
-          fontSize: '18px',
-          borderRadius: '10px',
-          background: '#111',
-          color: 'white',
-          marginBottom: '20px'
-        }}
-      >
+      <div>
 
-        <option>Max Verstappen</option>
+        <select
+          className="dropdown"
+          value={driver}
+          onChange={(e) =>
+            setDriver(e.target.value)
+          }
+        >
 
-        <option>Lewis Hamilton</option>
+          <option>Max Verstappen</option>
 
-        <option>Fernando Alonso</option>
+          <option>Lewis Hamilton</option>
 
-        <option>Carlos Sainz</option>
+          <option>Fernando Alonso</option>
 
-        <option>Sergio Perez</option>
+          <option>Carlos Sainz</option>
 
-      </select>
+          <option>Sergio Perez</option>
+
+        </select>
+
+        <select
+          className="dropdown"
+          value={team}
+          onChange={(e) =>
+            setTeam(e.target.value)
+          }
+        >
+
+          <option>Red Bull</option>
+
+          <option>Mercedes</option>
+
+          <option>Ferrari</option>
+
+          <option>Aston Martin</option>
+
+        </select>
+
+      </div>
 
       <button
+        className="predict-btn"
         onClick={predictWinner}
-        style={{
-          padding: '15px 30px',
-          fontSize: '22px',
-          background: 'red',
-          color: 'white',
-          border: 'none',
-          borderRadius: '10px',
-          cursor: 'pointer',
-          marginBottom: '20px'
-        }}
       >
         Predict Winner
       </button>
 
-      <h2
-        style={{
-          color: 'yellow',
-          fontSize: '42px'
-        }}
-      >
+      <h2 className="probability">
         Win Probability: {probability}%
       </h2>
 
       <ProbabilityBar probability={probability} />
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '25px',
-          marginTop: '30px'
-        }}
-      >
+      <div className="cards-container">
 
         <DriverCard
           driver={driver}
