@@ -36,28 +36,39 @@ function LiveTelemetry() {
       const randomSection =
         Math.random()
 
-      if (randomSection > 0.6) {
+      if (randomSection > 0.65) {
 
         setTrackSection('STRAIGHT')
 
         const newSpeed =
 
-          310 +
-          Math.floor(Math.random() * 35)
+          305 +
+          Math.floor(Math.random() * 26)
 
         setSpeed(newSpeed)
 
         setThrottle(
-          88 +
-          Math.floor(Math.random() * 10)
+
+          96 +
+          Math.floor(Math.random() * 5)
+
         )
 
         setBrakePressure(
-          5 +
-          Math.floor(Math.random() * 8)
+
+          0 +
+          Math.floor(Math.random() * 4)
+
         )
 
         setGear(8)
+
+        setRpm(
+
+          11800 +
+          Math.floor(Math.random() * 1200)
+
+        )
 
       }
 
@@ -67,34 +78,40 @@ function LiveTelemetry() {
 
         const newSpeed =
 
-          160 +
-          Math.floor(Math.random() * 90)
+          145 +
+          Math.floor(Math.random() * 95)
 
         setSpeed(newSpeed)
 
         setThrottle(
-          40 +
-          Math.floor(Math.random() * 35)
+
+          18 +
+          Math.floor(Math.random() * 45)
+
         )
 
         setBrakePressure(
-          45 +
+
+          55 +
           Math.floor(Math.random() * 40)
+
         )
 
         setGear(
-          3 +
-          Math.floor(Math.random() * 3)
+
+          2 +
+          Math.floor(Math.random() * 4)
+
+        )
+
+        setRpm(
+
+          7800 +
+          Math.floor(Math.random() * 3500)
+
         )
 
       }
-
-      setRpm(
-
-        9000 +
-        Math.floor(Math.random() * 5000)
-
-      )
 
       setEngineTemp(
 
@@ -112,13 +129,25 @@ function LiveTelemetry() {
 
       setErsBattery((prev) => {
 
-        if (prev <= 20) {
+        if (randomSection > 0.65) {
 
-          return 85
+          return Math.max(
+
+            prev - (2 + Math.random() * 3),
+
+            8
+
+          )
 
         }
 
-        return prev - Math.random() * 4
+        return Math.min(
+
+          prev + (1 + Math.random() * 2),
+
+          100
+
+        )
 
       })
 

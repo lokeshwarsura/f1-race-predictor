@@ -1,291 +1,221 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import './App.css'
+function RaceStatus({
 
-import DriverCard from './components/DriverCard'
-import ProbabilityBar from './components/ProbabilityBar'
-import StatsPanel from './components/StatsPanel'
-import Leaderboard from './components/Leaderboard'
-import WeatherCenter from './components/WeatherCenter'
-import LiveTelemetry from './components/LiveTelemetry'
-import RaceStatus from './components/RaceStatus'
-import PredictionInsights from './components/PredictionInsights'
-import StrategyPanel from './components/StrategyPanel'
-import DriverComparison from './components/DriverComparison'
-import PredictionChart from './components/PredictionChart'
-import LiveRaceMap from './components/LiveRaceMap'
-import RaceControlCenter from './components/RaceControlCenter'
-import TireAnalytics from './components/TireAnalytics'
-import SectorAnalysis from './components/SectorAnalysis'
+  currentLap,
 
-function App() {
+  setCurrentLap
 
-  const [probability, setProbability] = useState(0)
+}) {
 
-  const [loading, setLoading] = useState(false)
+  const totalLaps = 58
 
-  const [driver, setDriver] =
-    useState('Max Verstappen')
+  useEffect(() => {
 
-  const [team, setTeam] =
-    useState('Red Bull')
+    if (currentLap >= totalLaps) {
 
-  const [image, setImage] =
-    useState('/images/max.png')
+      return
 
-  const [logo, setLogo] =
-    useState('/images/redbull.png')
+    }
 
-  const driverImages = {
+    const lapInterval = setInterval(() => {
 
-    'Max Verstappen':
-      '/images/max.png',
+      setCurrentLap((prev) => {
 
-    'Lewis Hamilton':
-      '/images/hamilton.png',
+        if (prev >= totalLaps) {
 
-    'Fernando Alonso':
-      '/images/alonso.png',
+          return totalLaps
 
-    'Carlos Sainz':
-      '/images/sainz.png',
+        }
 
-    'Sergio Perez':
-      '/images/perez.png'
+        return prev + 1
 
-  }
+      })
 
-  const teamLogos = {
+    }, 5000)
 
-    'Red Bull':
-      '/images/redbull.png',
+    return () => clearInterval(lapInterval)
 
-    'Ferrari':
-      '/images/ferrari.png',
+  }, [currentLap])
 
-    'Mercedes':
-      '/images/mercedes.png',
+  const progress =
+    (currentLap / totalLaps) * 100
 
-    'Aston Martin':
-      '/images/astonmartin.png'
+  const remainingLaps =
+    totalLaps - currentLap
+
+  const totalRaceSeconds =
+    totalLaps * 90
+
+  const elapsedSeconds =
+    currentLap * 90
+
+  const remainingSeconds =
+    totalRaceSeconds - elapsedSeconds
+
+  const minutes =
+    Math.floor(remainingSeconds / 60)
+
+  const seconds =
+    remainingSeconds % 60
+
+  let trackFlag = ''
+
+  if (currentLap >= 50) {
+
+    trackFlag = '🟢 GREEN FLAG'
 
   }
 
-  const driverTeams = {
+  else if (currentLap >= 30) {
 
-    'Max Verstappen':
-      'Red Bull',
-
-    'Lewis Hamilton':
-      'Ferrari',
-
-    'Fernando Alonso':
-      'Aston Martin',
-
-    'Carlos Sainz':
-      'Ferrari',
-
-    'Sergio Perez':
-      'Red Bull'
+    trackFlag = '🟡 YELLOW FLAG'
 
   }
 
-  function predictWinner() {
+  else {
 
-    setLoading(true)
-
-    setTimeout(() => {
-
-      const randomProbability =
-
-        Math.floor(
-          Math.random() * 41
-        ) + 60
-
-      setProbability(randomProbability)
-
-      setImage(
-        driverImages[driver]
-      )
-
-      setLogo(
-        teamLogos[team]
-      )
-
-      setLoading(false)
-
-    }, 1500)
+    trackFlag = '🔴 SAFETY CAR'
 
   }
 
   return (
 
-    <div className="app">
+    <div className="card">
 
-      <h1 className="title">
-        🏎️ F1 React Dashboard
-      </h1>
+      <h2
+        style={{
 
-      <div>
+          color: 'red',
 
-        <select
-          className="dropdown"
-          value={driver}
-          onChange={(e) => {
+          marginBottom: '20px'
 
-            const selectedDriver =
-              e.target.value
+        }}
+      >
+        🏁 Live Race HUD
+      </h2>
 
-            setDriver(selectedDriver)
+      <p className="stats-text">
+        Remaining Race Time:
+        {' '}
+        {minutes}m {seconds}s
+      </p>
 
-            setTeam(
-              driverTeams[selectedDriver]
-            )
+      <p className="stats-text">
+        Current Lap:
+        {' '}
+        {currentLap}/58
+      </p>
 
-            setLogo(
-              teamLogos[
-                driverTeams[
-                  selectedDriver
-                ]
-              ]
-            )
+      <p className="stats-text">
+        Remaining Laps:
+        {' '}
+        {remainingLaps}
+      </p>
 
-            setImage(
-              driverImages[
-                selectedDriver
-              ]
-            )
+      <p className="stats-text">
+        DRS:
+        {' '}
+        {currentLap >= 5
+          ? 'ENABLED'
+          : 'DISABLED'}
+      </p>
 
-          }}
-        >
+      <p className="stats-text">
+        Flag Status:
+        {' '}
+        {trackFlag}
+      </p>
 
-          <option>
-            Max Verstappen
-          </option>
+      <div
+        style={{
 
-          <option>
-            Lewis Hamilton
-          </option>
+          marginTop: '25px'
 
-          <option>
-            Fernando Alonso
-          </option>
+        }}
+      >
 
-          <option>
-            Carlos Sainz
-          </option>
-
-          <option>
-            Sergio Perez
-          </option>
-
-        </select>
-
-        <h3
+        <div
           style={{
 
-            color: 'white',
+            width: '100%',
 
-            marginTop: '15px',
+            height: '20px',
 
-            fontSize: '24px'
+            background: '#222',
+
+            borderRadius: '20px',
+
+            overflow: 'hidden'
 
           }}
         >
-          Team: {team}
-        </h3>
+
+          <div
+            style={{
+
+              width: `${progress}%`,
+
+              height: '100%',
+
+              background:
+                'linear-gradient(to right, red, orange)',
+
+              transition: '5s linear'
+
+            }}
+          >
+
+          </div>
+
+        </div>
 
       </div>
 
-      <button
-        className="predict-btn"
-        onClick={predictWinner}
+      <div
+        style={{
+
+          marginTop: '25px',
+
+          padding: '15px',
+
+          borderRadius: '15px',
+
+          background:
+            currentLap >= totalLaps
+              ? 'rgba(0,255,0,0.1)'
+              : 'rgba(255,255,255,0.05)',
+
+          border:
+            '1px solid rgba(255,255,255,0.1)'
+
+        }}
       >
 
-        {
+        <p
+          style={{
 
-          loading
+            color:
+              currentLap >= totalLaps
+                ? 'lime'
+                : 'cyan',
 
-            ? 'Analyzing Race Data...'
+            lineHeight: '1.8',
 
-            : 'Predict Winner'
+            fontSize: '17px'
 
-        }
+          }}
+        >
+          {
 
-      </button>
+            currentLap >= totalLaps
 
-      <h2 className="probability">
+              ? '🏁 Race Finished'
 
-        Win Probability:
-        {' '}
-        {probability}%
+              : 'Race simulation active.'
 
-      </h2>
-
-      <ProbabilityBar
-        probability={probability}
-      />
-
-      <div className="cards-container">
-
-        <DriverCard
-          driver={driver}
-          team={team}
-          image={image}
-          logo={logo}
-        />
-
-        <StatsPanel
-          probability={probability}
-        />
-
-        <Leaderboard
-          probability={probability}
-        />
-
-        <WeatherCenter />
-
-        <LiveTelemetry
-          probability={probability}
-        />
-
-        <RaceStatus
-          probability={probability}
-        />
-
-        <PredictionInsights
-          probability={probability}
-          driver={driver}
-        />
-
-        <StrategyPanel
-          probability={probability}
-        />
-
-        <DriverComparison
-          probability={probability}
-          driver={driver}
-        />
-
-        <PredictionChart
-          probability={probability}
-        />
-
-        <LiveRaceMap
-          probability={probability}
-        />
-
-        <RaceControlCenter
-          probability={probability}
-        />
-
-        <TireAnalytics
-          probability={probability}
-        />
-
-        <SectorAnalysis
-          probability={probability}
-        />
+          }
+        </p>
 
       </div>
 
@@ -295,4 +225,4 @@ function App() {
 
 }
 
-export default App
+export default RaceStatus
