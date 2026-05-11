@@ -1,113 +1,103 @@
-function Leaderboard({ probability }) {
+function PredictionInsights({
 
-  const drivers = [
+  probability,
 
-    {
+  driver
 
-      name: 'Max Verstappen',
+}) {
 
-      team: 'Red Bull',
+  let engineerMessage = ''
 
-      points: 410
+  let confidence = ''
 
-    },
+  if (probability >= 90) {
 
-    {
+    engineerMessage =
+      'Excellent pace. Push for fastest lap.'
 
-      name: 'Lewis Hamilton',
+    confidence = 'High Confidence 🟢'
 
-      team: 'Ferrari',
+  }
 
-      points: 362
+  else if (probability >= 75) {
 
-    },
+    engineerMessage =
+      'Maintain tire management and current pace.'
 
-    {
+    confidence = 'Medium Confidence 🟡'
 
-      name: 'Carlos Sainz',
+  }
 
-      team: 'Ferrari',
+  else {
 
-      points: 330
+    engineerMessage =
+      'We need a stronger final stint. Save tires.'
 
-    },
+    confidence = 'Low Confidence 🔴'
 
-    {
-
-      name: 'Fernando Alonso',
-
-      team: 'Aston Martin',
-
-      points: 287
-
-    },
-
-    {
-
-      name: 'Sergio Perez',
-
-      team: 'Red Bull',
-
-      points: 275
-
-    }
-
-  ]
+  }
 
   return (
 
-    <div className="card leaderboard-card">
+    <div className="card">
 
       <h2
         style={{
 
-          color: 'cyan',
+          color: 'violet',
 
           marginBottom: '20px'
 
         }}
       >
-        🏆 Championship Leaderboard
+        📻 Team Radio Insights
       </h2>
 
-      {
-
-        drivers.map((driver, index) => (
-
-          <div
-            key={index}
-            className="leaderboard-row"
-          >
-
-            <div>
-
-              #{index + 1} {driver.name}
-
-            </div>
-
-            <div>
-
-              {driver.points} pts
-
-            </div>
-
-          </div>
-
-        ))
-
-      }
-
-      <h3
+      <p
         style={{
 
-          marginTop: '25px',
+          color: 'white',
 
-          color: 'yellow'
+          fontSize: '18px',
+
+          lineHeight: '1.8'
 
         }}
       >
-        Predicted Win Chance: {probability}%
-      </h3>
+        Engineer to {driver}:
+      </p>
+
+      <p
+        style={{
+
+          color: 'cyan',
+
+          marginTop: '15px',
+
+          fontSize: '18px',
+
+          lineHeight: '1.8'
+
+        }}
+      >
+        "{engineerMessage}"
+      </p>
+
+      <p
+        style={{
+
+          color: 'yellow',
+
+          marginTop: '20px',
+
+          fontSize: '18px'
+
+        }}
+      >
+        Prediction Confidence:
+        {' '}
+        {confidence}
+      </p>
 
     </div>
 
@@ -115,4 +105,4 @@ function Leaderboard({ probability }) {
 
 }
 
-export default Leaderboard
+export default PredictionInsights

@@ -1,25 +1,39 @@
-function PredictionInsights({ probability, driver }) {
+function PredictionInsights({
 
-  let insight = ''
+  probability,
+
+  driver
+
+}) {
+
+  let engineerMessage = ''
+
+  let confidence = ''
 
   if (probability >= 90) {
 
-    insight =
-      `${driver} is dominating the race with excellent pace and tire management.`
+    engineerMessage =
+      'Excellent pace. Push for fastest lap.'
+
+    confidence = 'High Confidence 🟢'
 
   }
 
   else if (probability >= 75) {
 
-    insight =
-      `${driver} has a strong chance of winning if strategy execution stays clean.`
+    engineerMessage =
+      'Maintain tire management and current pace.'
+
+    confidence = 'Medium Confidence 🟡'
 
   }
 
   else {
 
-    insight =
-      `${driver} needs a stronger final stint and pit strategy to secure victory.`
+    engineerMessage =
+      'We need a stronger final stint. Save tires.'
+
+    confidence = 'Low Confidence 🔴'
 
   }
 
@@ -36,7 +50,7 @@ function PredictionInsights({ probability, driver }) {
 
         }}
       >
-        🧠 Prediction Insights
+        📻 Team Radio Insights
       </h2>
 
       <p
@@ -44,13 +58,45 @@ function PredictionInsights({ probability, driver }) {
 
           color: 'white',
 
-          lineHeight: '1.8',
+          fontSize: '18px',
+
+          lineHeight: '1.8'
+
+        }}
+      >
+        Engineer to {driver}:
+      </p>
+
+      <p
+        style={{
+
+          color: 'cyan',
+
+          marginTop: '15px',
+
+          fontSize: '18px',
+
+          lineHeight: '1.8'
+
+        }}
+      >
+        "{engineerMessage}"
+      </p>
+
+      <p
+        style={{
+
+          color: 'yellow',
+
+          marginTop: '20px',
 
           fontSize: '18px'
 
         }}
       >
-        {insight}
+        Prediction Confidence:
+        {' '}
+        {confidence}
       </p>
 
     </div>
