@@ -3,39 +3,36 @@ import { useState } from 'react'
 import './App.css'
 
 import DriverCard from './components/DriverCard'
-import LiveTelemetry from "./components/LiveTelemetry"
-import SectorAnalysis from "./components/SectorAnalysis"
-import Leaderboard from "./components/Leaderboard"
-import RaceStatus from "./components/RaceStatus"
-import RaceControlCenter from "./components/RaceControlCenter"
-import StrategyPanel from "./components/StrategyPanel"
-import WeatherCenter from "./components/WeatherCenter"
-import TireAnalytics from "./components/TireAnalytics"
-import PredictionInsights from "./components/PredictionInsights"
-import DriverComparison from "./components/DriverComparison"
-import ProbabilityBar from "./components/ProbabilityBar"
-import PredictionChart from "./components/PredictionChart"
-import StatsPanel from "./components/StatsPanel"
-import LiveRaceMap from "./components/LiveRaceMap"
+import RaceStatus from './components/RaceStatus'
+import ProbabilityBar from './components/ProbabilityBar'
+import StatsPanel from './components/StatsPanel'
 
 function App() {
 
   const [probability, setProbability] = useState(0)
 
-  const [driver, setDriver] = useState('Max Verstappen')
+  const [driver, setDriver] =
+    useState('Max Verstappen')
 
-  const [team, setTeam] = useState('Red Bull')
+  const [team, setTeam] =
+    useState('Red Bull')
 
-  const [image, setImage] = useState('/images/max.png')
+  const [image, setImage] =
+    useState('/images/max.png')
 
-  const [logo, setLogo] = useState('/images/redbull.png')
+  const [logo, setLogo] =
+    useState('/images/redbull.png')
 
   const driverImages = {
 
     'Max Verstappen': '/images/max.png',
+
     'Lewis Hamilton': '/images/hamilton.png',
+
     'Fernando Alonso': '/images/alonso.png',
+
     'Carlos Sainz': '/images/sainz.png',
+
     'Sergio Perez': '/images/perez.png'
 
   }
@@ -43,8 +40,11 @@ function App() {
   const teamLogos = {
 
     'Red Bull': '/images/redbull.png',
+
     'Mercedes': '/images/mercedes.png',
+
     'Ferrari': '/images/ferrari.png',
+
     'Aston Martin': '/images/astonmartin.png'
 
   }
@@ -135,37 +135,11 @@ function App() {
 
           <StatsPanel />
 
-          <PredictionChart probability={probability} />
-
-        </div>
-
-        <div className="center-panel">
-
-          <LiveRaceMap />
-
-          <SectorAnalysis />
-
-          <TireAnalytics />
-
         </div>
 
         <div className="right-panel">
 
-          <RaceControlCenter />
-
           <RaceStatus />
-
-          <LiveTelemetry />
-
-          <WeatherCenter />
-
-          <DriverComparison />
-
-          <StrategyPanel />
-
-          <PredictionInsights />
-
-          <Leaderboard probability={probability} />
 
         </div>
 
