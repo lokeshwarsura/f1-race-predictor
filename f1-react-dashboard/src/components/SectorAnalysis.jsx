@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
-function SectorAnalysis() {
+function SectorAnalysis({ currentLap }) {
+
+  const totalLaps = 58
 
   const [sector1, setSector1] =
     useState(28.45)
@@ -12,6 +14,12 @@ function SectorAnalysis() {
     useState(27.88)
 
   useEffect(() => {
+
+    if (currentLap >= totalLaps) {
+
+      return
+
+    }
 
     const interval = setInterval(() => {
 
@@ -43,7 +51,7 @@ function SectorAnalysis() {
 
     return () => clearInterval(interval)
 
-  }, [])
+  }, [currentLap])
 
   const sectors = [
 
@@ -241,7 +249,9 @@ function SectorAnalysis() {
           borderRadius: '15px',
 
           background:
-            'rgba(255,255,255,0.05)',
+            currentLap >= totalLaps
+              ? 'rgba(0,255,0,0.08)'
+              : 'rgba(255,255,255,0.05)',
 
           border:
             '1px solid rgba(255,255,255,0.1)'
@@ -260,6 +270,26 @@ function SectorAnalysis() {
           {' '}
           -{lapDelta}s
         </p>
+
+        {
+
+          currentLap >= totalLaps && (
+
+            <p
+              style={{
+
+                color: 'lime',
+
+                marginTop: '15px'
+
+              }}
+            >
+              🏁 Sector timing frozen after race finish.
+            </p>
+
+          )
+
+        }
 
       </div>
 

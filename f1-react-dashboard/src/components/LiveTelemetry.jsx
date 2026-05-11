@@ -192,6 +192,12 @@ function LiveTelemetry({ currentLap }) {
 
   useEffect(() => {
 
+    if (currentLap >= totalLaps) {
+
+      return
+
+    }
+
     const smoothSpeed = setInterval(() => {
 
       setSpeed((prev) => {
@@ -222,11 +228,18 @@ function LiveTelemetry({ currentLap }) {
 
     return () => clearInterval(smoothSpeed)
 
-  }, [targetSpeed])
+  }, [targetSpeed, currentLap])
 
   let engineStatus = ''
 
-  if (trackSection === 'STRAIGHT') {
+  if (currentLap >= totalLaps) {
+
+    engineStatus =
+      '🏁 Telemetry frozen after race finish.'
+
+  }
+
+  else if (trackSection === 'STRAIGHT') {
 
     engineStatus =
       '🚀 Maximum acceleration zone.'
@@ -495,7 +508,9 @@ function LiveTelemetry({ currentLap }) {
           borderRadius: '15px',
 
           background:
-            'rgba(255,255,255,0.05)',
+            currentLap >= totalLaps
+              ? 'rgba(0,255,0,0.08)'
+              : 'rgba(255,255,255,0.05)',
 
           border:
             '1px solid rgba(255,255,255,0.1)'
@@ -506,7 +521,10 @@ function LiveTelemetry({ currentLap }) {
         <p
           style={{
 
-            color: 'yellow',
+            color:
+              currentLap >= totalLaps
+                ? 'lime'
+                : 'yellow',
 
             lineHeight: '1.8',
 

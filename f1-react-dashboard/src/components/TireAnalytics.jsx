@@ -19,6 +19,12 @@ function TireAnalytics({
   const [hardWear, setHardWear] =
     useState(2)
 
+  const [pitStops, setPitStops] =
+    useState(0)
+
+  const [currentCompound, setCurrentCompound] =
+    useState('SOFT')
+
   useEffect(() => {
 
     if (currentLap >= totalLaps) {
@@ -29,59 +35,116 @@ function TireAnalytics({
 
     const interval = setInterval(() => {
 
-      setSoftWear((prev) =>
+      setSoftWear((prev) => {
 
-        Math.min(prev + 2, 100)
+        let updated = prev + 2
 
-      )
+        if (
 
-      setMediumWear((prev) =>
+          updated >= 80 &&
 
-        Math.min(prev + 1.4, 100)
+          pitStops === 0 &&
 
-      )
+          currentLap > 15
 
-      setHardWear((prev) =>
+        ) {
 
-        Math.min(prev + 1, 100)
+          setPitStops(1)
 
-      )
+          setCurrentCompound('MEDIUM')
+
+          return 5
+
+        }
+
+        return Math.min(updated, 100)
+
+      })
+
+      setMediumWear((prev) => {
+
+        let updated = prev + 1.4
+
+        if (
+
+          updated >= 75 &&
+
+          pitStops === 1 &&
+
+          currentLap > 35
+
+        ) {
+
+          setPitStops(2)
+
+          setCurrentCompound('HARD')
+
+          return 5
+
+        }
+
+        return Math.min(updated, 100)
+
+      })
+
+      setHardWear((prev) => {
+
+        let updated = prev + 1
+
+        return Math.min(updated, 100)
+
+      })
 
     }, 5000)
 
     return () => clearInterval(interval)
 
-  }, [currentLap])
+  }, [currentLap, pitStops])
 
-  const predictedPitLap =
-    38 + Math.floor(probability / 8)
+  let activeWear = 0
+
+  if (currentCompound === 'SOFT') {
+
+    activeWear = softWear
+
+  }
+
+  else if (currentCompound === 'MEDIUM') {
+
+    activeWear = mediumWear
+
+  }
+
+  else {
+
+    activeWear = hardWear
+
+  }
 
   const tireLife =
 
     Math.max(
-
-      100 -
-
-      (
-        softWear +
-        mediumWear +
-        hardWear
-      ) / 3,
-
+      100 - activeWear,
       0
-
     )
 
   let recommendation = ''
 
-  if (softWear >= 80) {
+  if (currentLap >= totalLaps) {
+
+    recommendation =
+      '🏁 Tire data frozen after race finish.'
+
+  }
+
+  else if (activeWear >= 80) {
 
     recommendation =
       '🛞 Immediate pit stop required.'
 
   }
 
-  else if (mediumWear >= 60) {
+  else if (activeWear >= 60) {
 
     recommendation =
       '⚠️ Tire degradation increasing.'
@@ -111,9 +174,22 @@ function TireAnalytics({
         🛞 Live Tire Analytics
       </h2>
 
+      <p className="stats-text">
+        Current Compound:
+        {' '}
+        {currentCompound}
+      </p>
+
+      <p className="stats-text">
+        Pit Stops:
+        {' '}
+        {pitStops}
+      </p>
+
       <div
         style={{
-          marginBottom: '20px'
+          marginBottom: '20px',
+          marginTop: '20px'
         }}
       >
 
@@ -259,9 +335,11 @@ function TireAnalytics({
       </div>
 
       <p className="stats-text">
-        Predicted Pit Stop Lap:
+        Predicted Pit Window:
         {' '}
-        {predictedPitLap}
+        Lap
+        {' '}
+        {38 + Math.floor(probability / 8)}
       </p>
 
       <p className="stats-text">
@@ -280,7 +358,9 @@ function TireAnalytics({
           borderRadius: '15px',
 
           background:
-            'rgba(255,255,255,0.05)',
+            currentLap >= totalLaps
+              ? 'rgba(0,255,0,0.08)'
+              : 'rgba(255,255,255,0.05)',
 
           border:
             '1px solid rgba(255,255,255,0.1)'
@@ -291,7 +371,10 @@ function TireAnalytics({
         <p
           style={{
 
-            color: 'cyan',
+            color:
+              currentLap >= totalLaps
+                ? 'lime'
+                : 'cyan',
 
             lineHeight: '1.8',
 
